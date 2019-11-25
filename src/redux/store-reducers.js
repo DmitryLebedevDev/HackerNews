@@ -1,5 +1,5 @@
-
 import { getTopStorys } from './../api/api';
+import { getElementById } from './../api/api';
 
 
 const ADD_STORY = 'ADD_TOP_STORY';
@@ -16,7 +16,19 @@ export const addTopStoryThunk = () => async (dispatch) => {
   let indexArrayStorys = await getTopStorys();
   let arrayStorys = [];
   console.log(indexArrayStorys);
-  //indexArrayStorys.map(item => {}) // add arrayStorys
+  for(let t = 0; t<10; t++) {
+    let infoStory = await getElementById(indexArrayStorys[t]);
+    arrayStorys.push({
+      id:indexArrayStorys[t],
+      author: infoStory.by,
+      time: infoStory.time,
+      comments: infoStory.descendants,
+      commentsId: infoStory.kids,
+      score: infoStory.score,
+      header: infoStory.title,
+      url: infoStory.url,
+    }) 
+  }
   dispatch(addStory(arrayStorys));
 }
 

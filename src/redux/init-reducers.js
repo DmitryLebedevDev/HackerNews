@@ -1,9 +1,15 @@
+import { addTopStoryThunk } from './store-reducers';
+
 const INIT = "INIT";
 
 export const init = () => {
   return {
-    type:INIT,
+    type:INIT
   }
+}
+export const initThunk = () => (dispatch) => {
+  dispatch(addTopStoryThunk());
+  dispatch(init());
 }
 
 const start = {
@@ -11,7 +17,7 @@ const start = {
 }
 
 function initReducer (state=start,action) {
-  if (action.INIT) {
+  if (action.type === INIT) {
     return {
       ...state,
       init:true,
