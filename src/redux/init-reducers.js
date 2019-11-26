@@ -7,8 +7,8 @@ export const init = () => {
     type:INIT
   }
 }
-export const initThunk = () => (dispatch) => {
-  dispatch(addTopStoryThunk());
+export const initThunk = () => async (dispatch) => {
+  await dispatch(addTopStoryThunk());
   dispatch(init());
 }
 

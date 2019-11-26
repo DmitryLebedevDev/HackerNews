@@ -13,6 +13,27 @@ const addStory = (arrayStorys) => {
   }
 }
 export const addTopStoryThunk = () => async (dispatch) => {
+  return new Promise (async (res,req) => {
+    let indexArrayStorys = await getTopStorys();
+    let arrayStorys = [];
+    console.log(indexArrayStorys);
+    for(let t = 0; t<10; t++) {
+      let infoStory = await getElementById(indexArrayStorys[t]);
+      arrayStorys.push({
+        id:indexArrayStorys[t],
+        author: infoStory.by,
+        time: infoStory.time,
+        comments: infoStory.descendants,
+        commentsId: infoStory.kids,
+        score: infoStory.score,
+        header: infoStory.title,
+        url: infoStory.url,
+      }) 
+    }
+    dispatch(addStory(arrayStorys));
+    res();
+  })
+  /*
   let indexArrayStorys = await getTopStorys();
   let arrayStorys = [];
   console.log(indexArrayStorys);
@@ -29,7 +50,7 @@ export const addTopStoryThunk = () => async (dispatch) => {
       url: infoStory.url,
     }) 
   }
-  dispatch(addStory(arrayStorys));
+  dispatch(addStory(arrayStorys));*/
 }
 
 const start = {
