@@ -1,0 +1,19 @@
+.Story__linkComments:hover {
+  cursor: pointer;
+  color: blue;
+}
+.Story__linkComments {
+  font-weight: 500;
+  transition: 0.5s;
+  color: rgb(0, 153, 255);
+  font-size: 16px;
+}
+.CommentBlock__content a,p,span,i {
+  font-size: 12px;
+}
+.CommentBlock__content {
+  font-size: 12px;
+}
+.CommentBlock {
+  margin-left: 30px;
+}

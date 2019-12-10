@@ -1,0 +1,42 @@
+.Header {
+  min-height: 50px;
+  background: rgb(49, 49, 49);
+  display: flex;
+  align-items: center;
+}
+.Header__item {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+.Header__item>span {
+  font-family: sans-serif;
+  color: rgb(0, 159, 233);
+  font-size: 16px;
+  font-weight: 600;
+  transition: 0.5s;
+  padding: 0 1px;
+}
+.Header__item+.Header__item::before {
+  position: absolute;
+  content: '';
+  left: -9px;
+  background-color: rgb(1, 127, 185);
+  height: 100%;
+  width: 2px;
+}
+
+.Header__item>span:hover {
+  cursor: pointer;
+  color: rgb(0, 217, 255);
+}
+
+.Header__wrap {
+  box-sizing: border-box;
+  max-width: 320px;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  padding-left: 15px;
+  padding-right: 15px;
+}

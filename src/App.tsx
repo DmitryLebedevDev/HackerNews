@@ -2,34 +2,43 @@ import React,{useEffect} from 'react';
 import './App.css';
 import { connect } from 'react-redux';
 import {initThunk} from './redux/init-reducers';
+import Header from './components/header.jsx';
+import Content from './components/Content';
 
-function App(props) { 
+interface d {
+  isInit: boolean,
+  initThunk: () => void
+}
+
+
+const App: React.FC<d> = (props:d) => { 
   useEffect(()=>{
-    debugger
     if (props.isInit) {
       return
     }
     props.initThunk();
-  },[props])
-  if(!props.init) {
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  },[props.isInit])
+
+  if(!props.isInit) {
     return (
       <div>Загрузка ебаная</div>
     )
   }
   return (
     <div>
-      Здарово блять
+      <Header/>
+      <Content/>
     </div>
   );
 }
 
 export default connect(
-  (state) => {
-    console.log(state);
+  (state:any) => {
     return {
-      isInit:state.init.init
+      isInit:state.init.init,
     }
   },{
-    initThunk
+    initThunk,
   }
 )(App);
