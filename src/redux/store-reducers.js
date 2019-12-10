@@ -38,7 +38,20 @@ export const addTopStoryThunk = () => async (dispatch) => {
     let arrayStorys = [];
     console.log(indexArrayStorys);
     for(let t = 0; t<100; t++) {
-      let infoStory = await getElementById(indexArrayStorys[t]);
+      getElementById(indexArrayStorys[t]).then(infoStory => {
+         dispatch(addStory([{
+          id:indexArrayStorys[t],
+          author: infoStory.by,
+          time: infoStory.time,
+          fullLenComments: infoStory.descendants,
+          comments: {},
+          commentsId: infoStory.kids,
+          score: infoStory.score,
+          header: infoStory.title,
+          url: infoStory.url,
+        }]))
+      });
+      /*
       console.log("TCL: addTopStoryThunk -> infoStory", infoStory)
       //let commentJson = await JsonComent(infoStory.kids,[indexArrayStorys[t]],false);
       arrayStorys.push({
@@ -58,9 +71,9 @@ export const addTopStoryThunk = () => async (dispatch) => {
         if (t===1) {
           res()
         }
-      }
+      }*/
     }
-    //res();
+    res();
   })
 }
 
