@@ -24,7 +24,7 @@ export const addCommentToStoryThunk = (idStory) => async (dispatch) => {
   console.log("TCL: addCommentToStoryThunk -> infoStory.kids!!!!!!!!!!!!!!!!!!!!!!!!!!!!", infoStory.kids)
   infoStory.kids.sort((a,b) => a-b);
   for (let t=0; t<infoStory.kids.length; t++) {
-    let comments = JsonComent([infoStory.kids[t]],[idStory]).then(comments => dispatch(addStoryComment(idStory,comments)));
+    /*let comments = */JsonComent([infoStory.kids[t]],[idStory]).then(comments => dispatch(addStoryComment(idStory,comments)));
     //console.log("TCL: addCommentToStoryThunk -> comments", comments)
     //dispatch(addStoryComment(idStory,comments));
   }
@@ -35,7 +35,7 @@ export const addCommentToStoryThunk = (idStory) => async (dispatch) => {
 export const addTopStoryThunk = () => async (dispatch) => {
   return new Promise (async (res,req) => {
     let indexArrayStorys = await getTopStorys();
-    let arrayStorys = [];
+    //let arrayStorys = [];
     console.log(indexArrayStorys);
     for(let t = 0; t<100; t++) {
       getElementById(indexArrayStorys[t]).then(infoStory => {
