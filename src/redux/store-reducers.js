@@ -44,7 +44,7 @@ export const addTopStoryThunk = () => async (dispatch) => {
           author: infoStory.by,
           time: infoStory.time,
           fullLenComments: infoStory.descendants,
-          comments: {},
+          comments: [],
           commentsId: infoStory.kids,
           score: infoStory.score,
           header: infoStory.title,
@@ -113,12 +113,13 @@ function storeReducers (state = start, action) {
         if (item.id !== action.idStory) {
           return item
         } else {
+          debugger
+          console.log (Object.keys(action.comments)[0]);
+          console.log (action.comments[Object.keys(action.comments)[0]]);
+          console.log ([...item.comments,{...action.comments[Object.keys(action.comments)[0]]}]);
           return {
             ...item,
-            comments: {
-              [Object.keys(action.comments)[0]]:{...action.comments[Object.keys(action.comments)[0]]},
-              ...item.comments,
-            }
+            comments: [...item.comments,{...action.comments[Object.keys(action.comments)[0]]}]
           }
         }
       })
