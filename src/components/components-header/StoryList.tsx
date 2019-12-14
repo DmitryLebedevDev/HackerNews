@@ -82,7 +82,7 @@ function BlockComment(props: {
   )
 }
 
-function StoryItem(props: Iprops) {
+export function StoryItem(props: Iprops) {
   let [openIsComment, openComment] = useState(false);
   let comments = [];
   if (openIsComment && Object.keys(props.comments).length === 0) {

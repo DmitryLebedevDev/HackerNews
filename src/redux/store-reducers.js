@@ -50,9 +50,13 @@ export const addCommentToStoryThunk = (idStory) => async (dispatch) => {
 //addCommentToStoryThunk(21725139)();
 export const addStoryThuck = (id) => async (dispatch) => {
   let story = await getElementById(id);
+  if (!story) {
+    return false
+  }
   if (story.type !== 'story') {
     return false
   }
+  debugger
   dispatch(addStory([{
     id,
     author: story.by,
