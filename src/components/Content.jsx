@@ -4,17 +4,19 @@ import StorysList from './components-header/StoryList.tsx';
 import { connect } from 'react-redux';
 import { addCommentToStoryThunk } from './../redux/store-reducers';
 import CommentContiner from './components-header/commentContiner';
+import ErorrPage from './helpers-components/ErorrPage';
 
 
 function Content (props) {
   return (
     <div>
-      
-        <Route path='/comments/:storyId' render={ () => <CommentContiner/> }/>
-        <Route path='/' render={() => <StorysList 
-        addCommentToStoryThunk={props.addCommentToStoryThunk}
-        story={props.story} />}/>
-      
+        <Switch>
+          <Route path='/story/:storyId' render={ () => <CommentContiner story={props.story} /> }/>
+          <Route path='/error' render={ () => <ErorrPage/> }/>
+          <Route path='/' render={() => <StorysList 
+          addCommentToStoryThunk={props.addCommentToStoryThunk}
+          story={props.story} />}/>
+        </Switch>
     </div>
   )
 }

@@ -1,4 +1,4 @@
-import { addTopStoryThunk } from './store-reducers';
+import { addTopStoryThunk, stopLoadStory } from './store-reducers';
 
 const INIT = "INIT";
 
@@ -8,8 +8,9 @@ export const init = () => {
   }
 }
 export const initThunk = () => async (dispatch) => {
-  await dispatch(addTopStoryThunk());
   dispatch(init());
+  //await dispatch(addTopStoryThunk());
+  dispatch(stopLoadStory());
 }
 
 const start = {

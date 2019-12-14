@@ -1,9 +1,24 @@
 import { getTopStorys } from './../api/api';
 import { getElementById } from './../api/api';
 import { JsonComent } from '../helpers/function.js';
+import { ThunkAction, ThunkDispatch } from 'redux-thunk';
 
 const ADD_STORY = 'ADD_TOP_STORY';
 const ADD_COMMENT_TO_STORY = 'ADD_COMMENT_TO_STORY'; 
+const START_LOAD_STORY = 'START_LOAD_STORY';
+const STOP_LOAD_STORY = 'STOP_LOAD_STORY';  
+
+
+export const startLoadStory = () => {
+  return {
+    type: START_LOAD_STORY,
+  }
+}
+export const stopLoadStory = () => {
+  return {
+    type: STOP_LOAD_STORY,
+  }
+}
 
 const addStory = (arrayStorys) => {
   return {
@@ -22,23 +37,44 @@ const addStoryComment = (idStory,comments) => {
 export const addCommentToStoryThunk = (idStory) => async (dispatch) => {
   let infoStory = await getElementById(idStory);
   console.log("TCL: addCommentToStoryThunk -> infoStory.kids!!!!!!!!!!!!!!!!!!!!!!!!!!!!", infoStory.kids)
-  infoStory.kids.sort((a,b) => a-b);
-  for (let t=0; t<infoStory.kids.length; t++) {
-    /*let comments = */JsonComent([infoStory.kids[t]],[idStory]).then(comments => dispatch(addStoryComment(idStory,comments)));
-    //console.log("TCL: addCommentToStoryThunk -> comments", comments)
-    //dispatch(addStoryComment(idStory,comments));
+  if (infoStory.kids) {
+    infoStory.kids.sort((a,b) => a-b);
+    for (let t=0; t<infoStory.kids.length; t++) {
+      /*let comments = */JsonComent([infoStory.kids[t]],[idStory]).then(comments => dispatch(addStoryComment(idStory,comments)));
+      //console.log("TCL: addCommentToStoryThunk -> comments", comments)
+      //dispatch(addStoryComment(idStory,comments));
+    }
   }
 }
 
 //addCommentToStoryThunk(21725139)();
+export const addStoryThuck = (id) => async (dispatch) => {
+  let story = await getElementById(id);
+  if (story.type !== 'story') {
+    return false
+  }
+  dispatch(addStory([{
+    id,
+    author: story.by,
+    time: story.time,
+    fullLenComments: story.descendants,
+    comments: [],
+    commentsId: story.kids,
+    score: story.score,
+    header: story.title,
+    url: story.url,
+  }]));
+  return true
+}
 
 export const addTopStoryThunk = () => async (dispatch) => {
   return new Promise (async (res,req) => {
     let indexArrayStorys = await getTopStorys();
+    let fullPromiseRequest = [];
+    dispatch(startLoadStory());
     //let arrayStorys = [];
-    console.log(indexArrayStorys);
     for(let t = 0; t<100; t++) {
-      getElementById(indexArrayStorys[t]).then(infoStory => {
+      fullPromiseRequest.push(getElementById(indexArrayStorys[t]).then(infoStory => {
          dispatch(addStory([{
           id:indexArrayStorys[t],
           author: infoStory.by,
@@ -50,7 +86,7 @@ export const addTopStoryThunk = () => async (dispatch) => {
           header: infoStory.title,
           url: infoStory.url,
         }]))
-      });
+      }));
       /*
       console.log("TCL: addTopStoryThunk -> infoStory", infoStory)
       //let commentJson = await JsonComent(infoStory.kids,[indexArrayStorys[t]],false);
@@ -73,15 +109,30 @@ export const addTopStoryThunk = () => async (dispatch) => {
         }
       }*/
     }
-    res();
+    Promise.all(fullPromiseRequest).then(info => {
+      res()
+    })
   })
 }
 
 const start = {
   storys: [],
+  storysIsLoad: false,
 }
 function storeReducers (state = start, action) {
   switch (action.type) {
+    case STOP_LOAD_STORY: {
+      return {
+        ...state,
+        storysIsLoad: false,
+      }
+    }
+    case START_LOAD_STORY: {
+      return {
+        ...state,
+        storysIsLoad: true,
+      }
+    }
     case ADD_STORY: {
       return {
         ...state,
@@ -106,17 +157,10 @@ function storeReducers (state = start, action) {
         buff = addObjectStory.comments[action.path[t]];
       }*/
 
-      console.log(Object.keys(action.comments)[0]);
-      console.log({[Object.keys(action.comments)[0]]:'d'});
-      console.log(action.comments[Object.keys(action.comments)[0]]);
       let storys = state.storys.map(item => {
         if (item.id !== action.idStory) {
           return item
         } else {
-          debugger
-          console.log (Object.keys(action.comments)[0]);
-          console.log (action.comments[Object.keys(action.comments)[0]]);
-          console.log ([...item.comments,{...action.comments[Object.keys(action.comments)[0]]}]);
           return {
             ...item,
             comments: [...item.comments,{...action.comments[Object.keys(action.comments)[0]]}]

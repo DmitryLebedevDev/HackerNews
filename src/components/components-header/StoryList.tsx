@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 
 function StorysList(props: any) {
   let sotys = props.story.map((item:Iprops) =>
-    <StoryItem addCommentToStoryThunk={props.addCommentToStoryThunk} {...item}/>)
+    <StoryItem key={item.id} addCommentToStoryThunk={props.addCommentToStoryThunk} {...item}/>)
   return (
     <div className={styles.StotyList}>
       {sotys}
@@ -43,11 +43,10 @@ function BlockComment(props: {
   path: number[],
   fullLenComments: number
 }) {
-  let [isOpenComment, openComment] = useState(false);
+  let [isOpenComment, openComment] = useState(true);
   let comments = [];
   if (isOpenComment) {
     if (!props.comments) {
-      console.log(props.path);
     } else {
       let keys = Object.keys(props.comments);
       if (props.comments && props.comments[keys[0]] && props.comments[keys[0]].id) {
@@ -64,7 +63,6 @@ function BlockComment(props: {
           />)
         }
       } else {
-        console.log(props.path);
       }
     }
   }
@@ -85,14 +83,13 @@ function BlockComment(props: {
 }
 
 function StoryItem(props: Iprops) {
-  console.log(props.comments);
   let [openIsComment, openComment] = useState(false);
   let comments = [];
   if (openIsComment && Object.keys(props.comments).length === 0) {
+    console.log('МЕНЯ НЕ ЕБЁТ Я ЗАПУСКАЮСЬ');
     props.addCommentToStoryThunk(props.id);
   }
   for (let current in props.comments) {
-    console.log(current);
     comments.push(
       <BlockComment key={props.comments[current].id}
         name={props.comments[current].name}
@@ -104,16 +101,14 @@ function StoryItem(props: Iprops) {
       />
     );
   }
-  
-  console.log(comments, 'comments')
-  return (
+    return (
     <div className={styles.Story}>
       <div className={styles.Story__header}>
         <a href={props.url}>{props.header}</a>
       </div>
       <div className={styles.Story__info}>
         {props.score} points by {props.author} data | hide |
-        <Link to={`comments/${props.id}`} className={styles.Story__linkComments}
+        <Link to={`story/${props.id}`} className={styles.Story__linkComments}
           onClick={() => { openComment(r => !r) }}> {props.fullLenComments} comments </Link>
         {(openIsComment) && comments}
       </div>

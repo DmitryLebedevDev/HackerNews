@@ -28,7 +28,8 @@ import { getElementById } from "../api/api";
 }
 */
 
-export function JsonComent(arr, path = []) {
+export function JsonComent(arr, path = [], commentsLen = 0) {
+  console.log('я запустилась');
   if (arr === undefined || !arr.length) {
     return new Promise ((res,req) => res());
   }
@@ -37,19 +38,25 @@ export function JsonComent(arr, path = []) {
     let arrPromis = [];
     for (let t = 0; t < arr.length; t++) {
       let promis = getElementById(arr[t]).then(infoArrItem => {
-        return new Promise(info => {
+        return new Promise((info, error) => {
           let newPath = [...path, arr[t]];
           if (infoArrItem.deleted) {
             info()
           }
           JsonComent(infoArrItem.kids, newPath).then(
             comments => {
+              let valueComments = 0;
+              /*if (comments) {
+                for (info of comments) {
+                  valueComments += info.commentsLeng;
+                }
+              }*/
               json[arr[t]] = {
                 id: arr[t],
                 name: infoArrItem.by,
                 text: infoArrItem.text,
                 comments: comments,
-                commentsLeng: (infoArrItem.kids !== undefined) ? infoArrItem.kids.length : '',
+                commentsLeng: (infoArrItem.kids !== undefined) ? infoArrItem.kids.length + valueComments : '',
                 path: [...newPath],
               }
               info();
