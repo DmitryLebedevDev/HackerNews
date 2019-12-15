@@ -56,7 +56,6 @@ export const addStoryThuck = (id) => async (dispatch) => {
   if (story.type !== 'story') {
     return false
   }
-  debugger
   dispatch(addStory([{
     id,
     author: story.by,

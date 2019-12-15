@@ -33,6 +33,7 @@ interface Iprops extends RouteComponentProps<any> {
 }
 
 const CommentContiner = (props:Iprops) => {
+  debugger
   let currentStory;
   let [page,setPage] = useState(false);
   currentStory = props.story.find(item => item.id === +props.match.params.storyId)
@@ -50,14 +51,14 @@ const CommentContiner = (props:Iprops) => {
     return (
       <div>
         <StoryItem 
-        id={currentStory.id} 
-        fullLenComments={currentStory.fullLenComments} 
-        url={currentStory.url}
-        header={currentStory.header}
-        author={currentStory.author}
-        score={currentStory.score}
-        comments={currentStory.comments}
-        addCommentToStoryThunk={props.addCommentToStoryThunk}
+          id={currentStory.id} 
+          fullLenComments={currentStory.fullLenComments} 
+          url={currentStory.url}
+          header={currentStory.header}
+          author={currentStory.author}
+          score={currentStory.score}
+          comments={currentStory.comments}
+          addCommentToStoryThunk={props.addCommentToStoryThunk}
         />
       </div>
     )

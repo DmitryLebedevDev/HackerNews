@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import styles from './StoryList.module.css';
 import { Link } from 'react-router-dom';
+import { Button } from '@material-ui/core';
 
 function StorysList(props: any) {
   let sotys = props.story.map((item:Iprops) =>
@@ -28,7 +29,7 @@ interface Iprops {
     path: number[],
     fullLenComments: number,
   }[],
-  addCommentToStoryThunk: (id:number) => void 
+  addCommentToStoryThunk: (id:number) => void;
 }
 
 function openComment() {
@@ -108,8 +109,8 @@ export function StoryItem(props: Iprops) {
       </div>
       <div className={styles.Story__info}>
         {props.score} points by {props.author} data | hide |
-        <Link to={`story/${props.id}`} className={styles.Story__linkComments}
-          onClick={() => { openComment(r => !r) }}> {props.fullLenComments} comments </Link>
+        <Link to={`/story/${props.id}`} className={styles.Story__linkComments}
+          onClick={() => { openComment(r => !r) }}><Button color="primary">{props.fullLenComments} comments</Button> </Link>
         {(openIsComment) && comments}
       </div>
     </div>

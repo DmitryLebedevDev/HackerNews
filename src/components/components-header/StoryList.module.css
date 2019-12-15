@@ -7,6 +7,10 @@
   transition: 0.5s;
   color: rgb(0, 153, 255);
   font-size: 16px;
+  text-decoration: none;
+}
+.Story__linkComments:hover {
+  cursor: pointer; 
 }
 .CommentBlock__content a,p,span,i {
   font-size: 12px;
