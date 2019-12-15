@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import styles from './StoryList.module.css';
 import { Link } from 'react-router-dom';
-import { Button } from '@material-ui/core';
+import { Button, LinearProgress, CircularProgress } from '@material-ui/core';
+
 
 function StorysList(props: any) {
   let sotys = props.story.map((item:Iprops) =>
@@ -9,6 +10,7 @@ function StorysList(props: any) {
   return (
     <div className={styles.StotyList}>
       {sotys}
+      <LinearProgress />
     </div>
   )
 }
@@ -44,7 +46,7 @@ function BlockComment(props: {
   path: number[],
   fullLenComments: number
 }) {
-  let [isOpenComment, openComment] = useState(true);
+  let [isOpenComment, openComment] = useState(false);
   let comments = [];
   if (isOpenComment) {
     if (!props.comments) {
@@ -69,16 +71,17 @@ function BlockComment(props: {
   }
   return (
     <div className={styles.CommentBlock}>
-      <h6 className={styles.CommentBlock}>Name:{props.name}</h6>
+      <h6 className={styles.CommentBlock__name}>Name:{props.name}</h6>
       <div dangerouslySetInnerHTML={{ __html: props.text }} className={styles.CommentBlock__content}></div>
       {
         (1) ? (<>
           <div className={styles.Story__linkComments} onClick={() => {
             openComment(r => !r);}}>
-            Comments:{props.commentsLeng}
+            <Button color="primary">Comments {props.commentsLeng}</Button>
           </div>
           {comments}
         </>) : ''}
+        <CircularProgress color="secondary" />
     </div>
   )
 }

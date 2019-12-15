@@ -7,7 +7,22 @@ const ADD_STORY = 'ADD_TOP_STORY';
 const ADD_COMMENT_TO_STORY = 'ADD_COMMENT_TO_STORY'; 
 const START_LOAD_STORY = 'START_LOAD_STORY';
 const STOP_LOAD_STORY = 'STOP_LOAD_STORY';  
+const START_LOAD_STORY_COMMETNS = 'START_LOAD_STORY_COMMETNS';
+const STOP_LOAD_STORY_COMMETNS = 'STOP_LOAD_STORY_COMMETNS';
 
+export const startLoadStoryComments = (idStory) => {
+  return {
+    type: START_LOAD_STORY_COMMETNS,
+    id: idStory,
+  }
+}
+
+export const stopLoadStoryComments = (idStory) => {
+  return {
+    type: STOP_LOAD_STORY_COMMETNS,
+    id: idStory,
+  }
+}
 
 export const startLoadStory = () => {
   return {
@@ -39,11 +54,14 @@ export const addCommentToStoryThunk = (idStory) => async (dispatch) => {
   console.log("TCL: addCommentToStoryThunk -> infoStory.kids!!!!!!!!!!!!!!!!!!!!!!!!!!!!", infoStory.kids)
   if (infoStory.kids) {
     infoStory.kids.sort((a,b) => a-b);
+    //let arrComments = [];
+    //dispatch(startLoadStoryComments(idStory));
     for (let t=0; t<infoStory.kids.length; t++) {
-      /*let comments = */JsonComent([infoStory.kids[t]],[idStory]).then(comments => dispatch(addStoryComment(idStory,comments)));
-      //console.log("TCL: addCommentToStoryThunk -> comments", comments)
-      //dispatch(addStoryComment(idStory,comments));
+      /*let infoComments = */JsonComent([infoStory.kids[t]],[idStory])
+      .then(comments => dispatch(addStoryComment(idStory,comments)));
+      //arrComments.push(infoComments);
     }
+    //Promise.all(arrComments).then(dispatch(stopLoadStoryComments(idStory)));
   }
 }
 
@@ -66,6 +84,7 @@ export const addStoryThuck = (id) => async (dispatch) => {
     score: story.score,
     header: story.title,
     url: story.url,
+    commentsIsLoad: false,
   }]));
   return true
 }
@@ -88,29 +107,9 @@ export const addTopStoryThunk = () => async (dispatch) => {
           score: infoStory.score,
           header: infoStory.title,
           url: infoStory.url,
+          commentsIsLoad: false,
         }]))
       }));
-      /*
-      console.log("TCL: addTopStoryThunk -> infoStory", infoStory)
-      //let commentJson = await JsonComent(infoStory.kids,[indexArrayStorys[t]],false);
-      arrayStorys.push({
-        id:indexArrayStorys[t],
-        author: infoStory.by,
-        time: infoStory.time,
-        fullLenComments: infoStory.descendants,
-        comments: {},
-        commentsId: infoStory.kids,
-        score: infoStory.score,
-        header: infoStory.title,
-        url: infoStory.url,
-      })
-      if (t%2===1) {
-        dispatch(addStory(arrayStorys));
-        arrayStorys = [];
-        if (t===1) {
-          res()
-        }
-      }*/
     }
     Promise.all(fullPromiseRequest).then(info => {
       res()
@@ -124,6 +123,18 @@ const start = {
 }
 function storeReducers (state = start, action) {
   switch (action.type) {
+    case START_LOAD_STORY_COMMETNS: {
+      return {
+        ...state,
+        storys: state.storys.map(item => (item.id !== action.id) ? item : {...item,commentsIsLoad:true})
+      }
+    }
+    case STOP_LOAD_STORY_COMMETNS: {
+      return {
+        ...state,
+        storys: state.storys.map(item => (item.id !== action.id) ? item : {...item,commentsIsLoad:false})
+      }
+    }
     case STOP_LOAD_STORY: {
       return {
         ...state,
@@ -143,23 +154,6 @@ function storeReducers (state = start, action) {
       }
     }
     case ADD_COMMENT_TO_STORY: {
-      // action path
-      /*let addObjectStory = {};
-      let Story;
-      // Search needen story
-      for (let t=0; t<state.storys.length; t++) {
-        if (action.path[0] === state.storys[t].id) {
-          Story = state.storys[t];
-          addObjectStory = {...Story};
-          break;
-        }
-      }*/
-      /*addObjectStory.comments = {...Story.comments};
-      let buff;
-      for (let t=1; t<action.path.length; t++) {
-        buff = addObjectStory.comments[action.path[t]];
-      }*/
-
       let storys = state.storys.map(item => {
         if (item.id !== action.idStory) {
           return item

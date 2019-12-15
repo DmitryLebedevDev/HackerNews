@@ -33,7 +33,6 @@ interface Iprops extends RouteComponentProps<any> {
 }
 
 const CommentContiner = (props:Iprops) => {
-  debugger
   let currentStory;
   let [page,setPage] = useState(false);
   currentStory = props.story.find(item => item.id === +props.match.params.storyId)

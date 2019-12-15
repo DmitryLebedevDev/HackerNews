@@ -3,21 +3,31 @@
   color: blue;
 }
 .Story__linkComments {
-  font-weight: 500;
   transition: 0.5s;
   color: rgb(0, 153, 255);
   font-size: 16px;
   text-decoration: none;
+  font-weight: 600;
+}
+/*>.MuiButton-text>.MuiButton-label*/
+.Story__linkComments button span{
+  font-size: 14px;
+  font-weight: 500;
+  color: rgb(0, 153, 255);
 }
 .Story__linkComments:hover {
   cursor: pointer; 
 }
 .CommentBlock__content a,p,span,i {
-  font-size: 12px;
+  font-size: 14px;
 }
 .CommentBlock__content {
-  font-size: 12px;
+  font-size: 14px;
 }
 .CommentBlock {
   margin-left: 30px;
+  max-width: 600px;
+}
+.CommentBlock .CommentBlock__name {
+  font-size: 15px;
 }

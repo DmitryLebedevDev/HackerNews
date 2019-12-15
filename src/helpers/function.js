@@ -46,11 +46,12 @@ export function JsonComent(arr, path = [], commentsLen = 0) {
           JsonComent(infoArrItem.kids, newPath).then(
             comments => {
               let valueComments = 0;
-              /*if (comments) {
-                for (info of comments) {
-                  valueComments += info.commentsLeng;
+              if (comments) {
+                console.log(comments)
+                for (let key in comments) {
+                  valueComments += +comments[key].commentsLeng;
                 }
-              }*/
+              }
               json[arr[t]] = {
                 id: arr[t],
                 name: infoArrItem.by,
