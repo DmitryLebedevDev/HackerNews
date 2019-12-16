@@ -15,7 +15,9 @@ function Content (props) {
           <Route path='/error' render={ () => <ErorrPage/> }/>
           <Route path='/' render={() => <StorysList 
           addCommentToStoryThunk={props.addCommentToStoryThunk}
-          story={props.story} />}/>
+          story={props.story} 
+          storysIsLoad={props.storysIsLoad}
+          />}/>
         </Switch>
     </div>
   )
@@ -23,7 +25,8 @@ function Content (props) {
 
 export default connect((state) => {
   return {
-    story:state.storys.storys
+    story:state.storys.storys,
+    storysIsLoad: state.storys.storysIsLoad,
   }
 },{
   addCommentToStoryThunk

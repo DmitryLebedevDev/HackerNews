@@ -54,14 +54,16 @@ export const addCommentToStoryThunk = (idStory) => async (dispatch) => {
   console.log("TCL: addCommentToStoryThunk -> infoStory.kids!!!!!!!!!!!!!!!!!!!!!!!!!!!!", infoStory.kids)
   if (infoStory.kids) {
     infoStory.kids.sort((a,b) => a-b);
-    //let arrComments = [];
-    //dispatch(startLoadStoryComments(idStory));
+    let arrComments = [];
+    dispatch(startLoadStoryComments(idStory));
     for (let t=0; t<infoStory.kids.length; t++) {
-      /*let infoComments = */JsonComent([infoStory.kids[t]],[idStory])
+      let infoComments = JsonComent([infoStory.kids[t]],[idStory])
       .then(comments => dispatch(addStoryComment(idStory,comments)));
-      //arrComments.push(infoComments);
+      arrComments.push(infoComments);
     }
-    //Promise.all(arrComments).then(dispatch(stopLoadStoryComments(idStory)));
+    console.log("TCL: addCommentToStoryThunk -> arrComments", arrComments)
+    //Promise.all(arrComments).then(res => console.log('Загрузка все'))
+    Promise.all(arrComments).then(res => dispatch(stopLoadStoryComments(idStory)));
   }
 }
 
@@ -124,6 +126,7 @@ const start = {
 function storeReducers (state = start, action) {
   switch (action.type) {
     case START_LOAD_STORY_COMMETNS: {
+      debugger
       return {
         ...state,
         storys: state.storys.map(item => (item.id !== action.id) ? item : {...item,commentsIsLoad:true})

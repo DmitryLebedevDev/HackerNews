@@ -52,6 +52,9 @@ export function JsonComent(arr, path = [], commentsLen = 0) {
                   valueComments += +comments[key].commentsLeng;
                 }
               }
+              if (infoArrItem.deleted) {
+                info()
+              }
               json[arr[t]] = {
                 id: arr[t],
                 name: infoArrItem.by,

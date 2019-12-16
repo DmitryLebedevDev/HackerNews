@@ -2,15 +2,17 @@ import React, { useState } from 'react';
 import styles from './StoryList.module.css';
 import { Link } from 'react-router-dom';
 import { Button, LinearProgress, CircularProgress } from '@material-ui/core';
+import MinLoadCenter from '../decorComponent/minLoadCenter';
 
 
 function StorysList(props: any) {
+  console.log("TCL: StorysList -> props", props)
   let sotys = props.story.map((item:Iprops) =>
     <StoryItem key={item.id} addCommentToStoryThunk={props.addCommentToStoryThunk} {...item}/>)
   return (
     <div className={styles.StotyList}>
       {sotys}
-      <LinearProgress />
+      {(props.storysIsLoad) && <LinearProgress />}
     </div>
   )
 }
@@ -31,6 +33,7 @@ interface Iprops {
     path: number[],
     fullLenComments: number,
   }[],
+  commentsIsLoad: boolean,
   addCommentToStoryThunk: (id:number) => void;
 }
 
@@ -71,7 +74,7 @@ function BlockComment(props: {
   }
   return (
     <div className={styles.CommentBlock}>
-      <h6 className={styles.CommentBlock__name}>Name:{props.name}</h6>
+      <h6 className={styles.CommentBlock__name}>{props.name}</h6>
       <div dangerouslySetInnerHTML={{ __html: props.text }} className={styles.CommentBlock__content}></div>
       {
         (1) ? (<>
@@ -81,17 +84,19 @@ function BlockComment(props: {
           </div>
           {comments}
         </>) : ''}
-        <CircularProgress color="secondary" />
+        
     </div>
   )
 }
 
 export function StoryItem(props: Iprops) {
   let [openIsComment, openComment] = useState(false);
+  let [statusRecuest,setStatusRecuest] = useState(false);
   let comments = [];
-  if (openIsComment && Object.keys(props.comments).length === 0) {
+  if (!statusRecuest && openIsComment && Object.keys(props.comments).length === 0) {
     console.log('МЕНЯ НЕ ЕБЁТ Я ЗАПУСКАЮСЬ');
     props.addCommentToStoryThunk(props.id);
+    setStatusRecuest(true);
   }
   for (let current in props.comments) {
     comments.push(
@@ -115,6 +120,7 @@ export function StoryItem(props: Iprops) {
         <Link to={`/story/${props.id}`} className={styles.Story__linkComments}
           onClick={() => { openComment(r => !r) }}><Button color="primary">{props.fullLenComments} comments</Button> </Link>
         {(openIsComment) && comments}
+        {(props.commentsIsLoad) ? <MinLoadCenter/> : ''}
       </div>
     </div>
   )
