@@ -50,7 +50,8 @@ const CommentContiner = (props:Iprops) => {
   if (currentStory) {
     return (
       <div>
-        <StoryItem 
+        <StoryItem
+          key={currentStory.id}
           id={currentStory.id} 
           fullLenComments={currentStory.fullLenComments} 
           url={currentStory.url}
@@ -60,6 +61,7 @@ const CommentContiner = (props:Iprops) => {
           comments={currentStory.comments}
           addCommentToStoryThunk={props.addCommentToStoryThunk}
           commentsIsLoad={currentStory.commentsIsLoad}
+          commentsDefOpen={true}
         />
       </div>
     )

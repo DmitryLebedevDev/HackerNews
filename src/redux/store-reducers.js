@@ -58,7 +58,11 @@ export const addCommentToStoryThunk = (idStory) => async (dispatch) => {
     dispatch(startLoadStoryComments(idStory));
     for (let t=0; t<infoStory.kids.length; t++) {
       let infoComments = JsonComent([infoStory.kids[t]],[idStory])
-      .then(comments => dispatch(addStoryComment(idStory,comments)));
+      .then(comments => {
+        if (Object.keys(comments).length !== 0) {
+          dispatch(addStoryComment(idStory,comments));
+        }
+      })
       arrComments.push(infoComments);
     }
     console.log("TCL: addCommentToStoryThunk -> arrComments", arrComments)
@@ -114,6 +118,7 @@ export const addTopStoryThunk = () => async (dispatch) => {
       }));
     }
     Promise.all(fullPromiseRequest).then(info => {
+      dispatch(stopLoadStory());
       res()
     })
   })
@@ -126,7 +131,6 @@ const start = {
 function storeReducers (state = start, action) {
   switch (action.type) {
     case START_LOAD_STORY_COMMETNS: {
-      debugger
       return {
         ...state,
         storys: state.storys.map(item => (item.id !== action.id) ? item : {...item,commentsIsLoad:true})

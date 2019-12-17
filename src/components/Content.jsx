@@ -12,12 +12,12 @@ function Content (props) {
     <div>
         <Switch>
           <Route path='/story/:storyId' render={ () => <CommentContiner story={props.story} /> }/>
-          <Route path='/error' render={ () => <ErorrPage/> }/>
-          <Route path='/' render={() => <StorysList 
+          <Route path='/story' render={() => <StorysList 
           addCommentToStoryThunk={props.addCommentToStoryThunk}
           story={props.story} 
           storysIsLoad={props.storysIsLoad}
           />}/>
+          <Route path='/error' render={ () => <ErorrPage/> }/>
         </Switch>
     </div>
   )

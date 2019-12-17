@@ -21,16 +21,44 @@
 .CommentBlock__content a,p,span,i {
   font-size: 14px;
 }
+.CommentBlock__content p {
+  padding: 5px 0;
+}
+
 .CommentBlock__content {
   font-size: 14px;
 }
 .CommentBlock {
   margin-left: 30px;
 }
+.CommentBlock + .CommentBlock {
+  margin-top: 10px;
+}
 .CommentBlock .CommentBlock__name {
   font-size: 15px;
+}
+.CommentBlock__name {
+  margin-bottom: 5px;
 }
 .Story {
   max-width: 600px;
   margin: 0 auto;
+}
+.Story+.Story {
+  margin-top: 15px;
+}
+.Story__header {
+  text-align: center;
+}
+.Story__blockCenter {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.Story__link {
+  color: blue !important;
+  transition: 0.2s;
+}
+.Story__link:hover {
+  color: rgb(0, 119, 255) !important;
 }

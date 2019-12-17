@@ -10,7 +10,6 @@ export const init = () => {
 export const initThunk = () => async (dispatch) => {
   dispatch(init());
   await dispatch(addTopStoryThunk());
-  dispatch(stopLoadStory());
 }
 
 const start = {

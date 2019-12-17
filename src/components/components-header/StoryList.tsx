@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import styles from './StoryList.module.css';
 import { Link } from 'react-router-dom';
+import { Link as MaterialBottom} from '@material-ui/core';
 import { Button, LinearProgress, CircularProgress } from '@material-ui/core';
 import MinLoadCenter from '../decorComponent/minLoadCenter';
 
@@ -33,13 +34,12 @@ interface Iprops {
     path: number[],
     fullLenComments: number,
   }[],
+  commentsDefOpen?: boolean,
   commentsIsLoad: boolean,
   addCommentToStoryThunk: (id:number) => void;
 }
 
-function openComment() {
 
-}
 function BlockComment(props: {
   id?: number,
   name?: string,
@@ -77,7 +77,7 @@ function BlockComment(props: {
       <h6 className={styles.CommentBlock__name}>{props.name}</h6>
       <div dangerouslySetInnerHTML={{ __html: props.text }} className={styles.CommentBlock__content}></div>
       {
-        (1) ? (<>
+        (props.commentsLeng) ? (<>
           <div className={styles.Story__linkComments} onClick={() => {
             openComment(r => !r);}}>
             <Button color="primary">Comments {props.commentsLeng}</Button>
@@ -90,7 +90,7 @@ function BlockComment(props: {
 }
 
 export function StoryItem(props: Iprops) {
-  let [openIsComment, openComment] = useState(false);
+  let [openIsComment, openComment] = useState((props.commentsDefOpen) ? true : false);
   let [statusRecuest,setStatusRecuest] = useState(false);
   let comments = [];
   if (!statusRecuest && openIsComment && Object.keys(props.comments).length === 0) {
@@ -113,12 +113,20 @@ export function StoryItem(props: Iprops) {
     return (
     <div className={styles.Story}>
       <div className={styles.Story__header}>
-        <a href={props.url}>{props.header}</a>
+        <MaterialBottom href={props.url} className={styles.Story__link}>
+          {props.header}
+        </MaterialBottom>
       </div>
       <div className={styles.Story__info}>
-        {props.score} points by {props.author} data | hide |
-        <Link to={`/story/${props.id}`} className={styles.Story__linkComments}
-          onClick={() => { openComment(r => !r) }}><Button color="primary">{props.fullLenComments} comments</Button> </Link>
+        <div className={styles.Story__blockCenter}>
+          {props.score} points by {props.author} data | hide |
+          <Link to={`/story/${props.id}`} className={styles.Story__linkComments}
+            onClick={() => { openComment(r => !r) }}>
+            <Button color="primary">
+              comments {props.fullLenComments}
+            </Button>
+          </Link>
+        </div>
         {(openIsComment) && comments}
         {(props.commentsIsLoad) ? <MinLoadCenter/> : ''}
       </div>
