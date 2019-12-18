@@ -2,18 +2,28 @@ import React, { useState } from 'react';
 import styles from './StoryList.module.css';
 import { Link } from 'react-router-dom';
 import { Link as MaterialBottom} from '@material-ui/core';
-import { Button, LinearProgress, CircularProgress } from '@material-ui/core';
+import { Button, LinearProgress } from '@material-ui/core';
 import MinLoadCenter from '../decorComponent/minLoadCenter';
+import { makeStyles } from '@material-ui/core/styles';
 
+const useStyle = makeStyles({
+  red: {
+    color: 'red',
+  }
+})
 
 function StorysList(props: any) {
-  console.log("TCL: StorysList -> props", props)
+  console.log("TCL: StorysList -> props", props);
+  let colorButton = useStyle();
   let sotys = props.story.map((item:Iprops) =>
     <StoryItem key={item.id} addCommentToStoryThunk={props.addCommentToStoryThunk} {...item}/>)
   return (
     <div className={styles.StotyList}>
       {sotys}
       {(props.storysIsLoad) && <LinearProgress />}
+      {(!props.storysIsLoad) && <div className={styles.Story__blockCenter}>
+        <Button variant="contained" color="secondary"> add story </Button>
+      </div>}
     </div>
   )
 }

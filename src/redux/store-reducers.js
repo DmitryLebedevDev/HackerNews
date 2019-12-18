@@ -95,13 +95,13 @@ export const addStoryThuck = (id) => async (dispatch) => {
   return true
 }
 
-export const addTopStoryThunk = () => async (dispatch) => {
+export const addTopStoryThunk = (current=1) => async (dispatch) => {
   return new Promise (async (res,req) => {
     let indexArrayStorys = await getTopStorys();
     let fullPromiseRequest = [];
     dispatch(startLoadStory());
     //let arrayStorys = [];
-    for(let t = 0; t<100; t++) {
+    for(let t = 0; t<current*100; t++) {
       fullPromiseRequest.push(getElementById(indexArrayStorys[t]).then(infoStory => {
          dispatch(addStory([{
           id:indexArrayStorys[t],
