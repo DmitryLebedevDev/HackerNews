@@ -13,7 +13,6 @@ const useStyle = makeStyles({
 })
 
 function StorysList(props: any) {
-  console.log("TCL: StorysList -> props", props);
   let colorButton = useStyle();
   let sotys = props.story.map((item:Iprops) =>
     <StoryItem key={item.id} addCommentToStoryThunk={props.addCommentToStoryThunk} {...item}/>)
@@ -22,7 +21,7 @@ function StorysList(props: any) {
       {sotys}
       {(props.storysIsLoad) && <LinearProgress />}
       {(!props.storysIsLoad) && <div className={styles.Story__blockCenter}>
-        <Button variant="contained" color="secondary"> add story </Button>
+        <Button onClick={()=> props.addTopStoryThunk()} variant="contained" color="secondary"> add story </Button>
       </div>}
     </div>
   )
