@@ -17,6 +17,7 @@ function StoryListContiner(props) {
       story={props.story} 
       storysIsLoad={props.storysIsLoad}
       addTopStoryThunk={props.addTopStoryThunk}
+      lenIsMax={props.lenIsMax}
     />
   )
 }
@@ -26,6 +27,7 @@ export default connect(
     return {
       story:state.storys.storys,
       storysIsLoad: state.storys.storysIsLoad,
+      lenIsMax: state.storys.lenIsMax,
     }
   }, {
     addCommentToStoryThunk,

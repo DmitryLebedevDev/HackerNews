@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {useState} from 'react';
-import { WithRouterProps, WithRouterStatics, match, RouteComponentProps, withRouter } from 'react-router';
+import { match, RouteComponentProps, withRouter } from 'react-router';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom'
 import { addStoryThuck } from '../../redux/store-reducers';

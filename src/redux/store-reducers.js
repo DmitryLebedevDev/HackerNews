@@ -121,7 +121,7 @@ export const addTopStoryThunk = () => async (dispatch,state) => {
     }
     let current = CurrentState.storys.lenStory;
     let currentMax = current+25
-    if (currentMax >= 100) {
+    if (currentMax >= 500) {
       dispatch(lenMaxOn());
     }
     console.log("TCL: addTopStoryThunk -> current", current)
@@ -129,7 +129,7 @@ export const addTopStoryThunk = () => async (dispatch,state) => {
     for(let t = current; t<currentMax; t++) {
       fullPromiseRequest.push(getElementById(indexArrayStorys[t]).then(infoStory => {
         if (infoStory) {
-          dispatch(addStory([{
+          arrStorys.push({
             id:indexArrayStorys[t],
             author: infoStory.by,
             time: infoStory.time,
@@ -140,11 +140,12 @@ export const addTopStoryThunk = () => async (dispatch,state) => {
             header: infoStory.title,
             url: infoStory.url,
             commentsIsLoad: false,
-          }]))
+          });
         }
       }));
     }
     Promise.all(fullPromiseRequest).then(info => {
+      dispatch(addStory(arrStorys));
       dispatch(stopLoadStory());
       dispatch(setLenStory(currentMax));
       res()

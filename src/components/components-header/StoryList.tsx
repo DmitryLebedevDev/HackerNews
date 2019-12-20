@@ -20,9 +20,9 @@ function StorysList(props: any) {
     <div className={styles.StotyList}>
       {sotys}
       {(props.storysIsLoad) && <LinearProgress />}
-      {(!props.storysIsLoad) && <div className={styles.Story__blockCenter}>
+      {(!props.storysIsLoad && !props.lenIsMax) ? <div className={styles.Story__blockCenter}>
         <Button onClick={()=> props.addTopStoryThunk()} variant="contained" color="secondary"> add story </Button>
-      </div>}
+      </div> : ''}
     </div>
   )
 }
@@ -128,7 +128,10 @@ export function StoryItem(props: Iprops) {
       </div>
       <div className={styles.Story__info}>
         <div className={styles.Story__blockCenter}>
-          {props.score} points by {props.author} data | hide |
+          {props.score} points by 
+          <Link to={`/user/${props.author}`} className={styles.Story__link}>
+            {props.author} 
+          </Link> data | hide |
           <Link to={`/story/${props.id}`} className={styles.Story__linkComments}
             onClick={() => { openComment(r => !r) }}>
             <Button color="primary">
