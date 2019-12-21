@@ -4,16 +4,16 @@ import { Link } from 'react-router-dom';
 import { Link as MaterialBottom} from '@material-ui/core';
 import { Button, LinearProgress } from '@material-ui/core';
 import MinLoadCenter from '../decorComponent/minLoadCenter';
-import { makeStyles } from '@material-ui/core/styles';
+//import { makeStyles } from '@material-ui/core/styles';
 
-const useStyle = makeStyles({
+/*const useStyle = makeStyles({
   red: {
     color: 'red',
   }
-})
+})*/
 
 function StorysList(props: any) {
-  let colorButton = useStyle();
+  //let colorButton = useStyle();
   let sotys = props.story.map((item:Iprops) =>
     <StoryItem key={item.id} addCommentToStoryThunk={props.addCommentToStoryThunk} {...item}/>)
   return (
