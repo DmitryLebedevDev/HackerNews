@@ -122,14 +122,14 @@ export function StoryItem(props: Iprops) {
     return (
     <div className={styles.Story}>
       <div className={styles.Story__header}>
-        <MaterialBottom href={props.url} className={styles.Story__link}>
+        <MaterialBottom href={props.url} className={styles.Story__link_header}>
           {props.header}
         </MaterialBottom>
       </div>
       <div className={styles.Story__info}>
         <div className={styles.Story__blockCenter}>
           {props.score} points by 
-          <Link to={`/user/${props.author}`} className={styles.Story__link}>
+          <Link to={`/user/${props.author}`} className={styles.Story__linkToProfile}>
             {props.author} 
           </Link> data | hide |
           <Link to={`/story/${props.id}`} className={styles.Story__linkComments}

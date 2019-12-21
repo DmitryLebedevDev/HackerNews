@@ -55,10 +55,35 @@
   justify-content: center;
   align-items: center;
 }
-.Story__link {
+.Story__link_header {
   color: blue !important;
   transition: 0.2s;
+  margin:0 2px;
+  font-size: 17px;
 }
-.Story__link:hover {
+.Story__link_header:hover {
   color: rgb(0, 119, 255) !important;
+}
+.Story__linkToProfile {
+  color: black !important;
+  transition: 0.2s;
+  font-weight: 600;
+  margin:0 4px;
+  position: relative;
+}
+.Story__linkToProfile::after {
+  position: absolute;
+  content: '';
+  height: 2px;
+  right: 0;
+  bottom: -2px;
+  width: 0%;
+  background: black;
+  transition: 0.2s;
+}
+.Story__linkToProfile:hover::after {
+  color: black !important;
+  width: 100%;
+  left: 0;
+  left: none;
 }
