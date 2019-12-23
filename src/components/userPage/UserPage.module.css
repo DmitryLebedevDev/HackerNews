@@ -1,0 +1,21 @@
+.User {
+  display: flex;
+  flex-direction: column;
+  padding: 0 15px;
+}
+.Links {
+  display: inline-flex;
+  flex-direction: column;
+}
+.blockOne {
+  width: 70px;
+}
+.line {
+  display: flex;
+}
+.about {
+  max-width: 300px;
+}
+.aboutWrap {
+  max-width: 300px;
+}

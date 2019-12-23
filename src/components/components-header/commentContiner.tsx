@@ -43,6 +43,7 @@ const CommentContiner = (props:Iprops) => {
       return <Redirect to='/error'/>
     }
     let info = props.addStoryThuck(+props.match.params.storyId).then(name => setPage(true));
+    console.log(info);
     return (
       <Load/>
     )

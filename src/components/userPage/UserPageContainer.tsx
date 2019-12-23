@@ -5,6 +5,7 @@ import { withRouter, match, RouteComponentProps } from 'react-router-dom';
 import { addUserThunk } from './../../redux/user-reducers';
 import { IUser } from '../../redux/user-reducersType';
 import Load from '../decorComponent/load';
+import UserPage from './UserPage';
 
 /*interface Iprops extends RouteComponentProps<any> {
   match:match<{userId:string}>;
@@ -24,6 +25,7 @@ const UserPageContainer:React.FC<Iprops> = (props) => {
     console.log(props.match.params.userId);
     if (!requersStatis) {  
       props.addUserThunk(props.match.params.userId);
+      console.log("TCL: props.match", props.match)
       setrequersStatis(true);
     }
   } else {
@@ -32,16 +34,7 @@ const UserPageContainer:React.FC<Iprops> = (props) => {
   }
   if (currentUser) {
     return (
-      <div>
-        User : {props.match.params.userId}
-        created : {new Date(currentUser.created).toString()}
-        karma : {currentUser.karma}
-
-        <div dangerouslySetInnerHTML={{__html: (currentUser) ? 
-          (currentUser.about) ? currentUser.about : ''
-          : ''}}>
-        </div>
-      </div>
+      <UserPage user={currentUser} path={props.match.url}/>
     )
   } else {
     return (
@@ -51,6 +44,19 @@ const UserPageContainer:React.FC<Iprops> = (props) => {
     )
   }
 }
+/**
+ * User : {props.match.params.userId}
+        created : {new Date(currentUser.created).toString()}
+        karma : {currentUser.karma}
+
+        <div dangerouslySetInnerHTML={{__html: (currentUser) ? 
+          (currentUser.about) ? currentUser.about : ''
+          : ''}}>
+        </div>
+ * 
+ * 
+ * 
+ */
 export default connect(
   (state:IStore) => {
     return {

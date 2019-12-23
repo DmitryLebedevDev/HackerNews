@@ -28,6 +28,38 @@ import { getElementById } from "../api/api";
 }
 */
 
+export function UnDate (currentSeconts) {
+  // eslint-disable-next-line no-extend-native
+  Date.prototype.getUnixTime = function() { return this.getTime()/1000|0 };
+  if(!Date.now) Date.now = function() { return new Date(); }
+  Date.time = function() { return Date.now().getUnixTime(); }
+  let someDate = new Date();
+  let theUnixTime = someDate.getUnixTime();
+  let diffrent = theUnixTime-currentSeconts
+  return diffrent;
+}
+export function ObjOfUnDate (coutTime) {
+  console.log(UnDate(coutTime),'unixDate');
+  let date1 = new Date(+new Date() + new Date().getTimezoneOffset()*60*1000);
+  //? разница между настоящим и прошлым
+  let date2 = UnDate(coutTime);
+  let currentDiff = (+date1/1000) - (+date2);
+  let diffrent = new Date(currentDiff*1000);
+  return diffrent
+}
+export function ObjOfUnDateToString (coutTime) {
+  let objDate = ObjOfUnDate(coutTime);
+  let diffrent = UnDate(coutTime);
+  //if (diffrent < )
+  console.log(objDate.getMonth(),objDate.getDate());
+  let date = new Intl.DateTimeFormat("en-Us",{
+    month: "long",
+    day: "numeric",
+    year: "numeric",
+  }).format(objDate);
+  return date
+}
+
 export function JsonComent(arr, path = [], commentsLen = 0) {
   console.log('я запустилась');
   if (arr === undefined || !arr.length) {
