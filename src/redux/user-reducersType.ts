@@ -9,4 +9,8 @@ export interface IUser {
   karma: number,
   about?: string,
   submitted?: number[],
+  story?: [],
+  comments?: [],
+  favorites?: [],
+  cunt: number,
 }

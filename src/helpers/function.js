@@ -27,6 +27,28 @@ import { getElementById } from "../api/api";
   return json
 }
 */
+export function UserItems (arr) {
+  return new Promise ((res,req) => {
+    let arrPromise = [];
+    let resultObj = {
+      styry: [],
+      comments: [],
+    };
+    for (let t=0; t<arr.length; t++) {
+      arrPromise.push(getElementById(arr[t]).then((res) => {
+        if (res.type === 'story') {
+          resultObj.styry.push(res);
+        }
+        if (res.type === 'comment') {
+          resultObj.comments.push(res);
+        }
+      }));
+    }
+    Promise.all(arrPromise).then(info => {
+      res(resultObj);
+    })
+  })
+}
 
 export function UnDate (currentSeconts) {
   // eslint-disable-next-line no-extend-native
