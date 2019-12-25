@@ -9,8 +9,19 @@ export interface IUser {
   karma: number,
   about?: string,
   submitted?: number[],
-  story?: [],
+  story?: IStore[],
   comments?: [],
   favorites?: [],
   cunt: number,
+}
+export interface IStore {
+  by: string,
+  descendants: number,
+  id: number,
+  kids: string[],
+  score: number,
+  time: string,
+  title: string,
+  url: string,
+  deleted?: boolean,
 }

@@ -27,17 +27,17 @@ import { getElementById } from "../api/api";
   return json
 }
 */
-export function UserItems (arr) {
+export function getItems (arr) {
   return new Promise ((res,req) => {
     let arrPromise = [];
     let resultObj = {
-      styry: [],
+      story: [],
       comments: [],
     };
     for (let t=0; t<arr.length; t++) {
       arrPromise.push(getElementById(arr[t]).then((res) => {
         if (res.type === 'story') {
-          resultObj.styry.push(res);
+          resultObj.story.push(res);
         }
         if (res.type === 'comment') {
           resultObj.comments.push(res);
