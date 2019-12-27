@@ -14,6 +14,7 @@ import MinLoadCenter from '../decorComponent/minLoadCenter';
 
 function StorysList(props: any) {
   //let colorButton = useStyle();
+  let addFunc:any = props.addTopStoryThunk || props.funcAdd;
   let sotys = props.story.map((item:Iprops) =>
     <StoryItem key={item.id} addCommentToStoryThunk={props.addCommentToStoryThunk} {...item}/>)
   return (
@@ -21,7 +22,7 @@ function StorysList(props: any) {
       {sotys}
       {(props.storysIsLoad) && <LinearProgress />}
       {(!props.storysIsLoad && !props.lenIsMax) ? <div className={styles.Story__blockCenter}>
-        <Button onClick={()=> props.addTopStoryThunk()} variant="contained" color="secondary"> add story </Button>
+        <Button onClick={() => addFunc()} variant="contained" color="secondary"> add story </Button>
       </div> : ''}
     </div>
   )
@@ -132,12 +133,13 @@ export function StoryItem(props: Iprops) {
           <Link to={`/user/${props.author}`} className={styles.Story__linkToProfile}>
             {props.author} 
           </Link> data | hide |
+          {(props.fullLenComments) ?  
           <Link to={`/story/${props.id}`} className={styles.Story__linkComments}
             onClick={() => { openComment(r => !r) }}>
             <Button color="primary">
               comments {props.fullLenComments}
             </Button>
-          </Link>
+          </Link> : ''}
         </div>
         {(openIsComment) && comments}
         {(props.commentsIsLoad) ? <MinLoadCenter/> : ''}

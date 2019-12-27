@@ -13,6 +13,8 @@ export interface IUser {
   comments?: [],
   favorites?: [],
   cunt: number,
+  isLoad: boolean,
+  maxItems: boolean,
 }
 export interface IStore {
   by: string,

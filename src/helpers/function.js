@@ -37,7 +37,18 @@ export function getItems (arr) {
     for (let t=0; t<arr.length; t++) {
       arrPromise.push(getElementById(arr[t]).then((res) => {
         if (res.type === 'story') {
-          resultObj.story.push(res);
+          resultObj.story.push({
+            id:res.id,
+            author: res.by,
+            time: res.time,
+            fullLenComments: res.descendants,
+            comments: [],
+            commentsId: res.kids,
+            score: res.score,
+            header: res.title,
+            url: res.url,
+            commentsIsLoad: false,
+          });
         }
         if (res.type === 'comment') {
           resultObj.comments.push(res);

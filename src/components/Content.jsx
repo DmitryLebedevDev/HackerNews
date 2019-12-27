@@ -6,7 +6,7 @@ import CommentContiner from './components-header/commentContiner';
 import ErorrPage from './helpers-components/ErorrPage';
 import StoryListContiner from './components-header/StoryListContiner';
 import UserPageContainer from './userPage/UserPageContainer';
-import UserPageSub from './userPage/UserPageSub';
+import UserPageSub from './userPage/UserPageSubContainer';
 
 
 function Content (props) {

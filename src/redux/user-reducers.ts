@@ -1,12 +1,34 @@
 import IuserReducers, { IUser } from "./user-reducersType";
 import { getElementByUserId, getElementById } from "../api/api";
 import {getItems} from '../helpers/function';
-import IStore from "./store-reducersType";
+import IStore from "./storeType";
 
 const ADD_USER = 'ADD_USER';
 const ADD_USER_STORY = 'ADD_USER_STORY';
 const ADD_USER_COMMETNS  = 'ADD_USER_COMMETNS';
-const UP_COUT = 'UP_COUT'; 
+const UP_COUT = 'UP_COUT';
+const START_LOAD = 'START_LOAD';
+const STOP_LOAD = 'STOP_LOAD';
+const MAX_ITEMS = 'MAX_ITEMS'; 
+
+const maxItem = (id: string) => {
+  return {
+    type: MAX_ITEMS,
+    id,
+  }
+}
+const startLoad = (id:string) => {
+  return {
+    type: START_LOAD,
+    id,
+  }
+}
+const stopLoad = (id:string) => {
+  return {
+    type: STOP_LOAD,
+    id
+  }
+}
 
 const upCout = (id:string,cout:number) => {
   return {
@@ -47,30 +69,38 @@ export const addUserCommentsThunk = (id: string) => async (dispatch: any,
   let CommentsItems: any[] = [];
   let stop = false;
 }
-export const addUserStoryThunk = (id: string) => async (dispatch: any,
-  getState: () => IuserReducers) => {
-    let user = getState().users[id];
+export const addUserStoryThunk = (id: string, whatUpNum = 25) => async (dispatch: any,
+  getState: () => IStore): Promise<IStore[]> => {
+    console.log('я вызвалась', id);
+    dispatch(startLoad(id));
+    let user = getState().users.users[id];
     let cunt = user.cunt;
     let StoryItems: IStore[] = [];
     let CommentsItems: any[] = [];
     let stop = false;
-    while (StoryItems.length < 100 || stop) {
+    while (StoryItems.length < whatUpNum || stop) {
+      debugger
       if (user.submitted) {
-        let maxCunt = cunt + 99;
+        let maxCunt = cunt + (whatUpNum-1);
         if (maxCunt > user.submitted.length) {
           maxCunt = user.submitted.length - 1;
           stop = true;
+          break
         }
-        let items = await getItems(user.submitted.slice(cunt,maxCunt+99));
+        let items = await getItems(user.submitted.slice(cunt,cunt+(whatUpNum-1)));
+        console.log(cunt,maxCunt+(whatUpNum-1),'тут пизда')
         StoryItems = [...StoryItems,...items.story];
         CommentsItems = [...CommentsItems,...items.comments];
-        cunt+=100;
+        cunt+=whatUpNum;
       } else {
         stop = true;
-        return
+        return [];
       }
     }
     dispatch(addUserStory(id,StoryItems));
+    dispatch(upCout(id,cunt));
+    dispatch(stopLoad(id));
+    return StoryItems
 }
 export const addUserThunk = (id:string) => async (dispatch:any) => {
   let userInfo:IUser = await getElementByUserId(id);
@@ -83,6 +113,39 @@ const start:IuserReducers = {
 
 function userReducers (state=start,action:any):IuserReducers {
   switch (action.type) {
+    case MAX_ITEMS: {
+      return {
+        ...state,
+        users: {...state.users,
+          [action.id]:{
+            ...state.users[action.id],
+            maxItems: true,
+          }
+        }
+      }
+    }
+    case STOP_LOAD: {
+      return {
+        ...state,
+        users: {...state.users,
+          [action.id]:{
+            ...state.users[action.id],
+            isLoad:false,
+          }
+        }
+      }
+    }
+    case START_LOAD: {
+      return {
+        ...state,
+        users: {...state.users,
+          [action.id]:{
+            ...state.users[action.id],
+            isLoad:true,
+          }
+        }
+      }
+    }
     case UP_COUT: {
       return {
         ...state,
@@ -106,6 +169,8 @@ function userReducers (state=start,action:any):IuserReducers {
           comments: [],
           favorites: [],
           cunt: 0,
+          isLoad: false,
+          maxItems: false,
         }}
       }
     }
@@ -113,7 +178,7 @@ function userReducers (state=start,action:any):IuserReducers {
       let story: IStore[] = [];
       let user = state.users[action.id];
       if (user.story) {
-        story = [...user.story,action.storys];
+        story = [...user.story,...action.storys];
       } else {
         story = [...action.storys];
       }
