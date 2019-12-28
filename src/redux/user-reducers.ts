@@ -79,12 +79,12 @@ export const addUserStoryThunk = (id: string, whatUpNum = 25) => async (dispatch
     let CommentsItems: any[] = [];
     let stop = false;
     while (StoryItems.length < whatUpNum || stop) {
-      debugger
       if (user.submitted) {
         let maxCunt = cunt + (whatUpNum-1);
         if (maxCunt > user.submitted.length) {
           maxCunt = user.submitted.length - 1;
           stop = true;
+          dispatch(maxItem(id));
           break
         }
         let items = await getItems(user.submitted.slice(cunt,cunt+(whatUpNum-1)));
@@ -98,6 +98,7 @@ export const addUserStoryThunk = (id: string, whatUpNum = 25) => async (dispatch
       }
     }
     dispatch(addUserStory(id,StoryItems));
+    dispatch(addUserCommets(id,CommentsItems))
     dispatch(upCout(id,cunt));
     dispatch(stopLoad(id));
     return StoryItems
@@ -113,6 +114,22 @@ const start:IuserReducers = {
 
 function userReducers (state=start,action:any):IuserReducers {
   switch (action.type) {
+    case ADD_USER_COMMETNS: {
+      let currentUser = state.users[action.id];
+      if (currentUser) {
+        return {
+          ...state,
+          users: {...state.users,
+            [action.id]: {
+              ...currentUser,
+              comments: [...currentUser.comments,...action.info]
+            }
+          }
+        }
+      } else {
+        return state
+      }
+    }
     case MAX_ITEMS: {
       return {
         ...state,
@@ -130,7 +147,7 @@ function userReducers (state=start,action:any):IuserReducers {
         users: {...state.users,
           [action.id]:{
             ...state.users[action.id],
-            isLoad:false,
+            isLoad:false
           }
         }
       }

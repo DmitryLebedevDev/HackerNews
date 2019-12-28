@@ -7,6 +7,7 @@ import ErorrPage from './helpers-components/ErorrPage';
 import StoryListContiner from './components-header/StoryListContiner';
 import UserPageContainer from './userPage/UserPageContainer';
 import UserPageSub from './userPage/UserPageSubContainer';
+import UserPageCommetns from './userPage/UserPageCommetns';
 
 
 function Content (props) {
@@ -16,7 +17,7 @@ function Content (props) {
           <Route path='/story/:storyId' render={ () => <CommentContiner/> }/>
           <Route path='/story' render={() => <StoryListContiner/>}/>
           <Route path='/user/:userId/submission' render={() => <UserPageSub/>} />
-          <Route path='/user/:userId/comments' render={() => <div>commetns</div>}/>
+          <Route path='/user/:userId/comments' render={() => <UserPageCommetns/>}/>
           <Route path='/user/:userId/favorites' render={() => <div>favorites</div>}/>
           <Route path='/user/:userId' render={() => <UserPageContainer/>}/>
           <Route path='/error' render={ () => <ErorrPage/> }/>

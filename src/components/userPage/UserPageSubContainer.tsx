@@ -15,7 +15,7 @@ interface Iprops extends RouteComponentProps<any> {
 }
 
 const UserPageSubContainer:React.FC<Iprops> = (props) => {
-  useEffect(()=> {
+  useEffect(() => {
     props.addUserThunk(props.match.params.userId).then(res => {
       props.addUserStoryThunk(props.match.params.userId);
     })
@@ -25,9 +25,14 @@ const UserPageSubContainer:React.FC<Iprops> = (props) => {
   if (currentUser) {
     if (currentUser.story && currentUser.story.length > 2) {
       return (
-        <StorysList story={currentUser.story} funcAdd={()=> {
-          props.addUserStoryThunk(props.match.params.userId)
-        }}/>
+        <StorysList 
+          storysIsLoad={currentUser.isLoad}
+          story={currentUser.story} 
+          funcAdd={() => {
+            props.addUserStoryThunk(props.match.params.userId)
+          }}
+          lenIsMax={currentUser.maxItems}
+          />
       )
     }
   }

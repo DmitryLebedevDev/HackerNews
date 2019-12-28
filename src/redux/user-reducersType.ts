@@ -10,7 +10,7 @@ export interface IUser {
   about?: string,
   submitted?: number[],
   story?: IStore[],
-  comments?: [],
+  comments: [],
   favorites?: [],
   cunt: number,
   isLoad: boolean,

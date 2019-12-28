@@ -51,7 +51,23 @@ export function getItems (arr) {
           });
         }
         if (res.type === 'comment') {
-          resultObj.comments.push(res);
+          /*
+          id(pin):21868146
+          name(pin):"e12e"
+          text(pin):"-platform? Is the implication that opencl is dead?"
+          commentsLeng(pin):1
+          comments: 
+          */
+          if (!res.deleted) {
+            resultObj.comments.push({
+              id: res.id,
+              name: res.by,
+              text: res.text,
+              //comments
+              //commentsLeng(pin):1
+              commentsIdArr: res.kids,
+            });
+          }
         }
       }));
     }

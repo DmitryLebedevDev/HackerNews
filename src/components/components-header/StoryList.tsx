@@ -50,7 +50,7 @@ interface Iprops {
 }
 
 
-function BlockComment(props: {
+export function BlockComment(props: {
   id?: number,
   name?: string,
   text: string,
@@ -94,7 +94,6 @@ function BlockComment(props: {
           </div>
           {comments}
         </>) : ''}
-        
     </div>
   )
 }
