@@ -7,7 +7,7 @@ import ErorrPage from './helpers-components/ErorrPage';
 import StoryListContiner from './components-header/StoryListContiner';
 import UserPageContainer from './userPage/UserPageContainer';
 import UserPageSub from './userPage/UserPageSubContainer';
-import UserPageCommetns from './userPage/UserPageCommetns';
+import UserPageCommetns from './userPage/UserPageCommetnsContainer';
 
 
 function Content (props) {

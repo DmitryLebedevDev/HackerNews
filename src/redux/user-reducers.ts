@@ -9,7 +9,8 @@ const ADD_USER_COMMETNS  = 'ADD_USER_COMMETNS';
 const UP_COUT = 'UP_COUT';
 const START_LOAD = 'START_LOAD';
 const STOP_LOAD = 'STOP_LOAD';
-const MAX_ITEMS = 'MAX_ITEMS'; 
+const MAX_ITEMS = 'MAX_ITEMS';
+const ADD_USER_COMMETNS_OPEN = 'ADD_USER_COMMETNS_OPEN';
 
 const maxItem = (id: string) => {
   return {
@@ -52,7 +53,15 @@ const addUserCommets = (id: string, info: any[]) => {
     info,
   }
 }
-
+const addUserComentsOpen = (id: string, info: any) => {
+  return {
+    type: ADD_USER_COMMETNS_OPEN,
+    info,
+  }
+}
+const addUserComentsOpenThunk = (id: string) => {
+  
+}
 const addUser = (info: IUser):{type:string,info:IUser} => {
   return {
     type: ADD_USER,
@@ -60,17 +69,7 @@ const addUser = (info: IUser):{type:string,info:IUser} => {
   }
 }
 
-
-export const addUserCommentsThunk = (id: string) => async (dispatch: any,
-  getState: () => IuserReducers) => {
-  let user = getState().users[id];
-  let cunt = user.cunt;
-  let StoryItems: any[] = [];
-  let CommentsItems: any[] = [];
-  let stop = false;
-}
-export const addUserStoryThunk = (id: string, whatUpNum = 25) => async (dispatch: any,
-  getState: () => IStore): Promise<IStore[]> => {
+async function addCommentsOrStoryUser (type: 'story'|'comments',id:string,whatUpNum = 25, dispatch: any, getState: any) {
     console.log('я вызвалась', id);
     dispatch(startLoad(id));
     let user = getState().users.users[id];
@@ -78,7 +77,7 @@ export const addUserStoryThunk = (id: string, whatUpNum = 25) => async (dispatch
     let StoryItems: IStore[] = [];
     let CommentsItems: any[] = [];
     let stop = false;
-    while (StoryItems.length < whatUpNum || stop) {
+    while ((type === 'story') ? StoryItems.length : CommentsItems.length < whatUpNum || stop) {
       if (user.submitted) {
         let maxCunt = cunt + (whatUpNum-1);
         if (maxCunt > user.submitted.length) {
@@ -102,6 +101,14 @@ export const addUserStoryThunk = (id: string, whatUpNum = 25) => async (dispatch
     dispatch(upCout(id,cunt));
     dispatch(stopLoad(id));
     return StoryItems
+}
+export const addUserCommentsThunk = (id: string, whatUpNum = 25) => async (dispatch: any,
+  getState: () => IStore): Promise<IStore[]> => {
+  return addCommentsOrStoryUser('comments',id,whatUpNum,dispatch,getState);
+}
+export const addUserStoryThunk = (id: string, whatUpNum = 25) => async (dispatch: any,
+  getState: () => IStore): Promise<IStore[]> => {
+  return addCommentsOrStoryUser('story',id,whatUpNum,dispatch,getState);
 }
 export const addUserThunk = (id:string) => async (dispatch:any) => {
   let userInfo:IUser = await getElementByUserId(id);

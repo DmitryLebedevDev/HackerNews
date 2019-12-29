@@ -55,9 +55,11 @@ export function BlockComment(props: {
   name?: string,
   text: string,
   comments?: any,
-  commentsLeng: number,
-  path: number[],
-  fullLenComments: number
+  commentsLeng?: number,
+  path?: number[],
+  fullLenComments?: number,
+  commetnsArr?: number[],
+  funcBtn?: any,
 }) {
   let [isOpenComment, openComment] = useState(false);
   let comments = [];
@@ -87,9 +89,14 @@ export function BlockComment(props: {
       <h6 className={styles.CommentBlock__name}>{props.name}</h6>
       <div dangerouslySetInnerHTML={{ __html: props.text }} className={styles.CommentBlock__content}></div>
       {
-        (props.commentsLeng) ? (<>
+        // eslint-disable-next-line no-mixed-operators
+        (props.commentsLeng || (props.commetnsArr) && props.commetnsArr.length) ? (<>
           <div className={styles.Story__linkComments} onClick={() => {
-            openComment(r => !r);}}>
+            openComment(r => !r);
+            if (props.funcBtn) {
+              props.funcBtn();// запуск 
+            }  
+          }}>
             <Button color="primary">Comments {props.commentsLeng}</Button>
           </div>
           {comments}
