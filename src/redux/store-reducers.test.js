@@ -1,6 +1,5 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
 import reducerStore from './store-reducers';
+import {addStory} from './store-reducers';
 
 let initStore = {
   storys: [],
@@ -9,8 +8,23 @@ let initStore = {
   storysIsLoad: false,
 };
 
-it('renders without crashing', () => {
-  //const div = document.createElement('div');
-  //ReactDOM.render(<App />, div);
-  //ReactDOM.unmountComponentAtNode(div);
+it('add story', () => {
+  let action = addStory([{info:'story 1'}]);
+  let state = reducerStore(initStore,action);
+  expect(state.storys.length).toBe(1);
 });
+it('add current story', () => {
+  /*
+  id,
+    author: story.by,
+    time: story.time,
+    fullLenComments: story.descendants,
+    comments: [],
+    commentsId: story.kids,
+    score: story.score,
+    header: story.title,
+    url: story.url,
+    commentsIsLoad: false,
+  */
+  //let action = 
+})

@@ -77,12 +77,18 @@ async function addCommentsOrStoryUser (type: 'story'|'comments',id:string,whatUp
     let StoryItems: IStore[] = [];
     let CommentsItems: any[] = [];
     let stop = false;
-    while ((type === 'story') ? StoryItems.length : CommentsItems.length < whatUpNum || stop) {
+    console.log(type === 'story');
+    while (((type === 'story') ? StoryItems.length : CommentsItems.length) < whatUpNum || stop) {
+      console.log('я в ебаном цикле')
       if (user.submitted) {
         let maxCunt = cunt + (whatUpNum-1);
         if (maxCunt > user.submitted.length) {
           maxCunt = user.submitted.length - 1;
           stop = true;
+          let items = await getItems(user.submitted.slice(cunt,cunt+(whatUpNum-1)));
+          console.log(cunt,maxCunt+(whatUpNum-1),'тут пизда')
+          StoryItems = [...StoryItems,...items.story];
+          CommentsItems = [...CommentsItems,...items.comments];
           dispatch(maxItem(id));
           break
         }

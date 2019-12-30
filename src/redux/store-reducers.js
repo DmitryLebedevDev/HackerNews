@@ -2,6 +2,7 @@ import { getTopStorys } from './../api/api';
 import { getElementById } from './../api/api';
 import { JsonComent } from '../helpers/function.js';
 
+
 const ADD_STORY = 'ADD_TOP_STORY';
 const ADD_COMMENT_TO_STORY = 'ADD_COMMENT_TO_STORY'; 
 const START_LOAD_STORY = 'START_LOAD_STORY';
@@ -49,7 +50,7 @@ export const stopLoadStory = () => {
   }
 };
 
-const addStory = (arrayStorys) => {
+export const addStory = (arrayStorys) => {
   return {
     type: ADD_STORY,
     storys: arrayStorys,

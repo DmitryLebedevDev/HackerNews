@@ -4,6 +4,9 @@ import { connect } from 'react-redux';
 import {initThunk} from './redux/init-reducers';
 import Header from './components/header.jsx';
 import Content from './components/Content';
+import store from './redux/store';
+import { BrowserRouter } from 'react-router-dom';
+import { Provider } from 'react-redux';
 
 interface d {
   isInit: boolean,
@@ -32,8 +35,16 @@ const App: React.FC<d> = (props:d) => {
     </div>
   );
 }
-
-export default connect(
+const AppC = function () {
+  return (
+    <BrowserRouter>
+      <Provider store={store}>
+        <AppCont />
+      </Provider>
+    </BrowserRouter>
+  )
+}
+const AppCont = connect(
   (state:any) => {
     return {
       isInit:state.init.init,
@@ -42,3 +53,14 @@ export default connect(
     initThunk,
   }
 )(App);
+
+/*export default connect(
+  (state:any) => {
+    return {
+      isInit:state.init.init,
+    }
+  },{
+    initThunk,
+  }
+)(App);*/
+export default AppC

@@ -23,7 +23,7 @@ const UserPageSubContainer:React.FC<Iprops> = (props) => {
   let [isLoad, load] = useState(false);
   let currentUser = props.users[props.match.params.userId];
   if (currentUser) {
-    if (currentUser.story && currentUser.story.length > 2) {
+    if (currentUser.story && currentUser.story.length >= 1) {
       return (
         <StorysList 
           storysIsLoad={currentUser.isLoad}
@@ -33,6 +33,13 @@ const UserPageSubContainer:React.FC<Iprops> = (props) => {
           }}
           lenIsMax={currentUser.maxItems}
           />
+      )
+    }
+    if (!currentUser.story && currentUser.maxItems) {
+      return (
+        <div>
+          no story
+        </div>
       )
     }
   }
