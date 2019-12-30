@@ -2,6 +2,7 @@ import IuserReducers, { IUser } from "./user-reducersType";
 import { getElementByUserId, getElementById } from "../api/api";
 import {getItems} from '../helpers/function';
 import IStore from "./storeType";
+import {JsonComent} from '../helpers/function';
 
 const ADD_USER = 'ADD_USER';
 const ADD_USER_STORY = 'ADD_USER_STORY';
@@ -53,14 +54,28 @@ const addUserCommets = (id: string, info: any[]) => {
     info,
   }
 }
-const addUserComentsOpen = (id: string, info: any) => {
+const addUserComentsOpen = (id: string,idComments: number, info: any[]) => {
   return {
     type: ADD_USER_COMMETNS_OPEN,
     info,
   }
 }
-const addUserComentsOpenThunk = (id: string) => {
-  
+const addUserComentsOpenThunk = (idUser: string, idComment: number) => (dispatch: any, getState: () => IuserReducers) => {
+  let commetns:any[] = [];
+  let promisCommetns: any[] = [];
+  let currentUser = getState().users[idUser];
+  let userComments = currentUser.comments.find((item) => item.id === idComment);
+  if (userComments && userComments.commentsIdArr) {
+    userComments.commentsIdArr.forEach(item => {
+      promisCommetns.push(JsonComent(item).then(res => {
+        commetns.push(item)
+        res()
+      }))
+    })
+  }
+  Promise.all(promisCommetns).then(res => {
+
+  })
 }
 const addUser = (info: IUser):{type:string,info:IUser} => {
   return {
@@ -127,6 +142,17 @@ const start:IuserReducers = {
 
 function userReducers (state=start,action:any):IuserReducers {
   switch (action.type) {
+    /*case ADD_USER_COMMETNS_OPEN: {
+      let user = {...state.users[action.id]};
+      user.comments = [...user.comments]
+
+      return {
+        ...state,
+        users: {
+          ...state.users
+        }
+      }
+    }*/
     case ADD_USER_COMMETNS: {
       let currentUser = state.users[action.id];
       if (currentUser) {
