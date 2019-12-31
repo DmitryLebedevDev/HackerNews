@@ -58,23 +58,27 @@ const addUserComentsOpen = (id: string,idComments: number, info: any[]) => {
   return {
     type: ADD_USER_COMMETNS_OPEN,
     info,
+    id,
+    idComments,
   }
 }
-const addUserComentsOpenThunk = (idUser: string, idComment: number) => (dispatch: any, getState: () => IuserReducers) => {
+export const addUserComentsOpenThunk = (idUser: string, idComment: number) => (dispatch: any, getState: () => IStore) => {
   let commetns:any[] = [];
   let promisCommetns: any[] = [];
-  let currentUser = getState().users[idUser];
+  let currentUser = getState().users.users[idUser];
+  console.log(currentUser,idUser,'currentUser',);
   let userComments = currentUser.comments.find((item) => item.id === idComment);
   if (userComments && userComments.commentsIdArr) {
     userComments.commentsIdArr.forEach(item => {
-      promisCommetns.push(JsonComent(item).then(res => {
-        commetns.push(item)
-        res()
+      promisCommetns.push(JsonComent([item]).then((res) => {
+        commetns.push(res)
+        console.log('res', res, item)
       }))
     })
   }
   Promise.all(promisCommetns).then(res => {
-
+    dispatch(addUserComentsOpen(idUser,idComment,commetns));
+    console.log(commetns)
   })
 }
 const addUser = (info: IUser):{type:string,info:IUser} => {
@@ -125,6 +129,7 @@ async function addCommentsOrStoryUser (type: 'story'|'comments',id:string,whatUp
 }
 export const addUserCommentsThunk = (id: string, whatUpNum = 25) => async (dispatch: any,
   getState: () => IStore): Promise<IStore[]> => {
+  console.log('запусk',id)
   return addCommentsOrStoryUser('comments',id,whatUpNum,dispatch,getState);
 }
 export const addUserStoryThunk = (id: string, whatUpNum = 25) => async (dispatch: any,
@@ -142,17 +147,27 @@ const start:IuserReducers = {
 
 function userReducers (state=start,action:any):IuserReducers {
   switch (action.type) {
-    /*case ADD_USER_COMMETNS_OPEN: {
-      let user = {...state.users[action.id]};
-      user.comments = [...user.comments]
-
+    case ADD_USER_COMMETNS_OPEN: {
+      /*let user = {...state.users[action.id]};
+      let comments: any = {};
+      for (let t=0; t<action.info.length; t++) {
+        comments[action.info[t].id] = {...action.info[t]};
+      }
+      user.comments = user.comments.map(item => {
+        return (item.id !== action.idComment) ? item : {...item, comments: comments}
+      })
+      console.log(comments);
+      //user.comments = [...user.comments,...action.info]
       return {
         ...state,
         users: {
-          ...state.users
+          ...state.users,
+          [action.id]:user,
         }
       }
-    }*/
+      */
+     return state
+    }
     case ADD_USER_COMMETNS: {
       let currentUser = state.users[action.id];
       if (currentUser) {

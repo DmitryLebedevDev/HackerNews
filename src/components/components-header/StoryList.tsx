@@ -60,6 +60,7 @@ export function BlockComment(props: {
   fullLenComments?: number,
   commetnsArr?: number[],
   funcBtn?: any,
+  //addFunc?: (idCommetn: number) => void
 }) {
   let [isOpenComment, openComment] = useState(false);
   let comments = [];
@@ -94,7 +95,7 @@ export function BlockComment(props: {
           <div className={styles.Story__linkComments} onClick={() => {
             openComment(r => !r);
             if (props.funcBtn) {
-              props.funcBtn();// запуск 
+              props.funcBtn();// запуск
             }  
           }}>
             <Button color="primary">Comments {props.commentsLeng}</Button>

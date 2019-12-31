@@ -110,7 +110,7 @@ export function ObjOfUnDateToString (coutTime) {
 }
 
 export function JsonComent(arr, path = [], commentsLen = 0) {
-  console.log('я запустилась');
+  console.log('я запустилась',arr);
   if (arr === undefined || !arr.length) {
     return new Promise ((res,req) => res());
   }

@@ -1,28 +1,32 @@
-import React, { useState } from 'react'
+import React, { useState , useEffect} from 'react'
 import { connect } from 'react-redux';
 import IStore from '../../redux/storeType';
 import { RouteComponentProps, match, withRouter } from 'react-router-dom';
 import { IUser } from '../../redux/user-reducersType';
 import { addUserThunk, addUserCommentsThunk } from '../../redux/user-reducers';
 import { BlockComment } from '../components-header/StoryList';
+import Load from './../decorComponent/load';
+import { addUserComentsOpenThunk } from './../../redux/user-reducers';
 
 interface Iprops extends RouteComponentProps<any> {
   match: match<{userId:string}>;
   users:{[key: string]: IUser};
   addUserThunk: (id:string) => Promise<any>;
   addUserCommentsThunk: (id:string) => Promise<any>;
+  addUserComentsOpenThunk: (idUser: string, idComment: number) => any
 }
 
 function UserPageCommetns(props: Iprops) {
+  console.log('RENDER COMMENTS');
   let [isReq, setReq] = useState(false);
-  let currentUser = props.users[props.match.params.userId];
-  if (!currentUser && !isReq) {
+  useEffect(() => {
     props.addUserThunk(props.match.params.userId).then(res => {
+      console.log(props.match.params.userId, 'я запустилась')
       props.addUserCommentsThunk(props.match.params.userId);
     });
-    setReq(true);
-  }
-  if (currentUser) {
+  },[props.match.params.userId])
+  let currentUser = props.users[props.match.params.userId];
+  if (currentUser && currentUser.comments.length>0) {
     /*
       id: res.id,
               name: res.by,
@@ -44,6 +48,10 @@ function UserPageCommetns(props: Iprops) {
       name={item.name}
       text={item.text}
       commetnsArr={item.commentsIdArr}
+      funcBtn={() => {
+        console.log(currentUser.id,'currentUser')
+        props.addUserComentsOpenThunk(currentUser.id,item.id)
+      }}
     />)
     return (
       <div>
@@ -51,14 +59,20 @@ function UserPageCommetns(props: Iprops) {
       </div>
     )
   }
-  // <BlockComment />
+  if (currentUser && currentUser.maxItems) {
+    return (
+      <div>
+        no comments
+      </div>
+    )
+  }
   return (
     <div>
-      {props.match.params.userId}
+      <Load/>
     </div>
   )
 }
-export default connect(
+export default React.memo(connect(
   (state:IStore) => {
     return {
       users: state.users.users,
@@ -66,5 +80,6 @@ export default connect(
   },{
     addUserThunk,
     addUserCommentsThunk,
+    addUserComentsOpenThunk,
   }
-)(withRouter(UserPageCommetns));
+)(withRouter(React.memo(UserPageCommetns))))
