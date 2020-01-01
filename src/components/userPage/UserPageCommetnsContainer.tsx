@@ -52,6 +52,7 @@ function UserPageCommetns(props: Iprops) {
         console.log(currentUser.id,'currentUser')
         props.addUserComentsOpenThunk(currentUser.id,item.id)
       }}
+      comments={item.comments}
     />)
     return (
       <div>

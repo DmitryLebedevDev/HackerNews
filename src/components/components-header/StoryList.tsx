@@ -68,8 +68,10 @@ export function BlockComment(props: {
     if (!props.comments) {
     } else {
       let keys = Object.keys(props.comments);
+      debugger
       if (props.comments && props.comments[keys[0]] && props.comments[keys[0]].id) {
         for (let current in props.comments) {
+          debugger
           comments.push(<BlockComment
             key={props.comments[current].id}
             id={props.comments[current].id}

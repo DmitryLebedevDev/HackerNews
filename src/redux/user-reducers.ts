@@ -148,15 +148,23 @@ const start:IuserReducers = {
 function userReducers (state=start,action:any):IuserReducers {
   switch (action.type) {
     case ADD_USER_COMMETNS_OPEN: {
-      /*let user = {...state.users[action.id]};
+      let user = {...state.users[action.id]};
       let comments: any = {};
       for (let t=0; t<action.info.length; t++) {
-        comments[action.info[t].id] = {...action.info[t]};
+        comments = {...comments,...action.info[t]};
+        console.log(action.info,t,action.info[t],comments,'1234')
       }
-      user.comments = user.comments.map(item => {
-        return (item.id !== action.idComment) ? item : {...item, comments: comments}
+      console.log(comments,'comments!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!',action.info)
+      let com = user.comments.map(item => {
+        if (item.id === action.idComments) {
+          let t = {...item, comments: comments}
+          console.log('ЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯ ЩАС ЕБАНУСЬ', t);
+          return t
+        }
+        return item
       })
-      console.log(comments);
+      user.comments = com;
+      console.log(user.comments,user,action,com);
       //user.comments = [...user.comments,...action.info]
       return {
         ...state,
@@ -165,8 +173,6 @@ function userReducers (state=start,action:any):IuserReducers {
           [action.id]:user,
         }
       }
-      */
-     return state
     }
     case ADD_USER_COMMETNS: {
       let currentUser = state.users[action.id];
