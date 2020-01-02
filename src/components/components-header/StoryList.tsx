@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { Link as MaterialBottom} from '@material-ui/core';
 import { Button, LinearProgress } from '@material-ui/core';
 import MinLoadCenter from '../decorComponent/minLoadCenter';
+import {egoDateToString} from '../../helpers/function';
 //import { makeStyles } from '@material-ui/core/styles';
 
 /*const useStyle = makeStyles({
@@ -15,8 +16,10 @@ import MinLoadCenter from '../decorComponent/minLoadCenter';
 function StorysList(props: any) {
   //let colorButton = useStyle();
   let addFunc:any = props.addTopStoryThunk || props.funcAdd;
-  let sotys = props.story.map((item:Iprops) =>
-    <StoryItem key={item.id} addCommentToStoryThunk={props.addCommentToStoryThunk} {...item}/>)
+  let sotys = props.story.map((item:Iprops) => {
+    console.log(item,'11111111111111111111111111111111111111111111111111'); 
+    return<StoryItem key={item.id} addCommentToStoryThunk={props.addCommentToStoryThunk} {...item}/>
+  })
   return (
     <div className={styles.StotyList}>
       {sotys}
@@ -35,6 +38,7 @@ interface Iprops {
   header: string,
   author: string,
   score: number,
+  time: number,
   comments: {
     id: number,
     name: string,
@@ -141,7 +145,7 @@ export function StoryItem(props: Iprops) {
           {props.score} points by 
           <Link to={`/user/${props.author}`} className={styles.Story__linkToProfile}>
             {props.author} 
-          </Link> data | hide |
+          </Link> {egoDateToString(props.time)} | hide |
           {(props.fullLenComments) ?  
           <Link to={`/story/${props.id}`} className={styles.Story__linkComments}
             onClick={() => { openComment(r => !r) }}>

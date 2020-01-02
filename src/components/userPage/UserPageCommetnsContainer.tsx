@@ -7,6 +7,7 @@ import { addUserThunk, addUserCommentsThunk } from '../../redux/user-reducers';
 import { BlockComment } from '../components-header/StoryList';
 import Load from './../decorComponent/load';
 import { addUserComentsOpenThunk } from './../../redux/user-reducers';
+import styles from './UserPage.module.css';
 
 interface Iprops extends RouteComponentProps<any> {
   match: match<{userId:string}>;
@@ -55,7 +56,7 @@ function UserPageCommetns(props: Iprops) {
       comments={item.comments}
     />)
     return (
-      <div>
+      <div className={styles.content}>
         {commetns}
       </div>
     )

@@ -19,7 +19,7 @@ const Header = (props) => {
           <a href="#">ask</a>
         </div>
         <div className={styles.Header__item}>
-          <a href="#">jobs</a>
+          <Link to={'/jobs'}>jobs</Link>
         </div>  
       </div>
     </div>

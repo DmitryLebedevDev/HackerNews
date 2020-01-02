@@ -18,6 +18,7 @@ interface Iprops extends RouteComponentProps<any> {
     author: string,
     score: number,
     commentsIsLoad: boolean,
+    time:number,
     comments: {
       id: number,
       name: string,
@@ -63,6 +64,7 @@ const CommentContiner = (props:Iprops) => {
           addCommentToStoryThunk={props.addCommentToStoryThunk}
           commentsIsLoad={currentStory.commentsIsLoad}
           commentsDefOpen={true}
+          time={currentStory.time}
         />
       </div>
     )

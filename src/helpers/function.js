@@ -51,13 +51,6 @@ export function getItems (arr) {
           });
         }
         if (res.type === 'comment') {
-          /*
-          id(pin):21868146
-          name(pin):"e12e"
-          text(pin):"-platform? Is the implication that opencl is dead?"
-          commentsLeng(pin):1
-          comments: 
-          */
           if (!res.deleted) {
             resultObj.comments.push({
               id: res.id,
@@ -107,6 +100,23 @@ export function ObjOfUnDateToString (coutTime) {
     year: "numeric",
   }).format(objDate);
   return date
+}
+export function egoDateToString (unDate) {
+  let time = ObjOfUnDate(unDate);
+  let diffrent = (new Date() - time)/1000;
+  if (diffrent < 60) {
+    return `${diffrent} seconds ego`;
+  }
+  if (diffrent < 3600) {
+    return `${Math.ceil(diffrent/60)} menutes ego`;
+  }
+  if (diffrent < 86400) {
+    return `${Math.ceil(diffrent/3600)} hours ego`;
+  }
+  if (diffrent < 2678400) {
+    return `${Math.ceil(diffrent/604800)} weeks ego`;
+  }
+  return ObjOfUnDateToString(unDate);
 }
 
 export function JsonComent(arr, path = [], commentsLen = 0) {
