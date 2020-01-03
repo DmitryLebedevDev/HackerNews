@@ -4,12 +4,14 @@ import { reducer as formReducer} from 'redux-form';
 import storeReducers from './store-reducers';
 import init from './init-reducers';
 import userReducers from './user-reducers';
+import jobsReducer from './jobs-reducers';
 
 const redusers = combineReducers ({
     form:formReducer,
     storys:storeReducers,
     init,
     users:userReducers,
+    jobs: jobsReducer, 
 });
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const store = createStore(redusers, composeEnhancers(applyMiddleware(thunkMiddleware)));

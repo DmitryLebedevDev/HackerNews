@@ -27,6 +27,20 @@ import { getElementById } from "../api/api";
   return json
 }
 */
+export function getItemsArray (arr = []) {
+  return new Promise((res,req) => {
+    let promiseArr = [];
+    let items = [];
+    for(let t=0; t<arr.length; t++) {
+      promiseArr.push(getElementById(arr[t]).then(result => {
+        items.push(result);
+      }))
+    }
+    Promise.all(promiseArr).then(info => {
+      res(items);
+    })
+  })
+}
 export function getItems (arr) {
   return new Promise ((res,req) => {
     let arrPromise = [];
