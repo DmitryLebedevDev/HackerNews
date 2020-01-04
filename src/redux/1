@@ -1,5 +1,5 @@
 import IuserReducers, { IUser } from "./user-reducersType";
-import { getElementByUserId, getElementById, getTopJobs } from "../api/api";
+import { getElementByUserId, getElementById, getTopStorys } from "../api/api";
 import {getItems} from '../helpers/function';
 import IStore from "./storeType";
 import {JsonComent} from '../helpers/function';
@@ -7,17 +7,11 @@ import IjobsReduser, { Ijob } from "./jobs-reducersType";
 
 const ADD_JOBS = 'ADD_JOBS' 
 const UP_INDEX = 'UP_INDEX'
+const SET_INDEX_ARR = 'SET_INDEX_ARR'
 const IS_LOAD_JOBS = 25;
 const MAX_JOBS_LEN = 200;
-const SET_INDEX_ARR = 'SET_INDEX_ARR';
 
 
-const setIndexArr = (arr: number[]) => {
-  return {
-    type:SET_INDEX_ARR,
-    arr,
-  }
-}
 const upIndex = (upIndexNum: string) => {
   return {
     type: UP_INDEX,
@@ -33,10 +27,6 @@ const addJobs = (jobs: Ijob[]) => {
 const addJobsThunk = () => async (dispatch: any, getStory: () => IStore) => {
   const stor = getStory();
   let indexArr = stor.jobs.jobsIndexArr;
-  if (!indexArr) {
-    indexArr = await getTopJobs();
-    dispatch(setIndexArr(indexArr));
-  }
   let currentLoad = stor.jobs.loadJobsNum;
   if (currentLoad + IS_LOAD_JOBS >= MAX_JOBS_LEN && currentLoad < MAX_JOBS_LEN) {
     
