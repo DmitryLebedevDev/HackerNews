@@ -27,7 +27,7 @@ import { getElementById } from "../api/api";
   return json
 }
 */
-export function getItemsArray (arr = []) {
+export function getItemsArrayLoad (arr = []) {
   return new Promise((res,req) => {
     let promiseArr = [];
     let items = [];
