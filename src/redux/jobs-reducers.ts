@@ -8,7 +8,7 @@ import IjobsReduser, { Ijob } from "./jobs-reducersType";
 
 const ADD_JOBS = 'ADD_JOBS' 
 const UP_INDEX = 'UP_INDEX'
-const IS_LOAD_JOBS = 25;
+const IS_LOAD_JOBS = 1;
 const MAX_JOBS_LEN = 200;
 const SET_INDEX_ARR = 'SET_INDEX_ARR';
 
@@ -19,34 +19,43 @@ const setIndexArr = (arr: number[]) => {
     arr,
   }
 }
-const upIndex = (upIndexNum: string) => {
+const upIndex = (upIndexNum: number) => {
   return {
     type: UP_INDEX,
     upIndexNum,
   }
 }
-const addJobs = (jobs: Ijob[]) => {
+export const addJobs = (jobs: Ijob[]) => {
   return {
     type: ADD_JOBS,
     jobs,
   }
 }
-const addJobsThunk = () => async (dispatch: any, getStory: () => IStore) => {
+export const addJobsThunk = () => async (dispatch: any, getStory: () => IStore) => {
   const stor = getStory();
   let indexArr = stor.jobs.jobsIndexArr;
-  if (!indexArr) {
+  if (!indexArr.length) {
     indexArr = await getTopJobs();
     dispatch(setIndexArr(indexArr));
+    console.log(indexArr);
   }
   let currentLoad = stor.jobs.loadJobsNum;
-  if (currentLoad + IS_LOAD_JOBS >= indexArr.length && currentLoad < indexArr.length) {
-    let info = await getItemsArrayLoad(indexArr.slice(currentLoad,currentLoad + IS_LOAD_JOBS))
-
-
-
-
-
+  if (currentLoad >= indexArr.length) {
+    return
   }
+  if (currentLoad + IS_LOAD_JOBS > indexArr.length && currentLoad < indexArr.length) {
+    debugger
+    let jobs = await getItemsArrayLoad(indexArr.slice(currentLoad, indexArr.length))
+    console.log(indexArr.slice(currentLoad, indexArr.length));
+    console.log(jobs, 'info!!1111! надо разобраться')
+    dispatch(addJobs(jobs));
+    dispatch(upIndex(jobs.length));
+    return
+  }
+  let jobs = await getItemsArrayLoad(indexArr.slice(currentLoad, currentLoad+IS_LOAD_JOBS));
+  console.log(jobs);
+  dispatch(addJobs(jobs));
+  dispatch(upIndex(jobs.length));
 }
 
 let start: IjobsReduser = {
@@ -54,7 +63,6 @@ let start: IjobsReduser = {
   loadJobsNum: 0,
   jobsIndexArr: []
 }
-
 function jobsReducer (state=start,action:any):IjobsReduser{
   switch (action.type) {
     case SET_INDEX_ARR: {
@@ -72,7 +80,7 @@ function jobsReducer (state=start,action:any):IjobsReduser{
     case ADD_JOBS: {
       return {
         ...state,
-        jobs: [...state.jobs,action.jobs]
+        jobs: [...state.jobs,...action.jobs]
       }
     }
     default: {
