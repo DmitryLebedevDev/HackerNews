@@ -19,4 +19,6 @@ export default interface IjobsReduser {
   jobs: Ijob[]
   loadJobsNum: number,
   jobsIndexArr: number[],
+  isLoad: boolean,
+  isMax: boolean,
 }

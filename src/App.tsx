@@ -14,7 +14,7 @@ interface d {
 }
 
 
-const App: React.FC<d> = (props:d) => { 
+const App: React.FC<d> = (props:d) => {
   useEffect(()=>{
     if (props.isInit) {
       return
