@@ -8,9 +8,10 @@ import Load from '../decorComponent/load';
 import { LinearProgress } from '@material-ui/core';
 
 interface Iprops {
-  addJobsThunk: () => void
-  jobs: Ijob[]
-  isLoad: boolean,
+  addJobsThunk: () => void;
+  jobs: Ijob[];
+  isLoad: boolean;
+  isMax: boolean;
 }
 function JobsContainer(props: Iprops) {
   useEffect(() => {
@@ -23,7 +24,11 @@ function JobsContainer(props: Iprops) {
   }
   return (
     <div>
-      <JobsList jobs={props.jobs} addFunBtn={props.addJobsThunk} isLoad={props.isLoad}/>
+      <JobsList jobs={props.jobs} 
+                addFunBtn={props.addJobsThunk} 
+                isLoad={props.isLoad}
+                isMax={props.isMax}
+                />
     </div>
   )
 }
@@ -32,6 +37,7 @@ export default connect(
     return {
       jobs:store.jobs.jobs,
       isLoad: store.jobs.isLoad,
+      isMax: store.jobs.isMax,
     }
   }, {
     addJobsThunk,

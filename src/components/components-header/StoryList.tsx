@@ -93,7 +93,9 @@ export function BlockComment(props: {
   }
   return (
     <div className={styles.CommentBlock}>
-      <h6 className={styles.CommentBlock__name}>{props.name}</h6>
+      <h6 className={styles.CommentBlock__name}>
+        <Link to={`/user/${props.name}`}>{props.name}</Link>
+      </h6>
       <div dangerouslySetInnerHTML={{ __html: props.text }} className={styles.CommentBlock__content}></div>
       {
         // eslint-disable-next-line no-mixed-operators

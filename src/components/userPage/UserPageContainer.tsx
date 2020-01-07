@@ -20,14 +20,16 @@ interface Iprops extends RouteComponentProps<any> {
 }
 
 const UserPageContainer:React.FC<Iprops> = (props) => {
-  //console.log("TCL: props !!!!!!!!!!!!!!!!!!!!!!", props)
+  //console.log("TCL: props !!!!!!!!!!!!!!!!!!!!!!",  props)
   const [requersStatis, setrequersStatis] = useState(false);
   let currentUser: IUser | void;
   if(!props.users[props.match.params.userId]) {
     console.log(props.match.params.userId);
     if (!requersStatis) {  
+      debugger
       props.addUserThunk(props.match.params.userId);
       console.log("TCL: props.match", props.match)
+      console.log('ты не думой нахой  ятут')
       setrequersStatis(true);
     }
   } else {

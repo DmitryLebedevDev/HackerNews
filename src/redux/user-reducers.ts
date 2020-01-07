@@ -138,6 +138,7 @@ export const addUserStoryThunk = (id: string, whatUpNum = 25) => async (dispatch
 }
 export const addUserThunk = (id:string) => async (dispatch:any) => {
   let userInfo:IUser = await getElementByUserId(id);
+  debugger
   dispatch(addUser(userInfo));
 }
 
@@ -234,6 +235,7 @@ function userReducers (state=start,action:any):IuserReducers {
       }
     }
     case ADD_USER: {
+      debugger
       return {
         ...state,
         users:{...state.users,[action.info.id]:{

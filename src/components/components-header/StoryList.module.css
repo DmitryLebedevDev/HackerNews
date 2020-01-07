@@ -40,6 +40,25 @@
 .CommentBlock__name {
   margin-bottom: 5px;
 }
+.CommentBlock__name a {
+  color: black;
+  position: relative;
+}
+.CommentBlock__name a::before {
+  position: absolute;
+  content: '';
+  width: 0%;
+  height: 1px;
+  background: black;
+  bottom: 0;
+  right: 0;
+  transition: 0.3s;
+}
+.CommentBlock__name a:hover::before {
+  left: 0;
+  width: 100%;
+}
+
 .Story {
   max-width: 600px;
   margin: 0 auto;
@@ -50,6 +69,7 @@
 .Story__header {
   text-align: center;
 }
+/*////////////////////////////////////////////////*/
 .Story__blockCenter {
   display: flex;
   justify-content: center;

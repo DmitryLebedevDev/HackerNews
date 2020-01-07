@@ -95,7 +95,6 @@ export function UnDate (currentSeconts) {
   return diffrent;
 }
 export function ObjOfUnDate (coutTime) {
-  console.log(UnDate(coutTime),'unixDate');
   let date1 = new Date(+new Date() + new Date().getTimezoneOffset()*60*1000);
   //? разница между настоящим и прошлым
   let date2 = UnDate(coutTime);
