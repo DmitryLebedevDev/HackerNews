@@ -26,6 +26,7 @@ export interface IStore {
   title: string,
   url: string,
   deleted?: boolean,
+  type?: 'story'
 }
 export interface ICommetn {
   id: number,
@@ -34,4 +35,5 @@ export interface ICommetn {
   comments?: ICommetn[],
   commentsLeng?:number
   commentsIdArr: number[],
+  type?: 'comment'
 }

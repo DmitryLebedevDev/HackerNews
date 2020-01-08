@@ -14,6 +14,7 @@ export interface Ijob {
   time: number,
   title: string,
   url: string,
+  type?: 'job',
 }
 export default interface IjobsReduser {
   jobs: Ijob[]

@@ -10,7 +10,7 @@ const Header = (props) => {
           <a href="#">new</a>
         </div>
         <div className={styles.Header__item}>
-          <a href="#">comments</a>
+          <Link to={'/getById'}>getById</Link>
         </div>
         <div className={styles.Header__item}>
           <Link to={'/story'}>story</Link>
