@@ -104,8 +104,6 @@ export function ObjOfUnDate (coutTime) {
 }
 export function ObjOfUnDateToString (coutTime) {
   let objDate = ObjOfUnDate(coutTime);
-  let diffrent = UnDate(coutTime);
-  //if (diffrent < )
   console.log(objDate.getMonth(),objDate.getDate());
   let date = new Intl.DateTimeFormat("en-Us",{
     month: "long",

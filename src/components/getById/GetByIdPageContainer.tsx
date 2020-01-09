@@ -11,14 +11,18 @@ interface Iprops {
 }
 
 function GetByIdPageContainer(props: Iprops) {
+    const item = props.item;
     const [text,setText] = useState('');
+    console.log(props);
     return (
         <div>
-            id234
+            id
             <input type="text" value={text} onChange={(event) => {
                 setText(event.target.value);
-                console.log(event)
+                props.setItemThunk(+event.target.value);
             }}/>
+            is Load {''+props.isLoad} <br/>
+            item type: {(item) ? item.type : ''}
         </div>
     )
 }
