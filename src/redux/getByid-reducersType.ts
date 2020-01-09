@@ -3,7 +3,7 @@ import {IStore,ICommetn} from './user-reducersType';
 
 export type Iitem = Ijob|IStore|ICommetn;
 
-export default interface IgetByIdReducersState {
+export default interface IgetByIdReducers {
     item?:Ijob|IStore|ICommetn;
     isLoad: boolean,
 }
