@@ -1,0 +1,10 @@
+.center {
+    display: inline-flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.centerBlock {
+    display: flex;
+    justify-content: center;
+}

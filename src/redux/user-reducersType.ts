@@ -22,7 +22,7 @@ export interface IStore {
   id: number,
   kids: string[],
   score: number,
-  time: string,
+  time: number,
   title: string,
   url: string,
   deleted?: boolean,
@@ -35,5 +35,6 @@ export interface ICommetn {
   comments?: ICommetn[],
   commentsLeng?:number
   commentsIdArr: number[],
+  kids: number[],
   type?: 'comment'
 }
