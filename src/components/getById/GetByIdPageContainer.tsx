@@ -75,6 +75,8 @@ function GetByIdPageContainer(props: Iprops) {
             name={item.name}
             text={item.text}
             commetnsArr={item.kids}
+            comments={item.comments}
+            isLoad={true}
         />
     }
     useEffect(() => {

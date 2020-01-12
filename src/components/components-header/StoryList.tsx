@@ -64,6 +64,7 @@ export function BlockComment(props: {
   fullLenComments?: number,
   commetnsArr?: number[],
   funcBtn?: any,
+  isLoad?: boolean,
   //addFunc?: (idCommetn: number) => void
 }) {
   let [isOpenComment, openComment] = useState(false);
@@ -97,6 +98,7 @@ export function BlockComment(props: {
         <Link to={`/user/${props.name}`}>{props.name}</Link>
       </h6>
       <div dangerouslySetInnerHTML={{ __html: props.text }} className={styles.CommentBlock__content}></div>
+      {(props.isLoad) ? 'da' : null}
       {
         // eslint-disable-next-line no-mixed-operators
         (props.commentsLeng || (props.commetnsArr) && props.commetnsArr.length) ? (<>
