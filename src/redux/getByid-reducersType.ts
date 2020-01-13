@@ -9,4 +9,5 @@ export default interface IgetByIdReducers {
     isLoad: boolean,
     timer?: NodeJS.Timeout | null,
     maxItem?: number,
+    isLoadInItem: boolean,
 }

@@ -100,7 +100,7 @@ export function BlockComment(props: {
       <div dangerouslySetInnerHTML={{ __html: props.text }} className={styles.CommentBlock__content}></div>
       {(props.isLoad) ? 'da' : null}
       {
-        // eslint-disable-next-line no-mixed-operators
+        (props.isLoad) ? <MinLoadCenter/> :
         (props.commentsLeng || (props.commetnsArr) && props.commetnsArr.length) ? (<>
           <div className={styles.Story__linkComments} onClick={() => {
             openComment(r => !r);
