@@ -6,6 +6,7 @@ import {setItemThunk,startCheckMaxItem,CheckMaxItemThunk,setCommentInItemThunk} 
 import styles from './GetByIdPage.module.css'
 import MinLoadCenter from '../decorComponent/minLoadCenter'
 import {StoryItem, BlockComment} from '../components-header/StoryList'
+import TableItemsNumber from '../decorComponent/TableItem/TableItemsNumber'
 
 interface Iprops {
     item?: Iitem;
@@ -54,7 +55,7 @@ function GetByIdPageContainer(props: Iprops) {
             console.log('я все')
         };
     }, [])
-    const [text,setText] = useState('');
+    const [text,setText] = useState(((item) ? item.id : ''));
     console.log(props);
     if (!props.maxItem) {
         return (
@@ -65,7 +66,7 @@ function GetByIdPageContainer(props: Iprops) {
         <div className={styles.centerBlock}>
             <div className={styles.center}>
                 <div>
-                    max id = {props.maxItem}
+                    max id = <TableItemsNumber number={2}/>
                 </div> 
                 id -> {text} <br/>
                 <input type="text" value={text} onChange={(event) => {

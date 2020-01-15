@@ -70,6 +70,8 @@ export const setItem = (item: Iitem) => {
 export const setCommentInItemThunk = (id:number) => async (dispatch: any) => {
     dispatch(requesInItemStart());
     let comments = await JsonComent([id]);
+    debugger
+    comments = comments[id].comments;
     dispatch(setCommentInItem(comments));
     dispatch(requesInItemStop());
 }
@@ -127,6 +129,9 @@ export default function getByIdReducers (state = initState,action: any):IgetById
             }
         } 
         case SET_MAX_ITEM: {
+            if (state.maxItem === action.index) {
+                return state
+            }
             return {
                 ...state,
                 maxItem: action.index,

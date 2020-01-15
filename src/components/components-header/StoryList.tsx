@@ -98,13 +98,12 @@ export function BlockComment(props: {
         <Link to={`/user/${props.name}`}>{props.name}</Link>
       </h6>
       <div dangerouslySetInnerHTML={{ __html: props.text }} className={styles.CommentBlock__content}></div>
-      {(props.isLoad) ? 'da' : null}
       {
         (props.isLoad) ? <MinLoadCenter/> :
         (props.commentsLeng || (props.commetnsArr) && props.commetnsArr.length) ? (<>
           <div className={styles.Story__linkComments} onClick={() => {
             openComment(r => !r);
-            if (props.funcBtn) {
+            if (props.funcBtn && comments.length === 0) {
               props.funcBtn();// запуск
             }  
           }}>
