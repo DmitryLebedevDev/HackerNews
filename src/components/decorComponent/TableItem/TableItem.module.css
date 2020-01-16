@@ -48,34 +48,43 @@
 }
 .topUp0 {
     animation: up0  1s;
+    transform: translateY(0px);
 }
 .topUp1 {
     animation: up1  1s;
+    transform: translateY(-16px);
 }
 .topUp2 {
     animation: up2  1s;
     transform: translateY(-32px);
 }
 .topUp3 {
-    animation: up3  1s
+    animation: up3  1s;
+    transform: translateY(-48px);
 }
 .topUp4 {
-    animation: up4  1s
+    animation: up4  1s;
+    transform: translateY(-64px);
 }
 .topUp5 {
-    animation: up5  1s
+    animation: up5  1s;
+    transform: translateY(-80px);
 }
 .topUp6 {
-    animation: up6  1s
+    animation: up6  1s;
+    transform: translateY(-96px);
 }
 .topUp7 {
-    animation: up7  1s
+    animation: up7  1s;
+    transform: translateY(-112px);
 }
 .topUp8 {
-    animation: up8  1s
+    animation: up8  1s;
+    transform: translateY(-128px);
 }
 .topUp9 {
-    animation: up9  1s
+    animation: up9  1s;
+    transform: translateY(-144px);
 }
 @keyframes up0 {
     from {

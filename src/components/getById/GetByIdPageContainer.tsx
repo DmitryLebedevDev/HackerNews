@@ -1,4 +1,4 @@
-import React,{useState, useEffect} from 'react'
+import React,{useState, useEffect, useRef} from 'react'
 import { connect } from 'react-redux'
 import  IStore  from '../../redux/storeType'
 import { Iitem } from '../../redux/getByid-reducersType'
@@ -22,6 +22,7 @@ interface Iprops {
 function GetByIdPageContainer(props: Iprops) {
     let item = props.item;
     let DOMitem;
+    let loadId = useRef('');
     if (item && item.type === 'story') {
         DOMitem = <StoryItem 
             id={item.id}
@@ -66,12 +67,15 @@ function GetByIdPageContainer(props: Iprops) {
         <div className={styles.centerBlock}>
             <div className={styles.center}>
                 <div>
-                    max id = <TableItemsNumber number={2}/>
+                    max id <TableItemsNumber number={props.maxItem}/>
                 </div> 
                 id -> {text} <br/>
                 <input type="text" value={text} onChange={(event) => {
                     setText(event.target.value);
-                    props.setItemThunk(+event.target.value);
+                    if (+event.target.value) {
+                        loadId.current = event.target.value;
+                        props.setItemThunk(+event.target.value);
+                    }
                 }}/>
                 is Load {''+props.isLoad} <br/>
                 item type: {(item) ? item.type : ''} <br/>
