@@ -97,7 +97,18 @@ export const setItemThunk = (id:number) => async (dispatch: any) => {
     }
     dispatch(setItem(item));
     dispatch(stopLoad());
+};
+// setItemThunkStart + setItemThunkEnd one fuc
+export const setItemThunkStart = (id: number) => async (dispatch: any) => {
+    dispatch(statLoad());
+    let item = await getElementById(id);
+    return item;
 }
+export const setItemThunkEnd = (item: any) => async (dispatch: any) => {
+    dispatch(setItem(item));
+    dispatch(statLoad());
+}
+
 let initState: IgetByIdReducersState = {
     isLoad:false,
     isLoadInItem: false,
