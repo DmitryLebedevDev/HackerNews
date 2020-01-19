@@ -1,6 +1,5 @@
 import IgetByIdReducersState, { Iitem } from './getByid-reducersType';
 import { getElementById, maxItems } from '../api/api';
-import { clearInterval } from 'timers';
 import { JsonComent } from '../helpers/function';
 import { ICommetn } from './user-reducersType';
 
@@ -14,6 +13,15 @@ const SET_MAX_ITEM = 'SET_MAX_ITEM';
 const REQUERS_IN_ITEM_START = 'REQUERS_IN_ITEM_START';
 const REQUERS_IN_ITEM_STOP = 'REQUERS_IN_ITEM_STOP';
 const SET_COMMENT_IN_ITEM = 'SET_COMMENT_IN_ITEM';
+const RESET_ITEM = 'RESET_ITEM';
+const STOP_CHECK_MAX_ITEM = 'STOP_CHECK_MAX_ITEM';
+
+
+export const resetItem = () => {
+    return {
+        type: RESET_ITEM
+    }
+}
 
 const setCommentInItem = (comment: ICommetn) => {
     return {
@@ -84,6 +92,9 @@ export const startCheckMaxItem = () => (dispatch: any) => {
         dispatch(CheckMaxItemThunk());
     },1000)))
 }
+export const StopCheckMaxItem = () => (dispatch: any) => {
+    
+}
 export const setItemThunk = (id:number) => async (dispatch: any) => {
     dispatch(statLoad());
     let item = await getElementById(id);
@@ -116,6 +127,12 @@ let initState: IgetByIdReducersState = {
 
 export default function getByIdReducers (state = initState,action: any):IgetByIdReducersState {
     switch (action.type) {
+        case STOP_CHECK_MAX_ITEM: {
+            return {
+                ...state,
+
+            }
+        }
         case SET_COMMENT_IN_ITEM: {
             let item
             if (state.item && state.item.type === 'comment') {
@@ -181,7 +198,12 @@ export default function getByIdReducers (state = initState,action: any):IgetById
                 item: action.item
             }
         }
-
+        case RESET_ITEM: {
+            return {
+                ...state,
+                item: undefined,
+            }
+        }
         default: return state;
     }
 }
