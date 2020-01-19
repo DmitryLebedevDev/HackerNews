@@ -100,7 +100,7 @@ function GetByIdPageContainer(props: Iprops) {
                 {(error) && <div style={{color: 'red'}}>max items is {props.maxItem}</div>}
                 is Load {''+props.isLoad} <br/>
                 <div className={styles.content}>
-                    {(!props.isLoad) ? DOMitem : <MinLoadCenter/>}
+                    {(true) ? DOMitem : <MinLoadCenter/>}
                 </div>
             </div>
         </div>
