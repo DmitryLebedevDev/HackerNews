@@ -77,14 +77,15 @@ export const setItem = (item: Iitem) => {
 }
 export const setCommentInItemThunk = (id:number) => async (dispatch: any) => {
     dispatch(requesInItemStart());
+    // func JsonComment res comments[id] > comments [id] -> comment,comment,comment
     let comments = await JsonComent([id]);
-    debugger
     comments = comments[id].comments;
     dispatch(setCommentInItem(comments));
     dispatch(requesInItemStop());
 }
 export const CheckMaxItemThunk = () => async (dispatch: any) => {
-    dispatch(setMaxItem(await maxItems()));
+    let maxNum = await maxItems();
+    dispatch(setMaxItem(maxNum));
 }
 export const startCheckMaxItem = () => (dispatch: any) => {
     dispatch(startTimer(setInterval(() => {
@@ -92,32 +93,20 @@ export const startCheckMaxItem = () => (dispatch: any) => {
         dispatch(CheckMaxItemThunk());
     },1000)))
 }
-export const StopCheckMaxItem = () => (dispatch: any) => {
-    
-}
-export const setItemThunk = (id:number) => async (dispatch: any) => {
+// setItemThunkStart + setItemThunkEnd one fuc
+export const setItemThunkStart = (id: number) => async (dispatch: any) => {
     dispatch(statLoad());
     let item = await getElementById(id);
     if(item.type === 'comment') {
         item.name = item.by;
         item.isLoad = false;
-        //let info = await JsonComent([item.id]);
-        //item.comments = info;
-        //console.log(info,'\\\\\\\\\\\\\\\\\\\\//////////////////')
         delete item.by
     }
-    dispatch(setItem(item));
-    dispatch(stopLoad());
-};
-// setItemThunkStart + setItemThunkEnd one fuc
-export const setItemThunkStart = (id: number) => async (dispatch: any) => {
-    dispatch(statLoad());
-    let item = await getElementById(id);
     return item;
 }
 export const setItemThunkEnd = (item: any) => async (dispatch: any) => {
     dispatch(setItem(item));
-    dispatch(statLoad());
+    dispatch(stopLoad());
 }
 
 let initState: IgetByIdReducersState = {
@@ -157,6 +146,7 @@ export default function getByIdReducers (state = initState,action: any):IgetById
             }
         } 
         case SET_MAX_ITEM: {
+            // that no reload if max Item Index = check index
             if (state.maxItem === action.index) {
                 return state
             }
@@ -202,6 +192,7 @@ export default function getByIdReducers (state = initState,action: any):IgetById
             return {
                 ...state,
                 item: undefined,
+                isLoad: false,
             }
         }
         default: return state;

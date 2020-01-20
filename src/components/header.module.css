@@ -24,7 +24,7 @@
 .Header__item+.Header__item::before {
   position: absolute;
   content: '';
-  left: -11px;
+  left: -9px;
   background-color: rgb(1, 127, 185);
   height: 100%;
   width: 2px;

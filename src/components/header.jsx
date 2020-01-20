@@ -13,7 +13,7 @@ const Header = (props) => {
           <Link to={'/getById'}>getById</Link>
         </div>
         <div className={styles.Header__item}>
-          <Link to={'/story'}>story</Link>
+          <Link to={'/story'}>Top story</Link>
         </div>
         <div className={styles.Header__item}>
           <a href="#">ask</a>
