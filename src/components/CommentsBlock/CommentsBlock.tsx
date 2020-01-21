@@ -10,19 +10,17 @@ export function BlockComment(props: {
     text: string,
     comments?: any,
     commentsLeng?: number,
-    path?: number[],
     fullLenComments?: number,
     commetnsArr?: number[],
     funcBtn?: any,
     isLoad?: boolean,
-    //addFunc?: (idCommetn: number) => void
   }) {
     let [isOpenComment, openComment] = useState(false);
     let comments = [];
     if (isOpenComment) {
       if (props.comments) {
         let keys = Object.keys(props.comments);
-        if (props.comments && props.comments[keys[0]] && props.comments[keys[0]].id) {
+        if (keys.length > 0) {
           for (let current in props.comments) {
             comments.push(<BlockComment
               key={props.comments[current].id}
@@ -31,7 +29,6 @@ export function BlockComment(props: {
               text={props.comments[current].text}
               comments={props.comments[current].comments}
               commentsLeng={props.comments[current].commentsLeng}
-              path={props.comments[current].path}
               fullLenComments={props.comments[current].fullLenComments}
             />)
           }
@@ -52,7 +49,7 @@ export function BlockComment(props: {
             <div className={styles.Story__linkComments} onClick={() => {
               openComment(r => !r);
               if (props.funcBtn && comments.length === 0) {
-                props.funcBtn();// запуск
+                props.funcBtn();// start load data
               } 
             }}>
               <Button color="primary">Comments {props.commentsLeng}</Button>
