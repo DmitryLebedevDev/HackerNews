@@ -5,27 +5,11 @@ import { BlockComment } from '../CommentsBlock/CommentsBlock';
 import { Link } from 'react-router-dom';
 import MinLoadCenter from '../decorComponent/minLoadCenter';
 import { egoDateToString } from '../../helpers/function';
+import { Istory } from '../../redux/storys-reducersType';
 
-export interface Iprops {
-  id: number,
-  fullLenComments: number,
-  url: string,
-  header: string,
-  author: string,
-  score: number,
-  time: number,
-  comments: {
-    id: number,
-    name: string,
-    text: string,
-    comments: any,
-    commentsLeng: number,
-    path: number[],
-    fullLenComments: number,
-  }[],
-  commentsDefOpen?: boolean,
-  commentsIsLoad: boolean,
+export interface Iprops extends Istory {
   addCommentToStoryThunk: (id:number) => void;
+  commentsDefOpen?: boolean;
 }
 
 export default function StoryItem(props: Iprops) {

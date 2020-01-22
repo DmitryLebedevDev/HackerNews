@@ -1,7 +1,6 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { addCommentToStoryThunk } from './../redux/store-reducers';
 import CommentContiner from './components-header/commentContiner';
 import ErorrPage from './helpers-components/ErorrPage';
 import StoryListContiner from './components-header/StoryListContiner';
@@ -31,10 +30,9 @@ function Content (props) {
 }
 
 export default connect((state) => {
+  debugger
   return {
     story:state.storys.storys,
     storysIsLoad: state.storys.storysIsLoad,
   }
-},{
-  addCommentToStoryThunk
 })(Content);

@@ -14,17 +14,5 @@ it('add story', () => {
   expect(state.storys.length).toBe(1);
 });
 it('add current story', () => {
-  /*
-  id,
-    author: story.by,
-    time: story.time,
-    fullLenComments: story.descendants,
-    comments: [],
-    commentsId: story.kids,
-    score: story.score,
-    header: story.title,
-    url: story.url,
-    commentsIsLoad: false,
-  */
-  //let action = 
+  
 })

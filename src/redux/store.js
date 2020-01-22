@@ -1,7 +1,7 @@
 import {createStore, combineReducers, applyMiddleware, compose} from 'redux';
 import thunkMiddleware from 'redux-thunk';
 import { reducer as formReducer} from 'redux-form';
-import storeReducers from './store-reducers';
+import storeReducers from './storys-reducers';
 import init from './init-reducers';
 import userReducers from './user-reducers';
 import jobsReducer from './jobs-reducers';

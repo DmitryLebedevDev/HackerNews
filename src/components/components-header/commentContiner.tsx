@@ -3,10 +3,10 @@ import {useState} from 'react';
 import { match, RouteComponentProps, withRouter } from 'react-router';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom'
-import { addStoryThuck } from '../../redux/store-reducers';
+import { addStoryThuck } from '../../redux/storys-reducers';
 import Load from './../decorComponent/load';
 import { StoryItem } from './StoryList';
-import { addCommentToStoryThunk } from './../../redux/store-reducers';
+import { addCommentToStoryThunk } from './../../redux/storys-reducers';
 
 interface Iprops extends RouteComponentProps<any> {
   match: match<{storyId:string}>;
@@ -31,7 +31,7 @@ interface Iprops extends RouteComponentProps<any> {
   }[];
   storysIsLoad: boolean;
   addStoryThuck: (id: number) => Promise<boolean>;
-  addCommentToStoryThunk: () => void
+  addCommentToStoryThunk: (idStory: number) => void
 }
 
 const CommentContiner = (props:Iprops) => {
@@ -74,6 +74,7 @@ const CommentContiner = (props:Iprops) => {
   )
 }
 export default connect((state:any) => {
+  debugger
   return {
     story: state.storys.storys,
     storyIsLoad: state.storys.storysIsLoad,

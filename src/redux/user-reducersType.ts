@@ -36,5 +36,6 @@ export interface ICommetn {
   commentsLeng?:number
   commentsIdArr: number[],
   kids: number[],
-  type?: 'comment'
+  type?: 'comment',
+  fullLenComments?: number,
 }

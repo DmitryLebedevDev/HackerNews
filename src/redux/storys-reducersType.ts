@@ -1,4 +1,4 @@
-import ICommetn from './user-reducersType';
+import {ICommetn} from './user-reducersType';
 export default interface IstoreReducers{
   storys: Istory[],
   lenStory: number,

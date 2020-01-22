@@ -1,16 +1,21 @@
 import React from 'react';
 import styles from './StoryList.module.css';
 import { LinearProgress, Button } from '@material-ui/core';
-import {Iprops as IStoryTypes} from './StoryIrem';
 import StoryItem from './StoryIrem';
+import { Istory } from '../../redux/storys-reducersType';
 
 interface Iprops {
-  addCommentToStoryThunk: () => void;
+  addCommentToStoryThunk: (id: number) => void;
+  addTopStoryThunk: () => void;
+  funcAdd?: any;
+  storys: Istory[];
+  storysIsLoad: boolean;
+  lenIsMax: boolean;
 }
 
-export default function StorysList(props: any) {
+export default function StorysList(props: Iprops) {
   let addFunc:any = props.addTopStoryThunk || props.funcAdd;
-  let storys = props.storys.map((item:IStoryTypes) => 
+  let storys = props.storys.map((item:Istory) => 
     <StoryItem key={item.id} addCommentToStoryThunk={props.addCommentToStoryThunk} {...item}/>)
   return (
     <div className={styles.StotyList}>

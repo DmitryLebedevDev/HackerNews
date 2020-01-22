@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React,{useEffect} from 'react'
 import { connect } from 'react-redux';
-import { addCommentToStoryThunk, addTopStoryThunk } from './../../redux/store-reducers';
+import { addCommentToStoryThunk, addTopStoryThunk } from './../../redux/storys-reducers';
 import StorysList from './StoryList';
 
 
