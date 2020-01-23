@@ -15,13 +15,13 @@ interface d {
 
 
 const App: React.FC<d> = (props:d) => {
-  useEffect(()=>{
+  useEffect(() => {
     if (props.isInit) {
       return
     }
     props.initThunk();
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  },[props.isInit])
+  },[props.isInit]);
 
   if(!props.isInit) {
     return (

@@ -28,7 +28,7 @@ const UserPageSubContainer:React.FC<Iprops> = (props: Iprops) => {
       return (
         <StorysList 
           storysIsLoad={currentUser.isLoad}
-          storys={[]}
+          storys={currentUser.story}
           funcAdd={() => {
             props.addUserStoryThunk(props.match.params.userId)
           }}
