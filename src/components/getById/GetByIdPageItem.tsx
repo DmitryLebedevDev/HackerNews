@@ -16,9 +16,9 @@ export default function GetByIdPageItem(props:Iprops) {
         DOMitem = <StoryItem
             id={item.id}
             url={item.url}
-            fullLenComments={item.descendants}
-            header={item.title}
-            author={item.by}
+            fullLenComments={item.fullLenComments}
+            header={item.header}
+            author={item.author}
             score={item.score}
             time={item.time}
             comments={[]}

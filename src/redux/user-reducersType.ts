@@ -1,3 +1,5 @@
+import { Istory } from "./storys-reducersType";
+
 export default interface IuserReducers {
   users: {
     [key:string]: IUser,
@@ -16,15 +18,7 @@ export interface IUser {
   isLoad: boolean,
   maxItems: boolean,
 }
-export interface IStore {
-  by: string,
-  descendants: number,
-  id: number,
-  kids: string[],
-  score: number,
-  time: number,
-  title: string,
-  url: string,
+export interface IStore extends Istory {
   deleted?: boolean,
   type?: 'story'
 }

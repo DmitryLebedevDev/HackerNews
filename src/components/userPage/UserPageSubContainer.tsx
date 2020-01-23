@@ -5,7 +5,7 @@ import { withRouter,match, RouteComponentProps } from 'react-router-dom';
 import { IUser } from '../../redux/user-reducersType';
 import Load from './../decorComponent/load';
 import { addUserThunk , addUserStoryThunk} from './../../redux/user-reducers';
-import StorysList from '../components-header/StoryList';
+import StorysList from '../StoryPage/StorysList';
 
 interface Iprops extends RouteComponentProps<any> {
   match:match<{userId:string}>;
@@ -14,7 +14,7 @@ interface Iprops extends RouteComponentProps<any> {
   addUserThunk: (id: string) => Promise<any>;
 }
 
-const UserPageSubContainer:React.FC<Iprops> = (props) => {
+const UserPageSubContainer:React.FC<Iprops> = (props: Iprops) => {
   useEffect(() => {
     debugger
     props.addUserThunk(props.match.params.userId).then(res => {
@@ -28,7 +28,7 @@ const UserPageSubContainer:React.FC<Iprops> = (props) => {
       return (
         <StorysList 
           storysIsLoad={currentUser.isLoad}
-          story={currentUser.story} 
+          storys={[]}
           funcAdd={() => {
             props.addUserStoryThunk(props.match.params.userId)
           }}

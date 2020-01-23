@@ -1,12 +1,12 @@
 import React from 'react';
-import styles from './StoryList.module.css';
+import styles from './StorysList.module.css';
 import { LinearProgress, Button } from '@material-ui/core';
 import StoryItem from './StoryIrem';
 import { Istory } from '../../redux/storys-reducersType';
 
 interface Iprops {
-  addCommentToStoryThunk: (id: number) => void;
-  addTopStoryThunk: () => void;
+  addCommentToStoryThunk?: (id: number) => void;
+  addTopStoryThunk?: () => void;
   funcAdd?: any;
   storys: Istory[];
   storysIsLoad: boolean;

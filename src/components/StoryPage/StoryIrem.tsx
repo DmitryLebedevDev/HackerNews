@@ -1,5 +1,5 @@
 import React,{useState} from 'react';
-import styles from './StoryList.module.css';
+import styles from './StorysList.module.css';
 import { Link as MaterialBottom, Button} from '@material-ui/core';
 import { BlockComment } from '../CommentsBlock/CommentsBlock';
 import { Link } from 'react-router-dom';
@@ -8,17 +8,20 @@ import { egoDateToString } from '../../helpers/function';
 import { Istory } from '../../redux/storys-reducersType';
 
 export interface Iprops extends Istory {
-  addCommentToStoryThunk: (id:number) => void;
+  addCommentToStoryThunk?: (id:number) => void;
   commentsDefOpen?: boolean;
 }
 
 export default function StoryItem(props: Iprops) {
-  let [openIsComment, openComment] = useState((props.commentsDefOpen) ? true : false);
+  let [openIsComment, openComment] = useState((props.commentsDefOpen) ? true : false); // if comments is open
   let [statusRecuest,setStatusRecuest] = useState(false);
   let comments = [];
+  // if comments open and comments len 0 then request
   if (!statusRecuest && openIsComment && Object.keys(props.comments).length === 0) {
-    props.addCommentToStoryThunk(props.id);
-    setStatusRecuest(true);
+    if (props.addCommentToStoryThunk) {
+      props.addCommentToStoryThunk(props.id);
+      setStatusRecuest(true);
+    }
   }
   for (let current in props.comments) {
     comments.push(

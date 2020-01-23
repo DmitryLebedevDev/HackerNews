@@ -102,6 +102,19 @@ export const setItemThunkStart = (id: number) => async (dispatch: any) => {
         item.isLoad = false;
         delete item.by
     }
+    if (item.type === 'story') {
+        item = {
+            id: item.id,
+            url: item.url,
+            fullLenComments:item.descendants,
+            header:item.title,
+            author:item.by,
+            score:item.score,
+            time:item.time,
+            comments:[],
+            type: 'story',
+        }
+    }
     return item;
 }
 export const setItemThunkEnd = (item: any) => async (dispatch: any) => {

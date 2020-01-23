@@ -3,7 +3,7 @@ import { Route, Switch } from 'react-router-dom';
 import { connect } from 'react-redux';
 import CommentContiner from './components-header/commentContiner';
 import ErorrPage from './helpers-components/ErorrPage';
-import StoryListContiner from './components-header/StoryListContiner';
+import StorysListContiner from './StoryPage/StorysListContiner';
 import UserPageContainer from './userPage/UserPageContainer';
 import UserPageSub from './userPage/UserPageSubContainer';
 import UserPageCommetns from './userPage/UserPageCommetnsContainer';
@@ -17,7 +17,7 @@ function Content (props) {
           <Route path='/getById' render={ () => <GetByIdPageContainer />} />
           <Route path='/getById/:id' render= { () => <GetByIdPageContainer />}/>
           <Route path='/story/:storyId' render={ () => <CommentContiner/> }/>
-          <Route path='/story' render={() => <StoryListContiner/>}/>
+          <Route path='/story' render={() => <StorysListContiner/>}/>
           <Route path='/user/:userId/submission' render={() => <UserPageSub/>} />
           <Route path='/user/:userId/comments' render={() => <UserPageCommetns/>}/>
           <Route path='/user/:userId/favorites' render={() => <div>favorites</div>}/>
@@ -30,7 +30,6 @@ function Content (props) {
 }
 
 export default connect((state) => {
-  debugger
   return {
     story:state.storys.storys,
     storysIsLoad: state.storys.storysIsLoad,

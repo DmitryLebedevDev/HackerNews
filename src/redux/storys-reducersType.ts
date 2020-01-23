@@ -16,4 +16,5 @@ export interface Istory {
   header: string,
   url: string,
   commentsIsLoad: boolean,
+  type?: 'story',
 }
