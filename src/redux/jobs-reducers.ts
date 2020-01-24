@@ -1,15 +1,11 @@
-import IuserReducers, { IUser } from "./user-reducersType";
-import { getElementByUserId, getElementById, getTopJobs } from "../api/api";
-import {getItems} from '../helpers/function';
+import { getTopJobs } from "../api/api";
 import IStore from "./storeType";
 import {getItemsArrayLoad} from '../helpers/function';
-import {JsonComent} from '../helpers/function';
 import IjobsReduser, { Ijob } from "./jobs-reducersType";
 
 const ADD_JOBS = 'ADD_JOBS' 
 const UP_INDEX = 'UP_INDEX'
 const IS_LOAD_JOBS = 25;
-const MAX_JOBS_LEN = 200;
 const SET_INDEX_ARR = 'SET_INDEX_ARR';
 const START_LOAD = 'START_LOAD';
 const STOP_LOAD = 'STOP_LOAD';
@@ -55,7 +51,6 @@ export const addJobsThunk = () => async (dispatch: any, getStory: () => IStore) 
   if (!indexArr.length) {
     indexArr = await getTopJobs();
     dispatch(setIndexArr(indexArr));
-    console.log(indexArr);
   }
   let currentLoad = stor.jobs.loadJobsNum;
   if (currentLoad >= indexArr.length) {
@@ -65,8 +60,6 @@ export const addJobsThunk = () => async (dispatch: any, getStory: () => IStore) 
   if (currentLoad + IS_LOAD_JOBS > indexArr.length && currentLoad < indexArr.length) {
     debugger
     let jobs = await getItemsArrayLoad(indexArr.slice(currentLoad, indexArr.length))
-    console.log(indexArr.slice(currentLoad, indexArr.length));
-    console.log(jobs, 'info!!1111! надо разобраться')
     dispatch(addJobs(jobs));
     dispatch(upIndex(jobs.length));
     dispatch(maxLoadList());
@@ -74,7 +67,6 @@ export const addJobsThunk = () => async (dispatch: any, getStory: () => IStore) 
     return
   }
   let jobs = await getItemsArrayLoad(indexArr.slice(currentLoad, currentLoad+IS_LOAD_JOBS));
-  console.log(jobs);
   dispatch(addJobs(jobs));
   dispatch(upIndex(jobs.length));
   dispatch(stopLoad());

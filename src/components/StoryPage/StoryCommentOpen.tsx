@@ -5,30 +5,13 @@ import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom'
 import { addStoryThuck } from '../../redux/storys-reducers';
 import Load from './../decorComponent/load';
-import { StoryItem } from './StoryList';
+import  StoryItem from './StoryIrem';
 import { addCommentToStoryThunk } from './../../redux/storys-reducers';
+import { Istory } from '../../redux/storys-reducersType';
 
 interface Iprops extends RouteComponentProps<any> {
   match: match<{storyId:string}>;
-  story: {
-    id: number,
-    fullLenComments: number,
-    url: string,
-    header: string,
-    author: string,
-    score: number,
-    commentsIsLoad: boolean,
-    time:number,
-    comments: {
-      id: number,
-      name: string,
-      text: string,
-      comments: any,
-      commentsLeng: number,
-      path: number[],
-      fullLenComments: number,
-    }[]
-  }[];
+  story: Istory[];
   storysIsLoad: boolean;
   addStoryThuck: (id: number) => Promise<boolean>;
   addCommentToStoryThunk: (idStory: number) => void
@@ -39,7 +22,6 @@ const CommentContiner = (props:Iprops) => {
   let [page,setPage] = useState(false);
   currentStory = props.story.find(item => item.id === +props.match.params.storyId)
   if (!currentStory && !props.storysIsLoad) {
-    // 21787936
     if (page) {
       return <Redirect to='/error'/>
     }
@@ -50,21 +32,12 @@ const CommentContiner = (props:Iprops) => {
     )
   }
   if (currentStory) {
+    debugger
     return (
       <div>
-        <StoryItem
-          key={currentStory.id}
-          id={currentStory.id} 
-          fullLenComments={currentStory.fullLenComments} 
-          url={currentStory.url}
-          header={currentStory.header}
-          author={currentStory.author}
-          score={currentStory.score}
-          comments={currentStory.comments}
+        <StoryItem {...currentStory}
           addCommentToStoryThunk={props.addCommentToStoryThunk}
-          commentsIsLoad={currentStory.commentsIsLoad}
           commentsDefOpen={true}
-          time={currentStory.time}
         />
       </div>
     )
@@ -74,7 +47,6 @@ const CommentContiner = (props:Iprops) => {
   )
 }
 export default connect((state:any) => {
-  debugger
   return {
     story: state.storys.storys,
     storyIsLoad: state.storys.storysIsLoad,

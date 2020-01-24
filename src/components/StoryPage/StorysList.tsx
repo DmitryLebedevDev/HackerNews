@@ -20,7 +20,7 @@ export default function StorysList(props: Iprops) {
   return (
     <div className={styles.StotyList}>
       {storys}
-      {(props.storysIsLoad) && <LinearProgress />}
+      {((props.storysIsLoad) && <LinearProgress />)}
       {(!props.storysIsLoad && !props.lenIsMax) ? <div className={styles.Story__blockCenter}>
         <Button onClick={() => addFunc()} variant="contained" color="secondary"> add story </Button>
       </div> : ''}

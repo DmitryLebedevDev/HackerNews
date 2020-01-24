@@ -1,4 +1,4 @@
-import React,{useState, useEffect, useRef} from 'react'
+import React,{ useEffect } from 'react'
 import { connect } from 'react-redux'
 import  IStore  from '../../redux/storeType'
 import { Iitem } from '../../redux/getByid-reducersType'
@@ -31,14 +31,11 @@ function GetByIdPageContainer(props: Iprops) {
             props.stopTimer();
         }
     }, []);
-    let item = props.item;
-    let DOMitem;
     if (!props.maxItem) {
         return (
             <MinLoadCenter/>
         )
     };
-    
     return (
         <div className={styles.centerBlock}>
             <div className={styles.center}>

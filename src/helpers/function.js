@@ -1,32 +1,5 @@
 import { getElementById } from "../api/api";
 
-/*export async function JsonComent(arr, path = [], end = false) {
-  if (arr === undefined || !arr.length) {
-    return
-  }
-  arr = arr.sort((a, b) => { return a - b });
-  console.log(arr);
-  let json = {};
-  for (let t = 0; t < arr.length; t++) {
-    let infoArrItem = await getElementById(arr[t]);
-    if (infoArrItem.deleted) {
-      continue
-    }
-    if (infoArrItem.kids === undefined) {
-    }
-    let newPath = [...path, arr[t]];
-    json[arr[t]] = {
-      id: arr[t],
-      name: infoArrItem.by,
-      text: infoArrItem.text,
-      comments: await JsonComent(infoArrItem.kids, newPath, true),
-      commentsLeng: (infoArrItem.kids !== undefined) ? infoArrItem.kids.length : '',
-      path: [...newPath],
-    }
-  }
-  return json
-}
-*/
 export function getItemsArrayLoad (arr = []) {
   return new Promise((res,req) => {
     let promiseArr = [];
@@ -104,7 +77,6 @@ export function ObjOfUnDate (coutTime) {
 }
 export function ObjOfUnDateToString (coutTime) {
   let objDate = ObjOfUnDate(coutTime);
-  console.log(objDate.getMonth(),objDate.getDate());
   let date = new Intl.DateTimeFormat("en-Us",{
     month: "long",
     day: "numeric",
@@ -130,8 +102,8 @@ export function egoDateToString (unDate) {
   return ObjOfUnDateToString(unDate);
 }
 
+// func requesq tree comments
 export function JsonComent(arr, path = [], commentsLen = 0) {
-  console.log('я запустилась',arr);
   if (arr === undefined || !arr.length) {
     return new Promise ((res,req) => res());
   }
@@ -149,7 +121,6 @@ export function JsonComent(arr, path = [], commentsLen = 0) {
             comments => {
               let valueComments = 0;
               if (comments) {
-                console.log(comments)
                 for (let key in comments) {
                   valueComments += +comments[key].commentsLeng;
                 }

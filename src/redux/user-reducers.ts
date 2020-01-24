@@ -1,5 +1,5 @@
 import IuserReducers, { IUser } from "./user-reducersType";
-import { getElementByUserId, getElementById } from "../api/api";
+import { getElementByUserId } from "../api/api";
 import {getItems} from '../helpers/function';
 import IStore from "./storeType";
 import {JsonComent} from '../helpers/function';
@@ -66,19 +66,16 @@ export const addUserComentsOpenThunk = (idUser: string, idComment: number) => (d
   let commetns:any[] = [];
   let promisCommetns: any[] = [];
   let currentUser = getState().users.users[idUser];
-  console.log(currentUser,idUser,'currentUser',);
   let userComments = currentUser.comments.find((item) => item.id === idComment);
   if (userComments && userComments.commentsIdArr) {
     userComments.commentsIdArr.forEach(item => {
       promisCommetns.push(JsonComent([item]).then((res) => {
         commetns.push(res)
-        console.log('res', res, item)
       }))
     })
   }
   Promise.all(promisCommetns).then(res => {
     dispatch(addUserComentsOpen(idUser,idComment,commetns));
-    console.log(commetns)
   })
 }
 const addUser = (info: IUser):{type:string,info:IUser} => {
@@ -89,30 +86,25 @@ const addUser = (info: IUser):{type:string,info:IUser} => {
 }
 
 async function addCommentsOrStoryUser (type: 'story'|'comments',id:string,whatUpNum = 25, dispatch: any, getState: any) {
-    console.log('я вызвалась', id);
     dispatch(startLoad(id));
     let user = getState().users.users[id];
     let cunt = user.cunt;
     let StoryItems: IStore[] = [];
     let CommentsItems: any[] = [];
     let stop = false;
-    console.log(type === 'story');
     while (((type === 'story') ? StoryItems.length : CommentsItems.length) < whatUpNum || stop) {
-      console.log('я в ебаном цикле')
       if (user.submitted) {
         let maxCunt = cunt + (whatUpNum-1);
         if (maxCunt > user.submitted.length) {
           maxCunt = user.submitted.length - 1;
           stop = true;
           let items = await getItems(user.submitted.slice(cunt,cunt+(whatUpNum-1)));
-          console.log(cunt,maxCunt+(whatUpNum-1),'тут пизда')
           StoryItems = [...StoryItems,...items.story];
           CommentsItems = [...CommentsItems,...items.comments];
           dispatch(maxItem(id));
           break
         }
         let items = await getItems(user.submitted.slice(cunt,cunt+(whatUpNum-1)));
-        console.log(cunt,maxCunt+(whatUpNum-1),'тут пизда')
         StoryItems = [...StoryItems,...items.story];
         CommentsItems = [...CommentsItems,...items.comments];
         cunt+=whatUpNum;
@@ -138,7 +130,6 @@ export const addUserStoryThunk = (id: string, whatUpNum = 25) => async (dispatch
 }
 export const addUserThunk = (id:string) => async (dispatch:any) => {
   let userInfo:IUser = await getElementByUserId(id);
-  debugger
   dispatch(addUser(userInfo));
 }
 
@@ -155,18 +146,14 @@ function userReducers (state=start,action:any):IuserReducers {
         comments = {...comments,...action.info[t]};
         console.log(action.info,t,action.info[t],comments,'1234')
       }
-      console.log(comments,'comments!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!',action.info)
       let com = user.comments.map(item => {
         if (item.id === action.idComments) {
           let t = {...item, comments: comments}
-          console.log('ЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯ ЩАС ЕБАНУСЬ', t);
           return t
         }
         return item
       })
       user.comments = com;
-      console.log(user.comments,user,action,com);
-      //user.comments = [...user.comments,...action.info]
       return {
         ...state,
         users: {
@@ -235,7 +222,6 @@ function userReducers (state=start,action:any):IuserReducers {
       }
     }
     case ADD_USER: {
-      debugger
       return {
         ...state,
         users:{...state.users,[action.info.id]:{

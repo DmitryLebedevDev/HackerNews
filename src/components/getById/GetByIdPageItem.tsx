@@ -1,7 +1,7 @@
 import React from 'react';
 import { Iitem } from '../../redux/getByid-reducersType';
 import { BlockComment } from '../CommentsBlock/CommentsBlock';
-import { StoryItem } from '../components-header/StoryList';
+import StoryItem from '../StoryPage/StoryIrem';
 
 interface Iprops {
     item?: Iitem;
@@ -24,6 +24,7 @@ export default function GetByIdPageItem(props:Iprops) {
             comments={[]}
             commentsIsLoad={false}
             addCommentToStoryThunk={() => {}}
+            commentsId={[]}//!!***
         />
     }
     if (item && item.type === 'comment') {

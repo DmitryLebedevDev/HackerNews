@@ -4,7 +4,6 @@ import IStore from '../../redux/storeType';
 import {addJobsThunk} from '../../redux/jobs-reducers';
 import JobsList from './JobsList';
 import { Ijob } from '../../redux/jobs-reducersType';
-import Load from '../decorComponent/load';
 import { LinearProgress } from '@material-ui/core';
 
 interface Iprops {
@@ -15,8 +14,10 @@ interface Iprops {
 }
 function JobsContainer(props: Iprops) {
   useEffect(() => {
-    props.addJobsThunk();
-  },[])
+    if (!props.jobs.length) {
+      props.addJobsThunk();
+    }
+  },[props.jobs.length])
   if (!props.jobs.length) {
     return (
       <LinearProgress value={100}/>

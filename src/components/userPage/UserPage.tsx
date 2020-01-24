@@ -3,7 +3,7 @@ import { IUser } from '../../redux/user-reducersType'
 import styles from './UserPage.module.css'
 import { Link } from 'react-router-dom';
 import {ObjOfUnDateToString} from '../../helpers/function';
-console.log("TCL: styles", styles)
+
 
 interface Iprops {
   user:IUser,
@@ -12,9 +12,6 @@ interface Iprops {
 
 export default function UserPage(props:Iprops) {
   let date = ObjOfUnDateToString(props.user.created);
-  //let data = objDate.toLocaleString('en-Us',{minute: 'null'})
-  //let data = [objDate.getDay(),objDate.getMonth(),objDate.getFullYear()];
-  //let objDate =new Date (+date1 - +newLvl);
   return (
     <div className={styles.User}>
       <div className={styles.line}><div className={styles.blockOne}>Name : </div>{props.user.id}</div>

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 import { connect } from 'react-redux';
-import CommentContiner from './components-header/commentContiner';
+import CommentContiner from './StoryPage/StoryCommentOpen';
 import ErorrPage from './helpers-components/ErorrPage';
 import StorysListContiner from './StoryPage/StorysListContiner';
 import UserPageContainer from './userPage/UserPageContainer';

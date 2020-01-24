@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import styles from './TableItem.module.css';
 
 interface Iprops {
@@ -7,18 +7,17 @@ interface Iprops {
 
 export default function TableItem(props:Iprops) {
     let [t,setT] = useState(props.number);
-    let turnover = false;
     useEffect(() => {
         setT((r) => {
             if (props.number < r) {
-                turnover = true;
+                
             }
             return props.number
         })
     },[props.number])
     return (
         <div className={styles.window}>
-            <div className={styles.col + ' ' + styles[(turnover) ? `topUp${t}` : `top${t}`]}>
+            <div className={styles.col + ' ' + styles[(false) ? `topUp${t}` : `top${t}`]}>
                 <span>0</span>
                 <span>1</span>
                 <span>2</span>

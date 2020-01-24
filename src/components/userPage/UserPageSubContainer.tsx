@@ -1,4 +1,4 @@
-import React, { useEffect,useState } from 'react'
+import React, { useEffect } from 'react'
 import { connect } from 'react-redux';
 import IStore from '../../redux/storeType';
 import { withRouter,match, RouteComponentProps } from 'react-router-dom';
@@ -21,7 +21,6 @@ const UserPageSubContainer:React.FC<Iprops> = (props: Iprops) => {
       props.addUserStoryThunk(props.match.params.userId);
     })
   },[])
-  let [isLoad, load] = useState(false);
   let currentUser = props.users[props.match.params.userId];
   if (currentUser) {
     if (currentUser.story && currentUser.story.length >= 1) {

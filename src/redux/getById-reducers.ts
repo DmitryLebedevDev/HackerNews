@@ -89,11 +89,9 @@ export const CheckMaxItemThunk = () => async (dispatch: any) => {
 }
 export const startCheckMaxItem = () => (dispatch: any) => {
     dispatch(startTimer(setInterval(() => {
-        console.log('tic');
         dispatch(CheckMaxItemThunk());
     },1000)))
 }
-// setItemThunkStart + setItemThunkEnd one fuc
 export const setItemThunkStart = (id: number) => async (dispatch: any) => {
     dispatch(statLoad());
     let item = await getElementById(id);

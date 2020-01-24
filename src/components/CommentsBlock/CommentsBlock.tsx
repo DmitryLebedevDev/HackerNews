@@ -45,7 +45,7 @@ export function BlockComment(props: {
         </div>
         {
           (props.isLoad) ? <MinLoadCenter/> :
-          (props.commentsLeng || (props.commetnsArr) && props.commetnsArr.length) && (<>
+          (props.commentsLeng || ((props.commetnsArr) && (props.commetnsArr.length))) && (<>
             <div className={styles.Story__linkComments} onClick={() => {
               openComment(r => !r);
               if (props.funcBtn && comments.length === 0) {
