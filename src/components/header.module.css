@@ -49,3 +49,9 @@
   padding-left: 15px;
   padding-right: 15px;
 }
+@media all and ( max-width: 428px ) {
+  .Header {
+    display: flex;
+    justify-content: center;
+  }
+}

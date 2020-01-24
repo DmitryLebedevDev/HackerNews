@@ -22,7 +22,7 @@ let style = makeStyles({
 export default function JobsItem(props:Iprops) {
   let styles = style();
   return (
-    <div>
+    <div style={{paddingLeft: '15px',paddingRight: '15px'}}>
       <Link className={styles.linkToJob} href={props.url}>
         {props.title}
       </Link>
