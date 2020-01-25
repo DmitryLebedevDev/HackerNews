@@ -5,7 +5,7 @@ import {initThunk} from './redux/init-reducers';
 import Header from './components/header.jsx';
 import Content from './components/Content';
 import store from './redux/store';
-import { BrowserRouter } from 'react-router-dom';
+import { HashRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 
 interface d {
@@ -37,11 +37,11 @@ const App: React.FC<d> = (props:d) => {
 }
 const AppC = function () {
   return (
-    <BrowserRouter>
+    <HashRouter>
       <Provider store={store}>
         <AppCont />
       </Provider>
-    </BrowserRouter>
+    </HashRouter>
   )
 }
 const AppCont = connect(

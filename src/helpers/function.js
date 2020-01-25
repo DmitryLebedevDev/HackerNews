@@ -14,6 +14,12 @@ export function getItemsArrayLoad (arr = []) {
     })
   })
 }
+export async function getItemsLoad (arr,type,count) {
+  //let arr = [];
+  while (arr.length !== count) {
+
+  }
+}
 export function getItems (arr) {
   return new Promise ((res,req) => {
     let arrPromise = [];

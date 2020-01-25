@@ -7,13 +7,13 @@ const Header = (props) => {
     <div className={styles.Header}>
       <div className={styles.Header__wrap}>
         <div className={styles.Header__item}>
-          <a href="1">new</a>
-        </div>
-        <div className={styles.Header__item}>
-          <Link to={'/getById'}>getById</Link>
+          <a href="1">new stories</a>
         </div>
         <div className={styles.Header__item}>
           <Link to={'/story'}>Top story</Link>
+        </div>
+        <div className={styles.Header__item}>
+          <Link to={'/getById'}>getById</Link>
         </div>
         <div className={styles.Header__item}>
           <a href="1">ask</a>
