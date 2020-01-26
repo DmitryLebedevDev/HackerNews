@@ -37,7 +37,7 @@ export default function StoryItem(props: Iprops) {
     return (
     <div className={styles.Story}>
       <div className={styles.Story__header}>
-        <MaterialBottom href={props.url} className={styles.Story__link_header}>
+        <MaterialBottom href={(props.url) && props.url} className={styles.Story__link_header}>
           {props.header}
         </MaterialBottom>
       </div>

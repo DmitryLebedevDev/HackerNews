@@ -6,10 +6,12 @@ import init from './init-reducers';
 import userReducers from './user-reducers';
 import jobsReducer from './jobs-reducers';
 import getByIdReducers from './getById-reducers';
+import newStorysReducers from './newStorys-reducers';
 
 const redusers = combineReducers ({
     form:formReducer,
     storys:storeReducers,
+    newStorys: newStorysReducers,
     init,
     users:userReducers,
     jobs: jobsReducer, 

@@ -9,13 +9,15 @@ import UserPageSub from './userPage/UserPageSubContainer';
 import UserPageCommetns from './userPage/UserPageCommetnsContainer';
 import JobsContainer from './jobs/JobsContainer';
 import GetByIdPageContainer from './getById/GetByIdPageContainer.tsx';
+import NewStorysContainer from './newStorys/newStorysContainer';
 
 function Content (props) {
   return (
     <div>
         <Switch>
           <Route path='/getById' render={ () => <GetByIdPageContainer />} />
-          <Route path='/getById/:id' render= { () => <GetByIdPageContainer />}/>
+          <Route path='/getById/:id' render={ () => <GetByIdPageContainer />}/>
+          <Route path='/newStorys'render={ () => <NewStorysContainer/>}/>
           <Route path='/story/:storyId' render={ () => <CommentContiner/> }/>
           <Route path='/story' render={() => <StorysListContiner/>}/>
           <Route path='/user/:userId/submission' render={() => <UserPageSub/>} />

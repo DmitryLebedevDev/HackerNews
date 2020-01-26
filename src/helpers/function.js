@@ -1,4 +1,5 @@
-import { getElementById } from "../api/api";
+import {getElementById, maxItems} from "../api/api";
+import {Istory} from "../redux/storys-reducersType";
 
 export function getItemsArrayLoad (arr = []) {
   return new Promise((res,req) => {
@@ -14,11 +15,26 @@ export function getItemsArrayLoad (arr = []) {
     })
   })
 }
-export async function getItemsLoad (arr,type,count) {
-  //let arr = [];
-  while (arr.length !== count) {
-
+export async function getItemsLoadS (indexMaxItem,count) {
+  let storysArr = [];
+  while (storysArr.length < count) {
+    if (indexMaxItem === 0) {
+      break;
+    }
+    let indexsLoading = [];
+    for (let t=0; t<count && count-t>=1; t++) {
+      indexsLoading.push(indexMaxItem-t);
+    }
+    indexMaxItem-=count;
+    let storys = await getItems(indexsLoading);
+    if (storys && storys.story) {
+      storysArr.push(...storys.story)
+    }
   }
+  return {
+    story: storysArr,
+    index: indexMaxItem
+  };
 }
 export function getItems (arr) {
   return new Promise ((res,req) => {
@@ -29,21 +45,23 @@ export function getItems (arr) {
     };
     for (let t=0; t<arr.length; t++) {
       arrPromise.push(getElementById(arr[t]).then((res) => {
-        if (res.type === 'story') {
-          resultObj.story.push({
-            id:res.id,
-            author: res.by,
-            time: res.time,
-            fullLenComments: res.descendants,
-            comments: [],
-            commentsId: res.kids,
-            score: res.score,
-            header: res.title,
-            url: res.url,
-            commentsIsLoad: false,
-          });
+        if (res && res.type === 'story') {
+          if (res.url !== undefined) {
+            resultObj.story.push({
+              id:res.id,
+              author: res.by,
+              time: res.time,
+              fullLenComments: res.descendants,
+              comments: [],
+              commentsId: res.kids,
+              score: res.score,
+              header: res.title,
+              url: res.url,
+              commentsIsLoad: false,
+            }); 
+          }
         }
-        if (res.type === 'comment') {
+        if (res && res.type === 'comment') {
           if (!res.deleted) {
             resultObj.comments.push({
               id: res.id,
