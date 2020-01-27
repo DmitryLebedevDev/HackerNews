@@ -58,7 +58,6 @@ export const addJobsThunk = () => async (dispatch: any, getStory: () => IStore) 
   }
   dispatch(startLoad());
   if (currentLoad + IS_LOAD_JOBS > indexArr.length && currentLoad < indexArr.length) {
-    debugger
     let jobs = await getItemsArrayLoad(indexArr.slice(currentLoad, indexArr.length))
     dispatch(addJobs(jobs));
     dispatch(upIndex(jobs.length));

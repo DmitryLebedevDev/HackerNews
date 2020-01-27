@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import styles from './GetByIdPage.module.css';
 
 interface Iprops {
     maxItem: number;
@@ -13,7 +14,7 @@ export default function GetByIdFieldInput(props:Iprops) {
     let id: any = React.useRef();
     return (
         <div>
-            <input ref={id} type="text" value={text} onChange={(event) => {
+            <input className={styles.input} ref={id} type="text" value={text} onChange={(event) => {
                     if (+event.target.value <= props.maxItem) {
                         setText(event.target.value);
                         if (error) {
@@ -23,10 +24,8 @@ export default function GetByIdFieldInput(props:Iprops) {
                         setError(true);
                     }
                     if (+event.target.value && +event.target.value <= props.maxItem) {
-                        console.log(id.current.value,'REf');
                         // debag state race
                         props.setItemThunkStart(+event.target.value).then((item: any) => {
-                            console.log(item, id.current.value);
                             if(item.id === +id.current.value) {
                                 props.setItemThunkEnd(item);
                             }

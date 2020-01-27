@@ -10,6 +10,7 @@ import UserPageCommetns from './userPage/UserPageCommetnsContainer';
 import JobsContainer from './jobs/JobsContainer';
 import GetByIdPageContainer from './getById/GetByIdPageContainer.tsx';
 import NewStorysContainer from './newStorys/newStorysContainer';
+import AskContiner from './ask/askContiner';
 
 function Content (props) {
   return (
@@ -24,6 +25,7 @@ function Content (props) {
           <Route path='/user/:userId/comments' render={() => <UserPageCommetns/>}/>
           <Route path='/user/:userId/favorites' render={() => <div>favorites</div>}/>
           <Route path='/user/:userId' render={() => <UserPageContainer/>}/>
+          <Route path='/ask' render={() => <AskContiner/> } />
           <Route path='/jobs' render={() => <JobsContainer />}/>
           <Route path='/error' render={ () => <ErorrPage/> }/>
         </Switch>

@@ -7,6 +7,7 @@ import userReducers from './user-reducers';
 import jobsReducer from './jobs-reducers';
 import getByIdReducers from './getById-reducers';
 import newStorysReducers from './newStorys-reducers';
+import askReducers from './ask-reducers';
 
 const redusers = combineReducers ({
     form:formReducer,
@@ -16,6 +17,7 @@ const redusers = combineReducers ({
     users:userReducers,
     jobs: jobsReducer, 
     getByItem: getByIdReducers,
+    ask: askReducers,
 });
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const store = createStore(redusers, composeEnhancers(applyMiddleware(thunkMiddleware)));
