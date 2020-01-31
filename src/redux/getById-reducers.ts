@@ -2,6 +2,7 @@ import IgetByIdReducersState, { Iitem } from './getByid-reducersType';
 import { getElementById, maxItems } from '../api/api';
 import { JsonComent } from '../helpers/function';
 import { ICommetn } from './user-reducersType';
+import IStore from './storeType';
 
 
 const SET_ITEM = 'SET_ITEM';
@@ -15,14 +16,22 @@ const REQUERS_IN_ITEM_STOP = 'REQUERS_IN_ITEM_STOP';
 const SET_COMMENT_IN_ITEM = 'SET_COMMENT_IN_ITEM';
 const RESET_ITEM = 'RESET_ITEM';
 const STOP_CHECK_MAX_ITEM = 'STOP_CHECK_MAX_ITEM';
+const ADD_COMMENT_TO_STORY = 'ADD_COMMENT_TO_STORY';
 
+// set comment in item (item - story)
+export const addCommentToStory = (comments: any) => {
+    return {
+        type: ADD_COMMENT_TO_STORY,
+        comments,
+    }
+} 
 
 export const resetItem = () => {
     return {
         type: RESET_ITEM
     }
 }
-
+// set comment in item (item - comment)
 const setCommentInItem = (comment: ICommetn) => {
     return {
         type: SET_COMMENT_IN_ITEM,
@@ -75,6 +84,24 @@ export const setItem = (item: Iitem) => {
         item,
     }
 }
+export const addCommentToStoryItemThunk = () => (dispatch: any, getState: () => IStore) => {
+    let item = getState().getByItem.item;
+    if (item && item.type === 'story') {
+        dispatch(requesInItemStart());
+        let promiss:Promise<any>[] = [];
+        let kids = item.commentsId;
+        kids.forEach((id) => {
+            promiss.push(JsonComent([id]).then((comments: any) => {
+                debugger
+                dispatch(addCommentToStory(comments))
+            }))
+        })
+        Promise.all(promiss).then(()=> {
+            dispatch(requesInItemStop());
+        })
+    }
+}
+// item -> comment
 export const setCommentInItemThunk = (id:number) => async (dispatch: any) => {
     dispatch(requesInItemStart());
     // func JsonComment res comments[id] > comments [id] -> comment,comment,comment
@@ -90,7 +117,7 @@ export const CheckMaxItemThunk = () => async (dispatch: any) => {
 export const startCheckMaxItem = () => (dispatch: any) => {
     dispatch(startTimer(setInterval(() => {
         dispatch(CheckMaxItemThunk());
-    },1000)))
+    },10000)))
 }
 export const setItemThunkStart = (id: number) => async (dispatch: any) => {
     dispatch(statLoad());
@@ -101,15 +128,17 @@ export const setItemThunkStart = (id: number) => async (dispatch: any) => {
         delete item.by
     }
     if (item.type === 'story') {
+        debugger
         item = {
             id: item.id,
             url: item.url,
-            fullLenComments:item.descendants,
+            fullLenComments:(item.descendants === -1) ? null : item.descendants,
             header:item.title,
             author:item.by,
             score:item.score,
             time:item.time,
             comments:[],
+            commentsId: ( typeof (item.kids) === 'object') ? [...item.kids] : [],
             type: 'story',
         }
     }
@@ -127,6 +156,23 @@ let initState: IgetByIdReducersState = {
 
 export default function getByIdReducers (state = initState,action: any):IgetByIdReducersState {
     switch (action.type) {
+        case ADD_COMMENT_TO_STORY: {
+            debugger
+            let item = state.item;
+            if (item && item.type === 'story') {
+                item = {...item};
+                let comments = [];
+                for (let key in action.comments) {
+                    comments.push(action.comments[key])
+                }
+                debugger
+                item.comments = [...item.comments,...comments];
+            }
+            return {
+                ...state,
+                item: item
+            }
+        }
         case STOP_CHECK_MAX_ITEM: {
             return {
                 ...state,

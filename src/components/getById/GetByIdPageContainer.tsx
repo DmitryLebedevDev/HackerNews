@@ -2,7 +2,16 @@ import React,{ useEffect } from 'react'
 import { connect } from 'react-redux'
 import  IStore  from '../../redux/storeType'
 import { Iitem } from '../../redux/getByid-reducersType'
-import {stopTimer,startCheckMaxItem,CheckMaxItemThunk,setCommentInItemThunk, setItemThunkStart, setItemThunkEnd, resetItem} from '../../redux/getById-reducers'
+import {
+    addCommentToStoryItemThunk,
+    stopTimer,
+    startCheckMaxItem,
+    CheckMaxItemThunk,
+    setCommentInItemThunk,
+    setItemThunkStart,
+    setItemThunkEnd,
+    resetItem
+} from '../../redux/getById-reducers'
 import styles from './GetByIdPage.module.css'
 import MinLoadCenter from '../decorComponent/minLoadCenter'
 import TableItemsNumber from '../decorComponent/TableItem/TableItemsNumber'
@@ -17,6 +26,7 @@ interface Iprops {
     startCheckMaxItem: () => void;
     CheckMaxItemThunk: () => void;
     setCommentInItemThunk: (id:number) => void;
+    addCommentToStoryItemThunk: () => void;
     resetItem: () => void;
     stopTimer: () => void;
     isLoadInItem: boolean;
@@ -52,7 +62,9 @@ function GetByIdPageContainer(props: Iprops) {
                     {(!props.isLoad) ? 
                     <GetByIdPageItem item={props.item} 
                                      isLoadInItem={props.isLoadInItem}
-                                     setCommentInItemThunk={props.setCommentInItemThunk}/> :
+                                     setCommentInItemThunk={props.setCommentInItemThunk}
+                                     addCommentToStoryItemThunk={props.addCommentToStoryItemThunk}
+                                     /> :
                     <MinLoadCenter/>}
                 </div>
             </div>
@@ -75,5 +87,6 @@ export default connect(
         stopTimer,
         setCommentInItemThunk,
         resetItem,
+        addCommentToStoryItemThunk,
     }
 )(GetByIdPageContainer)

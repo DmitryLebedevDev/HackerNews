@@ -10,9 +10,12 @@ import { Istory } from '../../redux/storys-reducersType';
 export interface Iprops extends Istory {
   addCommentToStoryThunk?: (id:number) => void;
   commentsDefOpen?: boolean;
+  isLink?: boolean;
 }
 
 export default function StoryItem(props: Iprops) {
+  debugger
+  let link = props.isLink ? false : true;
   let [openIsComment, openComment] = useState((props.commentsDefOpen) ? true : false); // if comments is open
   let [statusRecuest,setStatusRecuest] = useState(false);
   let comments = [];
@@ -47,13 +50,18 @@ export default function StoryItem(props: Iprops) {
           <Link to={`/user/${props.author}`} className={styles.Story__linkToProfile}>
             {props.author} 
           </Link> {egoDateToString(props.time)} | hide 
-          {(props.fullLenComments) ?  
-          <Link to={`/story/${props.id}`} className={styles.Story__linkComments}
+          {(props.fullLenComments) ? (link) ? 
+            <Link to={`/story/${props.id}`} className={styles.Story__linkComments}
             onClick={() => { openComment(r => !r) }}>
-            <Button color="primary">
+              <Button color="primary">
+                comments {props.fullLenComments}
+              </Button> 
+            </Link> : //!!!!!!!
+            <Button className={styles.Story__linkComments} 
+            color="primary" onClick={() => { openComment(r => !r)}}>
               comments {props.fullLenComments}
             </Button>
-          </Link> : ''}
+           : ''}
         </div>
         {(openIsComment) && comments}
         {(props.commentsIsLoad) ? <MinLoadCenter/> : ''}
@@ -61,3 +69,10 @@ export default function StoryItem(props: Iprops) {
     </div>
   )
 }
+/*
+<Link to={`/story/${props.id}`} className={styles.Story__linkComments}
+            onClick={() => { openComment(r => !r) }}>
+            <Button color="primary">
+              comments {props.fullLenComments}
+            </Button>
+          </Link>*/

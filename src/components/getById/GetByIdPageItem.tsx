@@ -7,6 +7,7 @@ interface Iprops {
     item?: Iitem;
     isLoadInItem: boolean;
     setCommentInItemThunk: (id:number) => void;
+    addCommentToStoryItemThunk: () => void;
 }
 
 export default function GetByIdPageItem(props:Iprops) {
@@ -21,10 +22,12 @@ export default function GetByIdPageItem(props:Iprops) {
             author={item.author}
             score={item.score}
             time={item.time}
-            comments={[]}
-            commentsIsLoad={false}
-            addCommentToStoryThunk={() => {}}
+            comments={item.comments}
+            commentsIsLoad={props.isLoadInItem}
+            addCommentToStoryThunk={props.addCommentToStoryItemThunk}
+            commentsDefOpen={false}
             commentsId={[]}//!!***
+            isLink={true}
         />
     }
     if (item && item.type === 'comment') {
