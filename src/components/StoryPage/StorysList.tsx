@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import styles from './StorysList.module.css';
 import { LinearProgress, Button } from '@material-ui/core';
 import StoryItem from './StoryIrem';
@@ -30,9 +30,6 @@ export default function StorysList(props: Iprops) {
             addFunc();
           }
         }
-    }
-    return () => {
-      console.log('я все');
     }
   },[props.storys.length]);
   let storys = props.storys.map((item:Istory) => 

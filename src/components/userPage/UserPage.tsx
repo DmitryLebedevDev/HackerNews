@@ -24,8 +24,12 @@ export default function UserPage(props:Iprops) {
             : ''}}>
           </div>
           <div className={styles.Links}>
-            <Link to={`${props.path}/submission`}>submission</Link>
-            <Link to={`${props.path}/comments`}>comments</Link>
+            <Link to={`${props.path}/submission`}>submission 
+              <span style={{color: 'grey',fontSize: 12}}>*|will take a long time to load</span>
+            </Link>
+            <Link to={`${props.path}/comments`}>comments
+              <span style={{color: 'grey',fontSize: 12}}>*|will take a long time to load</span>
+            </Link>
             <Link to={`${props.path}/favorites`}>favorites</Link>
           </div>
         </div>

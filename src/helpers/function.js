@@ -1,5 +1,5 @@
-import {getElementById, maxItems} from "../api/api";
-import {Istory} from "../redux/storys-reducersType";
+import {getElementById} from "../api/api";
+
 
 export function getItemsArrayLoad (arr = []) {
   return new Promise((res,req) => {
