@@ -19,7 +19,7 @@ export default function StorysList(props: Iprops) {
   useEffect(() => {
     request.current=false
     // auto load
-    window.onscroll = () => {
+    document.body.onscroll = () => {
       if (document.body.scrollHeight === 
         document.documentElement.scrollTop 
         + 
@@ -30,6 +30,9 @@ export default function StorysList(props: Iprops) {
             addFunc();
           }
         }
+    }
+    return () => {
+      document.body.onscroll = null;
     }
   },[props.storys.length]);
   let storys = props.storys.map((item:Istory) => 

@@ -14,21 +14,14 @@
   cursor: pointer;
 }
 .Header__item>a {
-  font-family: sans-serif;
+  font-family: 'Roboto', sans-serif !important;
   color: rgb(0, 159, 233);
   font-size: 16px;
-  font-weight: 600;
+  font-weight: 500;
   transition: 0.5s;
   padding: 2 2px;
 }
-.Header__item+.Header__item::before {
-  position: absolute;
-  content: '';
-  left: -3px;
-  background-color: rgb(1, 127, 185);
-  height: 100%;
-  width: 2px;
-}
+
 
 .Header__item>span:hover {
   cursor: pointer;

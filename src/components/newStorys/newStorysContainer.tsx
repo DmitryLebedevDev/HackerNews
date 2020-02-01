@@ -29,7 +29,11 @@ function NewStorysContainer(props:Iprops) {
         addTopStoryThunk={props.addStoryThunk}/>
     )
   } else {
-    return (<MinLoadCenter/>)
+    return (
+      <div style={{paddingTop: 20}}>
+        <MinLoadCenter/>
+      </div>
+    )
   }
 }
 export default connect(
