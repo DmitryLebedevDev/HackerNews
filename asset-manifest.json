@@ -1,21 +1,21 @@
 {
   "files": {
     "main.css": "/HackerNews/static/css/main.6976eaac.chunk.css",
-    "main.js": "/HackerNews/static/js/main.1e6e9ae9.chunk.js",
-    "main.js.map": "/HackerNews/static/js/main.1e6e9ae9.chunk.js.map",
+    "main.js": "/HackerNews/static/js/main.3bbd90f1.chunk.js",
+    "main.js.map": "/HackerNews/static/js/main.3bbd90f1.chunk.js.map",
     "runtime-main.js": "/HackerNews/static/js/runtime-main.a0114991.js",
     "runtime-main.js.map": "/HackerNews/static/js/runtime-main.a0114991.js.map",
-    "static/js/2.6370a271.chunk.js": "/HackerNews/static/js/2.6370a271.chunk.js",
-    "static/js/2.6370a271.chunk.js.map": "/HackerNews/static/js/2.6370a271.chunk.js.map",
+    "static/js/2.0e0393c5.chunk.js": "/HackerNews/static/js/2.0e0393c5.chunk.js",
+    "static/js/2.0e0393c5.chunk.js.map": "/HackerNews/static/js/2.0e0393c5.chunk.js.map",
     "index.html": "/HackerNews/index.html",
-    "precache-manifest.85a4ba0f2a5b76d4bd1d7fab296f6e2e.js": "/HackerNews/precache-manifest.85a4ba0f2a5b76d4bd1d7fab296f6e2e.js",
+    "precache-manifest.6903a1330366b9e3fd9dccc9b8eed3c6.js": "/HackerNews/precache-manifest.6903a1330366b9e3fd9dccc9b8eed3c6.js",
     "service-worker.js": "/HackerNews/service-worker.js",
     "static/css/main.6976eaac.chunk.css.map": "/HackerNews/static/css/main.6976eaac.chunk.css.map"
   },
   "entrypoints": [
     "static/js/runtime-main.a0114991.js",
-    "static/js/2.6370a271.chunk.js",
+    "static/js/2.0e0393c5.chunk.js",
     "static/css/main.6976eaac.chunk.css",
-    "static/js/main.1e6e9ae9.chunk.js"
+    "static/js/main.3bbd90f1.chunk.js"
   ]
 }
