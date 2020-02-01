@@ -14,7 +14,7 @@ export interface Iprops extends Istory {
 }
 
 export default function StoryItem(props: Iprops) {
-  debugger
+
   let link = props.isLink ? false : true;
   let [openIsComment, openComment] = useState((props.commentsDefOpen) ? true : false); // if comments is open
   let [statusRecuest,setStatusRecuest] = useState(false);

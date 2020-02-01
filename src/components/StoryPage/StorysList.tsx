@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import styles from './StorysList.module.css';
 import { LinearProgress, Button } from '@material-ui/core';
 import StoryItem from './StoryIrem';
@@ -14,21 +14,27 @@ interface Iprops {
 }
 
 export default function StorysList(props: Iprops) {
+  let request = useRef(false);
   let addFunc:any = props.addTopStoryThunk || props.funcAdd;
-  /*useEffect(() => {
+  useEffect(() => {
+    request.current=false
     // auto load
     window.onscroll = () => {
       if (document.body.scrollHeight === 
         document.documentElement.scrollTop 
         + 
         document.documentElement.clientHeight && addFunc) {
-          addFunc();
+          debugger
+          if (!request.current) {
+            request.current = true;
+            addFunc();
+          }
         }
     }
     return () => {
       console.log('я все');
     }
-  },[])*/
+  },[props.storys.length]);
   let storys = props.storys.map((item:Istory) => 
     <StoryItem key={item.id} addCommentToStoryThunk={props.addCommentToStoryThunk} {...item}/>)
   return (
