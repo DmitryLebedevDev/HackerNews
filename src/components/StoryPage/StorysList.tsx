@@ -43,7 +43,7 @@ export default function StorysList(props: Iprops) {
       {((props.storysIsLoad) && <LinearProgress />)}
       {(!props.storysIsLoad && !props.lenIsMax) ? <div className={styles.Story__blockCenter}>
         <div style={{marginTop: 10, paddingBottom: 15}}>
-          <Button onClick={() => addFunc()} variant="contained" color="secondary"> add story </Button>
+          <Button onClick={() => addFunc()} variant="contained" color="secondary"> add stories </Button>
         </div>
       </div> : ''}
     </div>

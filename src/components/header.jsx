@@ -7,7 +7,7 @@ const Header = (props) => {
     <div className={styles.Header}>
       <div className={styles.Header__wrap}>
         <div className={styles.Header__item}>
-          <Link to={'/story'}>Top story</Link>
+          <Link to={'/story'}>Top stories</Link>
         </div>
         <div className={styles.Header__item}>
           <Link to={'/newStorys'}>new stories</Link>
