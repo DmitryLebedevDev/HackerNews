@@ -39,8 +39,7 @@
   width: 100%;
   display: flex;
   justify-content: space-between;
-  padding-left: 15px;
-  padding-right: 15px;
+  padding: 0 12px;
 }
 @media all and ( max-width: 428px ) {
   .Header {
