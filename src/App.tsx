@@ -7,6 +7,7 @@ import Content from './components/Content';
 import store from './redux/store';
 import { HashRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
+import MinLoadCenter from './components/decorComponent/minLoadCenter';
 
 interface d {
   isInit: boolean,
@@ -25,7 +26,9 @@ const App: React.FC<d> = (props:d) => {
 
   if(!props.isInit) {
     return (
-      <div>Загрузка ебаная</div>
+      <div style={{paddingTop: 15}}>
+        <MinLoadCenter/>
+      </div>
     )
   }
   return (

@@ -19,9 +19,8 @@ export default function StorysList(props: Iprops) {
   useEffect(() => {
     request.current=false
     // auto load
-    document.body.onscroll = (event: any) => {
-      console.log(event);
-      if (document.body.scrollHeight === 
+    const startScroll = (event: any) => {
+      if (document.body.scrollHeight-150 <= 
         document.documentElement.scrollTop 
         + 
         document.documentElement.clientHeight && addFunc) {
@@ -31,8 +30,9 @@ export default function StorysList(props: Iprops) {
           }
         }
     }
+    window.addEventListener('scroll', startScroll);
     return () => {
-      document.body.onscroll = null;
+      window.removeEventListener('scroll',startScroll);
     }
   },[props.storys.length]);
   let storys = props.storys.map((item:Istory) => 

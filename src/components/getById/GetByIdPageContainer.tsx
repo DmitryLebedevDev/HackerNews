@@ -43,7 +43,9 @@ function GetByIdPageContainer(props: Iprops) {
     }, []);
     if (!props.maxItem) {
         return (
-            <MinLoadCenter/>
+            <div style={{marginTop: 15}}>
+                <MinLoadCenter/>
+            </div>
         )
     };
     return (

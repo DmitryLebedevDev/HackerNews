@@ -30,7 +30,6 @@ export default function UserPage(props:Iprops) {
             <Link to={`${props.path}/comments`}>comments
               <span style={{color: 'grey',fontSize: 12}}>*|will take a long time to load</span>
             </Link>
-            <Link to={`${props.path}/favorites`}>favorites</Link>
           </div>
         </div>
       </div>
