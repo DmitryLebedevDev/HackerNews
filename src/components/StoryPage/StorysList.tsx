@@ -19,12 +19,12 @@ export default function StorysList(props: Iprops) {
   useEffect(() => {
     request.current=false
     // auto load
-    document.body.onscroll = () => {
+    document.body.onscroll = (event: any) => {
+      console.log(event);
       if (document.body.scrollHeight === 
         document.documentElement.scrollTop 
         + 
         document.documentElement.clientHeight && addFunc) {
-          debugger
           if (!request.current) {
             request.current = true;
             addFunc();
@@ -42,7 +42,9 @@ export default function StorysList(props: Iprops) {
       {storys}
       {((props.storysIsLoad) && <LinearProgress />)}
       {(!props.storysIsLoad && !props.lenIsMax) ? <div className={styles.Story__blockCenter}>
-        <Button onClick={() => addFunc()} variant="contained" color="secondary"> add story </Button>
+        <div style={{marginTop: 10, paddingBottom: 15}}>
+          <Button onClick={() => addFunc()} variant="contained" color="secondary"> add story </Button>
+        </div>
       </div> : ''}
     </div>
   )

@@ -128,7 +128,6 @@ export const setItemThunkStart = (id: number) => async (dispatch: any) => {
         delete item.by
     }
     if (item.type === 'story') {
-        debugger
         item = {
             id: item.id,
             url: item.url,

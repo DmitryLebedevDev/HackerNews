@@ -1,5 +1,6 @@
 .List {
   margin: 0 auto;
+  margin-top: 10px;
   max-width: 600px;
   width: 100%;
 }

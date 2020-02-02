@@ -47,7 +47,7 @@ function GetByIdPageContainer(props: Iprops) {
         )
     };
     return (
-        <div className={styles.centerBlock}>
+        <div className={styles.centerBlock} style={{marginTop: 10}}>
             <div className={styles.center}>
                 <div style={{textAlign: 'center'}}>
                     max id <TableItemsNumber number={props.maxItem}/>
