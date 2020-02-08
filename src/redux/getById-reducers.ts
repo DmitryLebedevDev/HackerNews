@@ -1,5 +1,5 @@
 import IgetByIdReducersState, { Iitem } from './getByid-reducersType';
-import { getElementById, maxItems } from '../api/api';
+import { getElementById, maxItems, getElementByUserId } from '../api/api';
 import { JsonComent } from '../helpers/function';
 import { ICommetn } from './user-reducersType';
 import IStore from './storeType';
@@ -119,9 +119,24 @@ export const startCheckMaxItem = () => (dispatch: any) => {
         dispatch(CheckMaxItemThunk());
     },10000)))
 }
-export const setItemThunkStart = (id: number) => async (dispatch: any) => {
+export const setItemThunkStart = (id: number|string) => async (dispatch: any) => {
     dispatch(statLoad());
-    let item = await getElementById(id);
+    let item:any;
+    if(typeof id === 'string') {
+        item = await getElementByUserId(id);
+        if (item) {
+            item.type = 'user';
+            item.errorCode = 0;
+        } else {
+            debugger
+            item = {};
+            item.errorCode = 1;
+            item.ErrorMessage = 'not search';
+            item.type = 'user';
+        }
+    } else {
+        item = await getElementById(id);
+    }
     if(item.type === 'comment') {
         item.name = item.by;
         item.isLoad = false;

@@ -21,7 +21,7 @@ import GetByIdPageItem from './GetByIdPageItem'
 interface Iprops {
     item?: Iitem;
     isLoad: boolean;
-    setItemThunkStart: (id: number) => any;
+    setItemThunkStart: (id: number|string) => any;
     setItemThunkEnd: (item: any) => void;
     startCheckMaxItem: () => void;
     CheckMaxItemThunk: () => void;

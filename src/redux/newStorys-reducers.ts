@@ -12,6 +12,7 @@ const START_LOAD = 'START_LOAD';
 const STOP_LOAD = 'STOP_LOAD';
 
 const IS_COUNT_LOAD_STORY = 8;
+const ADD_COUNT_IN_START = 4;
 
 const startLoad = () => {
   return {
@@ -53,7 +54,7 @@ export const addStoryThunk = () => async (dispatch: any, getState: () => IStore)
 }
 export const initNewStoryPageThunk = () => async (dispatch: any) => {
   let indexMaxItem = await maxItems();
-  let info = await getItemsLoadS(indexMaxItem,IS_COUNT_LOAD_STORY+4);
+  let info = await getItemsLoadS(indexMaxItem,IS_COUNT_LOAD_STORY+ADD_COUNT_IN_START);
   let storysArr = info.story;
   indexMaxItem = info.index;
   dispatch(addStorys(storysArr));
@@ -66,6 +67,8 @@ let initState:InewStoryReducers = {
   isLoad: false,
   isInit: false,
 };
+
+
 
 export default function newStorysReducers (state=initState,action:any):InewStoryReducers {
   switch (action.type) {

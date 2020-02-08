@@ -30,7 +30,8 @@ export default function GetByIdPageItem(props:Iprops) {
             isLink={true}
         />
     }
-    if (item && item.type === 'comment') {
+    if (item && item.type && item.type === 'comment') {
+        console.log()
         DOMitem = <BlockComment
             id={item.id}
             name={item.name}
@@ -38,8 +39,13 @@ export default function GetByIdPageItem(props:Iprops) {
             commetnsArr={item.kids}
             comments={item.comments}
             isLoad={props.isLoadInItem}
-            funcBtn={() => {props.setCommentInItemThunk((item) ? item.id : -1)}}
+            funcBtn={() => {props.setCommentInItemThunk((item && typeof(item.id) === 'number') ? item.id : -1)}}
         />
+    }
+    if (item && item.type === 'user') {
+        DOMitem = <div>
+            user: {item.id}
+        </div>
     }
     return (
         <div>
