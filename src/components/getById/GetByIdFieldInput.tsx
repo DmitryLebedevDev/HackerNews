@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import styles from './GetByIdPage.module.css';
-import { FormControlLabel, Switch } from '@material-ui/core';
+import { Switch, Typography, Grid } from '@material-ui/core';
 
 interface Iprops {
     maxItem: number;
@@ -55,17 +55,22 @@ export default function GetByIdFieldInput(props:Iprops) {
                 }}/>
                 {(error) && <div style={{color: 'red'}}>max items is {props.maxItem}</div>}
                 <div>
-                <FormControlLabel
-                    control={
-                    <Switch
+                <div style={{textAlign: 'center'}}>
+                    search to
+                </div>
+                <Typography component="div">
+                    <Grid component="label" container alignItems="center" justify="center" spacing={1}>
+                    <Grid item> id</Grid>
+                    <Grid item>
+                        <Switch
                         checked={searchToUser}
-                        onChange={() => {setError(false);setSearchToUser((r)=> !r)}}
-                        value="checkedB"
+                        onChange={() => {setSearchToUser(r => !r)}}
                         color="primary"
-                    />
-                    }
-                    label="search to user"
-                />
+                        />
+                    </Grid>
+                    <Grid item>user</Grid>
+                    </Grid>
+                </Typography>
                 </div>
         </div>
     )

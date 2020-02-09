@@ -3,7 +3,6 @@ import { connect } from 'react-redux'
 import {initThunk} from '../../redux/ask-reducers';
 import IStore from '../../redux/storeType'
 import { Iask } from '../../redux/ask-reducersType';
-import Load from '../decorComponent/load';
 import MinLoadCenter from '../decorComponent/minLoadCenter';
 import StorysList from '../StoryPage/StorysList';
 

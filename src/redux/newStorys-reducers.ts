@@ -1,8 +1,7 @@
 import InewStoryReducers from "./newStorys-reducersType";
 import { maxItems } from "../api/api";
-import { getItems, getItemsLoadS } from "../helpers/function";
+import { getItemsLoadS } from "../helpers/function";
 import { Istory } from "./storys-reducersType";
-import Istore from "./store-reducersType";
 import IStore from "./storeType";
 
 const SET_INDEX_STORY = 'SET_INDEX_STORY';
