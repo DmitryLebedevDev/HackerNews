@@ -10,6 +10,7 @@ export type IUserLopped = {
     type: 'user',
     errorCode: number,
     ErrorMessage?: string,
+    karma: number,
 }
 
 export default interface IgetByIdReducers {
