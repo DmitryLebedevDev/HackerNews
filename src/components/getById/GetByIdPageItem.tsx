@@ -2,7 +2,7 @@ import React from 'react';
 import { Iitem } from '../../redux/getByid-reducersType';
 import { BlockComment } from '../CommentsBlock/CommentsBlock';
 import StoryItem from '../StoryPage/StoryIrem';
-import {egoDateToString} from '../../helpers/function';
+import UserSmol from '../userPage/UserSmol';
 
 interface Iprops {
     item?: Iitem;
@@ -40,7 +40,8 @@ export default function GetByIdPageItem(props:Iprops) {
             commetnsArr={item.kids}
             comments={item.comments}
             isLoad={props.isLoadInItem}
-            funcBtn={() => {props.setCommentInItemThunk((item && typeof(item.id) === 'number') ? item.id : -1)}}
+            funcBtn={() => {props.setCommentInItemThunk((item && typeof(item.id) === 'number') ? 
+                item.id : -1)}}
         />
     }
     if (item && item.type === 'user') {
@@ -50,11 +51,7 @@ export default function GetByIdPageItem(props:Iprops) {
             </div>
 
         } else if (item.id && item.created && item.karma) {
-            DOMitem = <div>
-                user: {item.id} <br></br>
-                created: {egoDateToString(item.created)} <br></br>
-                karma: {item.karma}
-            </div>
+            DOMitem = <UserSmol {...item} />
         }
         
     }
