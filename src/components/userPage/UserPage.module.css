@@ -3,6 +3,33 @@
   flex-direction: column;
   padding: 0 15px;
 }
+.userSmol {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.link {
+  position: relative;
+  color: #3f51b5;
+  font-size: 20px;
+}
+.link::after {
+  position: absolute;
+  content: '';
+  background: black;
+  height: 2px;
+  width: 0;
+  right: 0;
+  bottom: 0;
+  transition: 0.2s;
+  
+}
+.link:hover::after {
+  left: 0;
+  width: 100%;
+}
+
+
 .Links {
   display: inline-flex;
   flex-direction: column;
