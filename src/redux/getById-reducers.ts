@@ -25,12 +25,6 @@ export const addCommentToStory = (comments: any) => {
         comments,
     }
 } 
-
-export const resetItem = () => {
-    return {
-        type: RESET_ITEM
-    }
-}
 // set comment in item (item - comment)
 const setCommentInItem = (comment: ICommetn) => {
     return {
@@ -38,7 +32,11 @@ const setCommentInItem = (comment: ICommetn) => {
         comment,
     }
 }
-
+export const resetItem = () => {
+    return {
+        type: RESET_ITEM
+    }
+}
 const requesInItemStart = () => {
     return {
         type: REQUERS_IN_ITEM_START
@@ -171,7 +169,6 @@ let initState: IgetByIdReducersState = {
 export default function getByIdReducers (state = initState,action: any):IgetByIdReducersState {
     switch (action.type) {
         case ADD_COMMENT_TO_STORY: {
-            debugger
             let item = state.item;
             if (item && item.type === 'story') {
                 item = {...item};
@@ -179,7 +176,6 @@ export default function getByIdReducers (state = initState,action: any):IgetById
                 for (let key in action.comments) {
                     comments.push(action.comments[key])
                 }
-                debugger
                 item.comments = [...item.comments,...comments];
             }
             return {

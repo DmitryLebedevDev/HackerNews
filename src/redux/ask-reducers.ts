@@ -1,20 +1,26 @@
-import IaskReducers from "./ask-reducersType";
+import IaskReducers, { 
+       IinitAskActions,
+       IaddAskActions,
+       INIT,
+       ADD_ASK,
+       IaskActions
+} from "./ask-reducersType";
 import { getAsk, getElementById } from "../api/api";
 
-const ADD_ASK = 'ADD_ASK';
-const INIT = 'INIT_ASK_REDUCER';
 
-const init = () => {
+const init = (): IinitAskActions => {
   return {
     type: INIT
   }
 }
-const addAsk = (ask: any[]) => {
+const addAsk = (ask: any[]): IaddAskActions => {
   return {
     type: ADD_ASK,
     ask,
   }
 }
+
+
 export const addFullAskThunk = () => async (dispatch: any) => {
   return new Promise (async (res,req) => {
     let info: any[] = await getAsk();
@@ -52,7 +58,7 @@ const start:IaskReducers = {
   init: false
 };
 
-export default function askReducers (state=start,action: any):IaskReducers {
+export default function askReducers (state=start, action:IaskActions):IaskReducers {
   switch (action.type) {
     case ADD_ASK: {
       return {
