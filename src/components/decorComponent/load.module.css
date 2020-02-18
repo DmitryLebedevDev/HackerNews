@@ -2,6 +2,7 @@
   transition: 0.5s;
   transform: rotate(0deg);
   animation: load-anim 3s linear infinite;
+  width: 150px;
 }
 .Load {
   position: fixed;
