@@ -1,14 +1,15 @@
-import InewStoryReducers from "./newStorys-reducersType";
+import InewStoryReducers, {
+  START_LOAD,
+  STOP_LOAD,
+  INITIALIZE,
+  ADD_STORYS,
+  SET_INDEX_STORY,
+  InewsStorysActions,
+} from "./newStorys-reducersType";
 import { maxItems } from "../api/api";
 import { getItemsLoadS } from "../helpers/function";
 import { Istory } from "./storys-reducersType";
 import IStore from "./storeType";
-
-const SET_INDEX_STORY = 'SET_INDEX_STORY';
-const INITIALIZE = 'INITIALIZE';
-const ADD_STORYS = 'ADD_STORYS';
-const START_LOAD = 'START_LOAD';
-const STOP_LOAD = 'STOP_LOAD';
 
 const IS_COUNT_LOAD_STORY = 8;
 const ADD_COUNT_IN_START = 4;
@@ -69,7 +70,7 @@ let initState:InewStoryReducers = {
 
 
 
-export default function newStorysReducers (state=initState,action:any):InewStoryReducers {
+export default function newStorysReducers (state=initState,action:InewsStorysActions):InewStoryReducers {
   switch (action.type) {
     case START_LOAD: {
       return {

@@ -1,19 +1,19 @@
+import IstoreReducers, { Istory,
+  ADD_STORY,
+  ADD_COMMENT_TO_STORY,
+  START_LOAD_STORY,
+  STOP_LOAD_STORY,
+  START_LOAD_STORY_COMMETNS,
+  STOP_LOAD_STORY_COMMETNS,
+  ADD_LEN_STORY,
+  LEN_MAX_ON,
+  IStorysActions
+} from './storys-reducersType';
 import { getTopStorys } from './../api/api';
 import { getElementById } from './../api/api';
 import { JsonComent } from '../helpers/function.js';
-import IstoreReducers, { Istory } from './storys-reducersType';
 import { ICommetn } from './user-reducersType';
 import {IstoryRequest} from '../api/apiType';
-
-
-const ADD_STORY = 'ADD_TOP_STORY';
-const ADD_COMMENT_TO_STORY = 'ADD_COMMENT_TO_STORY'; 
-const START_LOAD_STORY = 'START_LOAD_STORY';
-const STOP_LOAD_STORY = 'STOP_LOAD_STORY';  
-const START_LOAD_STORY_COMMETNS = 'START_LOAD_STORY_COMMETNS';
-const STOP_LOAD_STORY_COMMETNS = 'STOP_LOAD_STORY_COMMETNS';
-const ADD_LEN_STORY = 'ADD_LEN_STORY';
-const LEN_MAX_ON = 'LEN_MAX_ON';
 
 export const lenMaxOn = () => {
   return {
@@ -86,7 +86,7 @@ export const addCommentToStoryThunk = (idStory:number) => async (dispatch: any) 
   }
 };
 
-export const addStoryThuck = (id:number) => async (dispatch: any) => {
+export const addStoryThuck = (id:number) => async (dispatch: any):Promise<boolean> => {
   let story = await getElementById(id);
   if (!story) {
     return false
@@ -158,7 +158,7 @@ const start:IstoreReducers = {
   lenIsMax: false,
   storysIsLoad: false,
 };
-function storeReducers (state = start, action: any) {
+function storeReducers (state = start, action: IStorysActions) {
   switch (action.type) {
     case LEN_MAX_ON: {
       return {
@@ -169,7 +169,7 @@ function storeReducers (state = start, action: any) {
     case ADD_LEN_STORY: {
       return {
         ...state,
-        lenStory: action.length,
+        lenStory: action.lenght,
       }
     }
     case START_LOAD_STORY_COMMETNS: {

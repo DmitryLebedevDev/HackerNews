@@ -1,82 +1,99 @@
-import IgetByIdReducersState, { Iitem } from './getByid-reducersType';
+import IgetByIdReducersState, { Iitem, 
+                                IgetByIdActions, 
+                                ADD_COMMENT_TO_STORY,
+                                SET_COMMENT_IN_ITEM,
+                                SET_ITEM,
+                                RESET_ITEM,
+                                REQUERS_IN_ITEM_START,
+                                REQUERS_IN_ITEM_STOP,
+                                SET_MAX_ITEM,
+                                STOP_TIMER,
+                                START_TIMER,
+                                START_LOAD,
+                                STOP_LOAD,
+                                STOP_CHECK_MAX_ITEM,
+                                IsetCommentInItem,
+                                IsetItem,
+                                IresetItem,
+                                IrequesInItemStart,
+                                IrequesInItemStop,
+                                IsetMaxItem,
+                                IstopTimer,
+                                IstartTime,
+                                IstatLoad,
+                                IstopCheckMaxItem,
+} from './getByid-reducersType';
 import { getElementById, maxItems, getElementByUserId } from '../api/api';
 import { JsonComent } from '../helpers/function';
 import { ICommetn } from './user-reducersType';
 import IStore from './storeType';
+import { IstopLoad } from './jobs-reducersType';
 
-
-const SET_ITEM = 'SET_ITEM';
-const START_LOAD = 'START_LOAD';
-const STOP_LOAD = 'STOP_LOAD';
-const START_TIMER = 'START_TIMER';
-const STOP_TIMER = 'STOP_TIMER';
-const SET_MAX_ITEM = 'SET_MAX_ITEM';
-const REQUERS_IN_ITEM_START = 'REQUERS_IN_ITEM_START';
-const REQUERS_IN_ITEM_STOP = 'REQUERS_IN_ITEM_STOP';
-const SET_COMMENT_IN_ITEM = 'SET_COMMENT_IN_ITEM';
-const RESET_ITEM = 'RESET_ITEM';
-const STOP_CHECK_MAX_ITEM = 'STOP_CHECK_MAX_ITEM';
-const ADD_COMMENT_TO_STORY = 'ADD_COMMENT_TO_STORY';
 
 // set comment in item (item - story)
-export const addCommentToStory = (comments: any) => {
+export const addCommentToStory = (comments: ICommetn) => {
     return {
         type: ADD_COMMENT_TO_STORY,
         comments,
     }
 } 
 // set comment in item (item - comment)
-const setCommentInItem = (comment: ICommetn) => {
+const setCommentInItem = (comment: ICommetn[]):IsetCommentInItem => {
     return {
         type: SET_COMMENT_IN_ITEM,
         comment,
     }
 }
-export const resetItem = () => {
+export const resetItem = ():IresetItem => {
     return {
         type: RESET_ITEM
     }
 }
-const requesInItemStart = () => {
+const requesInItemStart = ():IrequesInItemStart => {
     return {
         type: REQUERS_IN_ITEM_START
     }
 }
-const requesInItemStop = () => {
+const requesInItemStop = ():IrequesInItemStop => {
     return {
         type: REQUERS_IN_ITEM_STOP
     }
 }
-export const setMaxItem = (index: number) => {
+export const setMaxItem = (index: number): IsetMaxItem => {
     return {
         type: SET_MAX_ITEM,
         index,
     }
 }
-export const stopTimer = () => {
+export const stopTimer = (): IstopTimer => {
     return {
         type: STOP_TIMER
     }
 }
-export const startTimer = (timer: NodeJS.Timeout) => {
+export const startTimer = (timer: NodeJS.Timeout): IstartTime => {
     return {
         type: START_TIMER,
         timer,
     }
 }
-export const statLoad = () => {
+export const statLoad = (): IstatLoad => {
     return {
         type: START_LOAD
     }
 
 }
-export const stopLoad = () => {
+export const stopLoad = (): IstopLoad => {
     return {
         type: STOP_LOAD
     }
 }
+export const stopCheckMaxItem = (): IstopCheckMaxItem => {
+    return {
+        type: STOP_CHECK_MAX_ITEM
+    }
+}
 
-export const setItem = (item: Iitem) => {
+export const setItem = (item: Iitem): IsetItem => {
     return {
         type: SET_ITEM,
         item,
@@ -117,7 +134,7 @@ export const startCheckMaxItem = () => (dispatch: any) => {
         dispatch(CheckMaxItemThunk());
     },10000)))
 }
-export const setItemThunkStart = (id: number|string) => async (dispatch: any) => {
+export const setItemThunkStart = (id: number|string) => async (dispatch: any): Promise<Iitem> => {
     dispatch(statLoad());
     let item:any;
     if(typeof id === 'string') {
@@ -166,7 +183,7 @@ let initState: IgetByIdReducersState = {
     isLoadInItem: false,
 };
 
-export default function getByIdReducers (state = initState,action: any):IgetByIdReducersState {
+export default function getByIdReducers (state = initState,action: IgetByIdActions):IgetByIdReducersState {
     switch (action.type) {
         case ADD_COMMENT_TO_STORY: {
             let item = state.item;
@@ -186,7 +203,6 @@ export default function getByIdReducers (state = initState,action: any):IgetById
         case STOP_CHECK_MAX_ITEM: {
             return {
                 ...state,
-
             }
         }
         case SET_COMMENT_IN_ITEM: {

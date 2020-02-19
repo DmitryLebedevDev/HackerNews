@@ -1,15 +1,13 @@
+import IjobsReduser, { Ijob, IJobsActions,
+                       MAX_LOAD_LIST,START_LOAD,
+                       STOP_LOAD,SET_INDEX_ARR,
+                       UP_INDEX,ADD_JOBS,
+                       IS_LOAD_JOBS,
+} from "./jobs-reducersType";
 import { getTopJobs } from "../api/api";
 import IStore from "./storeType";
 import {getItemsArrayLoad} from '../helpers/function';
-import IjobsReduser, { Ijob } from "./jobs-reducersType";
 
-const ADD_JOBS = 'ADD_JOBS' 
-const UP_INDEX = 'UP_INDEX'
-const IS_LOAD_JOBS = 25;
-const SET_INDEX_ARR = 'SET_INDEX_ARR';
-const START_LOAD = 'START_LOAD';
-const STOP_LOAD = 'STOP_LOAD';
-const MAX_LOAD_LIST = 'MAX_LOAD_LIST';
 
 const maxLoadList = () => {
   return {
@@ -78,7 +76,7 @@ let start: IjobsReduser = {
   isLoad: false,
   isMax: false,
 }
-function jobsReducer (state=start,action:any):IjobsReduser{
+function jobsReducer (state=start,action:IJobsActions):IjobsReduser{
   switch (action.type) {
     case MAX_LOAD_LIST: {
       return {
