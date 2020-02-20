@@ -21,8 +21,6 @@
   transition: 0.5s;
   padding: 2 2px;
 }
-
-
 .Header__item>span:hover {
   cursor: pointer;
   color: rgb(0, 217, 255);
@@ -31,8 +29,6 @@
   cursor: pointer;
   color: rgb(0, 217, 255);
 }
-
-
 .Header__wrap {
   box-sizing: border-box;
   max-width: 320px;

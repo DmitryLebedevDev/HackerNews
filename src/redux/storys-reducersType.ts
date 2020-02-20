@@ -42,7 +42,7 @@ export interface IaddStoryComment {
 
 
 export type IStorysActions = IlenMaxOn|IsetLenStory|
-                             IsetLenStory|IstartLoadStoryComments|
+                             IstartLoadStoryComments|
                              IstopLoadStoryComments|IstartLoadStory|
                              IstartLoadStory|IstopLoadStory|
                              IaddStory|IaddStoryComment

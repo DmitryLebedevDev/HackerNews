@@ -29,7 +29,7 @@ export default function GetByIdFieldInput(props:Iprops) {
                             setError(true);
                         }
                         if (+event.target.value && +event.target.value <= props.maxItem) {
-                            // debag state race
+                            // fix state race
                             props.setItemThunkStart(+event.target.value).then((item: any) => {
                                 if(item.id === +id.current.value) {
                                     props.setItemThunkEnd(item);

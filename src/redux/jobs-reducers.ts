@@ -3,41 +3,47 @@ import IjobsReduser, { Ijob, IJobsActions,
                        STOP_LOAD,SET_INDEX_ARR,
                        UP_INDEX,ADD_JOBS,
                        IS_LOAD_JOBS,
+                       ImaxLoadList,
+                       IstartLoad,
+                       IstopLoad,
+                       IsetIndexArr,
+                       IupIndex,
+                       IaddJobs,
 } from "./jobs-reducersType";
 import { getTopJobs } from "../api/api";
 import IStore from "./storeType";
 import {getItemsArrayLoad} from '../helpers/function';
 
 
-const maxLoadList = () => {
+const maxLoadList = ():ImaxLoadList => {
   return {
     type: MAX_LOAD_LIST
   }
 }
-const startLoad = () => {
+const startLoad = ():IstartLoad => {
   return {
     type: START_LOAD
   }
 }
 
-const stopLoad = () => {
+const stopLoad = ():IstopLoad => {
   return {
     type: STOP_LOAD
   }
 }
-const setIndexArr = (arr: number[]) => {
+const setIndexArr = (arr: number[]):IsetIndexArr => {
   return {
     type:SET_INDEX_ARR,
     arr,
   }
 }
-const upIndex = (upIndexNum: number) => {
+const upIndex = (upIndexNum: number):IupIndex => {
   return {
     type: UP_INDEX,
     upIndexNum,
   }
 }
-export const addJobs = (jobs: Ijob[]) => {
+export const addJobs = (jobs: Ijob[]):IaddJobs => {
   return {
     type: ADD_JOBS,
     jobs,

@@ -7,7 +7,15 @@ import IstoreReducers, { Istory,
   STOP_LOAD_STORY_COMMETNS,
   ADD_LEN_STORY,
   LEN_MAX_ON,
-  IStorysActions
+  IStorysActions,
+  IlenMaxOn,
+  IsetLenStory,
+  IstartLoadStoryComments,
+  IstopLoadStoryComments,
+  IstartLoadStory,
+  IstopLoadStory,
+  IaddStory,
+  IaddStoryComment
 } from './storys-reducersType';
 import { getTopStorys } from './../api/api';
 import { getElementById } from './../api/api';
@@ -15,51 +23,51 @@ import { JsonComent } from '../helpers/function.js';
 import { ICommetn } from './user-reducersType';
 import {IstoryRequest} from '../api/apiType';
 
-export const lenMaxOn = () => {
+export const lenMaxOn = ():IlenMaxOn => {
   return {
     type: LEN_MAX_ON
   }
 }
 
-export const setLenStory = (number:number) => {
+export const setLenStory = (number:number):IsetLenStory => {
   return {
     type: ADD_LEN_STORY,
-    length: number,
+    lenght: number,
   }
 };
 
-export const startLoadStoryComments = (idStory:number) => {
+export const startLoadStoryComments = (idStory:number):IstartLoadStoryComments => {
   return {
     type: START_LOAD_STORY_COMMETNS,
     id: idStory,
   }
 };
 
-export const stopLoadStoryComments = (idStory:number) => {
+export const stopLoadStoryComments = (idStory:number):IstopLoadStoryComments => {
   return {
     type: STOP_LOAD_STORY_COMMETNS,
     id: idStory,
   }
 };
 
-export const startLoadStory = () => {
+export const startLoadStory = ():IstartLoadStory => {
   return {
     type: START_LOAD_STORY,
   }
 };
-export const stopLoadStory = () => {
+export const stopLoadStory = ():IstopLoadStory => {
   return {
     type: STOP_LOAD_STORY,
   }
 };
 
-export const addStory = (arrayStorys: Istory[]) => {
+export const addStory = (arrayStorys: Istory[]):IaddStory => {
   return {
     type: ADD_STORY,
     storys: arrayStorys,
   }
 };
-const addStoryComment = (idStory:number,comments:ICommetn[]) => {
+const addStoryComment = (idStory:number,comments:ICommetn[]):IaddStoryComment => {
   return {
     type: ADD_COMMENT_TO_STORY,
     comments:comments,

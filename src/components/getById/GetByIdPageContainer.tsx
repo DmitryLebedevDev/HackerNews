@@ -1,7 +1,3 @@
-import React,{ useEffect } from 'react'
-import { connect } from 'react-redux'
-import  IStore  from '../../redux/storeType'
-import { Iitem } from '../../redux/getByid-reducersType'
 import {
     addCommentToStoryItemThunk,
     stopTimer,
@@ -12,6 +8,10 @@ import {
     setItemThunkEnd,
     resetItem
 } from '../../redux/getById-reducers'
+import React,{ useEffect } from 'react'
+import { connect } from 'react-redux'
+import  IStore  from '../../redux/storeType'
+import { Iitem } from '../../redux/getByid-reducersType'
 import styles from './GetByIdPage.module.css'
 import MinLoadCenter from '../decorComponent/minLoadCenter'
 import TableItemsNumber from '../decorComponent/TableItem/TableItemsNumber'

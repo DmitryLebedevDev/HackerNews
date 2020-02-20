@@ -1,38 +1,49 @@
-import IuserReducers, { IUser } from "./user-reducersType";
+import IuserReducers, {
+  IUser,
+  ADD_USER,
+  ADD_USER_COMMETNS,
+  ADD_USER_COMMETNS_OPEN,
+  ADD_USER_STORY,
+  UP_COUT,
+  START_LOAD,
+  STOP_LOAD,
+  MAX_ITEMS,
+  IuserActions,
+  ImaxItem,
+  IstartLoad,
+  IstopLoad,
+  IupCout,
+  IaddUser,
+  IaddUserStory,
+  IaddUserComments,
+  IaddUserCommentsOpen,
+} from "./user-reducersType";
 import { getElementByUserId } from "../api/api";
 import {getItems} from '../helpers/function';
 import IStore from "./storeType";
 import {JsonComent} from '../helpers/function';
 
-const ADD_USER = 'ADD_USER';
-const ADD_USER_STORY = 'ADD_USER_STORY';
-const ADD_USER_COMMETNS  = 'ADD_USER_COMMETNS';
-const UP_COUT = 'UP_COUT';
-const START_LOAD = 'START_LOAD';
-const STOP_LOAD = 'STOP_LOAD';
-const MAX_ITEMS = 'MAX_ITEMS';
-const ADD_USER_COMMETNS_OPEN = 'ADD_USER_COMMETNS_OPEN';
 
-const maxItem = (id: string) => {
+const maxItem = (id: string): ImaxItem => {
   return {
     type: MAX_ITEMS,
     id,
   }
 }
-const startLoad = (id:string) => {
+const startLoad = (id:string): IstartLoad => {
   return {
     type: START_LOAD,
     id,
   }
 }
-const stopLoad = (id:string) => {
+const stopLoad = (id:string): IstopLoad => {
   return {
     type: STOP_LOAD,
     id
   }
 }
 
-const upCout = (id:string,cout:number) => {
+const upCout = (id:string,cout:number): IupCout => {
   return {
     type: UP_COUT,
     cout,
@@ -40,21 +51,21 @@ const upCout = (id:string,cout:number) => {
   }
 }
 
-const addUserStory = (id:string, storys: IStore[]) => {
+const addUserStory = (id:string, storys: IStore[]): IaddUserStory => {
   return {
     type: ADD_USER_STORY,
     id,
     storys,
   }
 }
-const addUserCommets = (id: string, info: any[]) => {
+const addUserCommets = (id: string, info: any[]): IaddUserComments => {
   return {
     type: ADD_USER_COMMETNS,
     id,
     info,
   }
 }
-const addUserComentsOpen = (id: string,idComments: number, info: any[]) => {
+const addUserComentsOpen = (id: string,idComments: number, info: any[]): IaddUserCommentsOpen => {
   return {
     type: ADD_USER_COMMETNS_OPEN,
     info,
@@ -62,13 +73,20 @@ const addUserComentsOpen = (id: string,idComments: number, info: any[]) => {
     idComments,
   }
 }
+const addUser = (info: IUser):IaddUser => {
+  return {
+    type: ADD_USER,
+    info,
+  }
+}
+
 export const addUserComentsOpenThunk = (idUser: string, idComment: number) => (dispatch: any, getState: () => IStore) => {
   let commetns:any[] = [];
   let promisCommetns: any[] = [];
   let currentUser = getState().users.users[idUser];
   let userComments = currentUser.comments.find((item) => item.id === idComment);
   if (userComments && userComments.commentsIdArr) {
-    userComments.commentsIdArr.forEach(item => {
+    userComments.commentsIdArr.forEach((item) => {
       promisCommetns.push(JsonComent([item]).then((res) => {
         commetns.push(res)
       }))
@@ -78,13 +96,6 @@ export const addUserComentsOpenThunk = (idUser: string, idComment: number) => (d
     dispatch(addUserComentsOpen(idUser,idComment,commetns));
   })
 }
-const addUser = (info: IUser):{type:string,info:IUser} => {
-  return {
-    type: ADD_USER,
-    info,
-  }
-}
-
 async function addCommentsOrStoryUser (type: 'story'|'comments',id:string,whatUpNum = 25, dispatch: any, getState: any) {
     dispatch(startLoad(id));
     let user = getState().users.users[id];
@@ -137,7 +148,7 @@ const start:IuserReducers = {
   users: {}
 }
 
-function userReducers (state=start,action:any):IuserReducers {
+function userReducers (state=start,action:IuserActions):IuserReducers {
   switch (action.type) {
     case ADD_USER_COMMETNS_OPEN: {
       let user = {...state.users[action.id]};
@@ -240,7 +251,7 @@ function userReducers (state=start,action:any):IuserReducers {
       }
     }
     case ADD_USER_STORY: {
-      let story: IStore[] = [];
+      let story: any[] = [];
       let user = state.users[action.id];
       if (user.story) {
         story = [...user.story,...action.storys];

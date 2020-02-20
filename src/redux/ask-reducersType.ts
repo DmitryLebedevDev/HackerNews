@@ -12,7 +12,6 @@ export interface IaddAskActions {
   type: typeof ADD_ASK,
   ask: Iask[]
 }
-
 export type IaskActions = IinitAskActions | IaddAskActions
 
 export default interface IaskReducers {

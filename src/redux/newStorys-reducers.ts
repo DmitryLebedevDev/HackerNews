@@ -5,6 +5,11 @@ import InewStoryReducers, {
   ADD_STORYS,
   SET_INDEX_STORY,
   InewsStorysActions,
+  IstartLoad,
+  IstopLoad,
+  Iinitializ,
+  IaddStorys,
+  IsetIndexStory
 } from "./newStorys-reducersType";
 import { maxItems } from "../api/api";
 import { getItemsLoadS } from "../helpers/function";
@@ -14,29 +19,29 @@ import IStore from "./storeType";
 const IS_COUNT_LOAD_STORY = 8;
 const ADD_COUNT_IN_START = 4;
 
-const startLoad = () => {
+const startLoad = ():IstartLoad => {
   return {
     type: START_LOAD
   }
 }
-const stopLoad = () => {
+const stopLoad = ():IstopLoad => {
   return {
     type: STOP_LOAD
   }
 }
-const initialize = () => {
+const initialize = ():Iinitializ => {
   return {
     type: INITIALIZE
   }
 };
-const addStorys = (storys:Istory[]) => {
+const addStorys = (storys:Istory[]):IaddStorys => {
   return {
     type: ADD_STORYS,
     storys,
   }
 };
 
-const setIndexStory = (index: number) => {
+const setIndexStory = (index: number):IsetIndexStory => {
   return {
     type: SET_INDEX_STORY,
     index,
