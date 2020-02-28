@@ -11,9 +11,10 @@ import IjobsReduser, { Ijob, IJobsActions,
                        IaddJobs,
 } from "./jobs-reducersType";
 import { getTopJobs } from "../api/api";
-import IStore from "./storeType";
+import IStore, { ImyCastomThunk } from "./storeType";
 import {getItemsArrayLoad} from '../helpers/function';
 
+export type IjobsReducerThunk<R> = ImyCastomThunk<R,IJobsActions>
 
 const maxLoadList = ():ImaxLoadList => {
   return {
@@ -49,7 +50,7 @@ export const addJobs = (jobs: Ijob[]):IaddJobs => {
     jobs,
   }
 }
-export const addJobsThunk = () => async (dispatch: any, getStory: () => IStore) => {
+export const addJobsThunk = (): IjobsReducerThunk<Promise<void>> => async (dispatch: any, getStory: () => IStore) => {
   const stor = getStory();
   let indexArr = stor.jobs.jobsIndexArr;
   if (!indexArr.length) {

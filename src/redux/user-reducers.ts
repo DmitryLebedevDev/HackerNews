@@ -20,9 +20,10 @@ import IuserReducers, {
 } from "./user-reducersType";
 import { getElementByUserId } from "../api/api";
 import {getItems} from '../helpers/function';
-import IStore from "./storeType";
+import IStore, { ImyCastomThunk } from "./storeType";
 import {JsonComent} from '../helpers/function';
 
+export type IuserReducersThunk<R> = ImyCastomThunk<R,IuserActions>
 
 const maxItem = (id: string): ImaxItem => {
   return {
@@ -96,6 +97,7 @@ export const addUserComentsOpenThunk = (idUser: string, idComment: number) => (d
     dispatch(addUserComentsOpen(idUser,idComment,commetns));
   })
 }
+// <- no thunk 
 async function addCommentsOrStoryUser (type: 'story'|'comments',id:string,whatUpNum = 25, dispatch: any, getState: any) {
     dispatch(startLoad(id));
     let user = getState().users.users[id];
@@ -130,7 +132,8 @@ async function addCommentsOrStoryUser (type: 'story'|'comments',id:string,whatUp
     dispatch(stopLoad(id));
     return StoryItems
 }
-export const addUserCommentsThunk = (id: string, whatUpNum = 25) => async (dispatch: any,
+// <- no thunk 
+export const addUserCommentsThunk = (id: string, whatUpNum = 25): IuserReducersThunk<Promise<IStore[]>> => async (dispatch: any,
   getState: () => IStore): Promise<IStore[]> => {
   console.log('запусk',id)
   return addCommentsOrStoryUser('comments',id,whatUpNum,dispatch,getState);

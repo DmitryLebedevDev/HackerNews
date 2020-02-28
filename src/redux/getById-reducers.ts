@@ -1,37 +1,40 @@
-import IgetByIdReducersState, { Iitem, 
-                                IgetByIdActions, 
-                                ADD_COMMENT_TO_STORY,
-                                SET_COMMENT_IN_ITEM,
-                                SET_ITEM,
-                                RESET_ITEM,
-                                REQUERS_IN_ITEM_START,
-                                REQUERS_IN_ITEM_STOP,
-                                SET_MAX_ITEM,
-                                STOP_TIMER,
-                                START_TIMER,
-                                START_LOAD,
-                                STOP_LOAD,
-                                STOP_CHECK_MAX_ITEM,
-                                IsetCommentInItem,
-                                IsetItem,
-                                IresetItem,
-                                IrequesInItemStart,
-                                IrequesInItemStop,
-                                IsetMaxItem,
-                                IstopTimer,
-                                IstartTime,
-                                IstatLoad,
-                                IstopCheckMaxItem,
+import IgetByIdReducersState, { 
+    Iitem, 
+    IgetByIdActions, 
+    ADD_COMMENT_TO_STORY,
+    SET_COMMENT_IN_ITEM,
+    SET_ITEM,
+    RESET_ITEM,
+    REQUERS_IN_ITEM_START,
+    REQUERS_IN_ITEM_STOP,
+    SET_MAX_ITEM,
+    STOP_TIMER,
+    START_TIMER,
+    START_LOAD,
+    STOP_LOAD,
+    STOP_CHECK_MAX_ITEM,
+    IsetCommentInItem,
+    IsetItem,
+    IresetItem,
+    IrequesInItemStart,
+    IrequesInItemStop,
+    IsetMaxItem,
+    IstopTimer,
+    IstartTime,
+    IstatLoad,
+    IstopCheckMaxItem,
+    IaddCommentToStory,
 } from './getByid-reducersType';
 import { getElementById, maxItems, getElementByUserId } from '../api/api';
 import { JsonComent } from '../helpers/function';
 import { ICommetn } from './user-reducersType';
-import IStore from './storeType';
+import IStore, { ImyCastomThunk } from './storeType';
 import { IstopLoad } from './jobs-reducersType';
 
+export type IgetByIdReducersThunk<R> = ImyCastomThunk<R,IgetByIdActions> 
 
 // set comment in item (item - story)
-export const addCommentToStory = (comments: ICommetn) => {
+export const addCommentToStory = (comments: ICommetn):IaddCommentToStory => {
     return {
         type: ADD_COMMENT_TO_STORY,
         comments,
@@ -99,15 +102,15 @@ export const setItem = (item: Iitem): IsetItem => {
         item,
     }
 }
-export const addCommentToStoryItemThunk = () => (dispatch: any, getState: () => IStore) => {
+
+export const addCommentToStoryItemThunk = (): IgetByIdReducersThunk<void> => (dispatch, getState: () => IStore) => {
     let item = getState().getByItem.item;
     if (item && item.type === 'story') {
         dispatch(requesInItemStart());
         let promiss:Promise<any>[] = [];
         let kids = item.commentsId;
         kids.forEach((id) => {
-            promiss.push(JsonComent([id]).then((comments: any) => {
-                debugger
+            promiss.push(JsonComent([id]).then((comments: ICommetn) => {
                 dispatch(addCommentToStory(comments))
             }))
         })

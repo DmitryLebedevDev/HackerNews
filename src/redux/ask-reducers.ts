@@ -1,12 +1,14 @@
 import IaskReducers, { 
-       IinitAskActions,
-       IaddAskActions,
-       INIT,
-       ADD_ASK,
-       IaskActions
+  IinitAskActions,
+  IaddAskActions,
+  INIT,
+  ADD_ASK,
+  IaskActions
 } from "./ask-reducersType";
 import { getAsk, getElementById } from "../api/api";
+import { ImyCastomThunk } from "./storeType";
 
+export type IaskReducerThunk<R> = ImyCastomThunk<R,IaskActions>
 
 const init = (): IinitAskActions => {
   return {
@@ -21,7 +23,7 @@ const addAsk = (ask: any[]): IaddAskActions => {
 }
 
 
-export const addFullAskThunk = () => async (dispatch: any) => {
+export const addFullAskThunk = (): IaskReducerThunk<Promise<void>> => async (dispatch: any) => {
   return new Promise (async (res,req) => {
     let info: any[] = await getAsk();
     let asksPromis = [];
@@ -48,7 +50,7 @@ export const addFullAskThunk = () => async (dispatch: any) => {
     })
   })
 }
-export const initThunk = () => async (dispatch: any) => {
+export const initThunk = (): IaskReducerThunk<Promise<void>> => async (dispatch: any) => {
   await dispatch(addFullAskThunk());
   dispatch(init());
 }

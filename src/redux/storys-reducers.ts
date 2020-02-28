@@ -22,6 +22,9 @@ import { getElementById } from './../api/api';
 import { JsonComent } from '../helpers/function.js';
 import { ICommetn } from './user-reducersType';
 import {IstoryRequest} from '../api/apiType';
+import { ImyCastomThunk } from './storeType';
+
+export type IstorysReducerThunk<R> = ImyCastomThunk<R,IStorysActions>
 
 export const lenMaxOn = ():IlenMaxOn => {
   return {
@@ -75,7 +78,7 @@ const addStoryComment = (idStory:number,comments:ICommetn[]):IaddStoryComment =>
   }
 };
 // sinhron load data
-export const addCommentToStoryThunk = (idStory:number) => async (dispatch: any) => {
+export const addCommentToStoryThunk = (idStory:number): IstorysReducerThunk<Promise<void>> => async (dispatch: any) => {
   let infoStory = await getElementById(idStory);
   if (infoStory.kids) {
     infoStory.kids.sort((a:number,b:number) => a-b);
@@ -94,7 +97,7 @@ export const addCommentToStoryThunk = (idStory:number) => async (dispatch: any) 
   }
 };
 
-export const addStoryThuck = (id:number) => async (dispatch: any):Promise<boolean> => {
+export const addStoryThuck = (id:number): IstorysReducerThunk<Promise<boolean>> => async (dispatch: any):Promise<boolean> => {
   let story = await getElementById(id);
   if (!story) {
     return false
@@ -117,7 +120,7 @@ export const addStoryThuck = (id:number) => async (dispatch: any):Promise<boolea
   return true
 };
 
-export const addTopStoryThunk = () => async (dispatch:any,state: any) => {
+export const addTopStoryThunk = (): IstorysReducerThunk<Promise<void>> => async (dispatch:any,state: any) => {
   return new Promise (async (res,req) => {
     let indexArrayStorys = await getTopStorys();
     let fullPromiseRequest = [];

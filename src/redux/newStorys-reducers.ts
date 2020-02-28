@@ -14,10 +14,12 @@ import InewStoryReducers, {
 import { maxItems } from "../api/api";
 import { getItemsLoadS } from "../helpers/function";
 import { Istory } from "./storys-reducersType";
-import IStore from "./storeType";
+import IStore, { ImyCastomThunk } from "./storeType";
 
 const IS_COUNT_LOAD_STORY = 8;
 const ADD_COUNT_IN_START = 4;
+
+export type InewsStoryReducerThunk<R> = ImyCastomThunk<R,InewsStorysActions>
 
 const startLoad = ():IstartLoad => {
   return {
@@ -47,7 +49,7 @@ const setIndexStory = (index: number):IsetIndexStory => {
     index,
   }
 };
-export const addStoryThunk = () => async (dispatch: any, getState: () => IStore) => {
+export const addStoryThunk = (): InewsStoryReducerThunk<Promise<void>> => async (dispatch: any, getState: () => IStore) => {
   let indexMaxItem = getState().newStorys.currentIndexStory;
   if (indexMaxItem) {
     dispatch(startLoad());
@@ -57,7 +59,7 @@ export const addStoryThunk = () => async (dispatch: any, getState: () => IStore)
     dispatch(stopLoad());
   }
 }
-export const initNewStoryPageThunk = () => async (dispatch: any) => {
+export const initNewStoryPageThunk = (): InewsStoryReducerThunk<Promise<void>> => async (dispatch: any) => {
   let indexMaxItem = await maxItems();
   let info = await getItemsLoadS(indexMaxItem,IS_COUNT_LOAD_STORY+ADD_COUNT_IN_START);
   let storysArr = info.story;

@@ -9,6 +9,13 @@ import getByIdReducers from './getById-reducers';
 import newStorysReducers from './newStorys-reducers';
 import askReducers from './ask-reducers';
 
+declare global {
+    interface Window {
+      __REDUX_DEVTOOLS_EXTENSION_COMPOSE__?: typeof compose;
+      state: any
+    }
+  }
+
 const redusers = combineReducers ({
     form:formReducer,
     storys:storeReducers,
