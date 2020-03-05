@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route, Switch } from 'react-router-dom';
+import { Route, Switch, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import CommentContiner from './StoryPage/StoryCommentOpen';
 import ErorrPage from './helpers-components/ErorrPage';
@@ -28,6 +28,7 @@ function Content (props) {
           <Route path='/ask' render={() => <AskContiner/> } />
           <Route path='/jobs' render={() => <JobsContainer />}/>
           <Route path='/error' render={ () => <ErorrPage/> }/>
+          <Route path='/' render={ () => <Redirect to='/story'/> }/>
         </Switch>
     </div>
   )
