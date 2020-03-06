@@ -18,7 +18,6 @@ export default function GetByIdFieldInput(props:Iprops) {
         <div>
             <input className={styles.input} ref={id} type="text" value={text} onChange={
                 (event) => {
-                    debugger
                         if (!searchToUser) {
                             if (+event.target.value <= props.maxItem) {
                             setText(event.target.value);
@@ -41,11 +40,9 @@ export default function GetByIdFieldInput(props:Iprops) {
                             props.resetItem();
                         }
                     } else {
-                        debugger
                         setText(event.target.value);
                         if (event.target.value.length > 0) {
                             props.setItemThunkStart(event.target.value).then((item: any) => {
-                                debugger
                             if(item.id === id.current.value || item.errorCode) {
                                 props.setItemThunkEnd(item);
                             }
@@ -64,7 +61,11 @@ export default function GetByIdFieldInput(props:Iprops) {
                     <Grid item>
                         <Switch
                         checked={searchToUser}
-                        onChange={() => {setSearchToUser(r => !r)}}
+                        onChange={() => {setSearchToUser(r => !r);
+                                         setText('');
+                                         id.current.focus();
+                                         props.resetItem();
+                        }}
                         color="primary"
                         />
                     </Grid>
