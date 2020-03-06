@@ -2,6 +2,7 @@
   display: flex;
   flex-direction: column;
   padding: 0 15px;
+  padding-top: 15px;
 }
 .userSmol {
   display: flex;
