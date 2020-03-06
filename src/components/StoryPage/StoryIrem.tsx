@@ -49,7 +49,7 @@ export default function StoryItem(props: Iprops) {
           {props.score} points by 
           <Link to={`/user/${props.author}`} className={styles.Story__linkToProfile}>
             {props.author} 
-          </Link> {egoDateToString(props.time)} | hide 
+          </Link> {egoDateToString(props.time)}
           {(props.fullLenComments) ? (link) ? 
             <Link to={`/story/${props.id}`} className={styles.Story__linkComments}
             onClick={() => { openComment(r => !r) }}>

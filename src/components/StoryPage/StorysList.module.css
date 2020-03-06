@@ -111,7 +111,6 @@
   transition: 0.2s;
 }
 .Story__linkToProfile:hover::after {
-  color: black !important;
   width: 100%;
   left: 0;
   left: none;
