@@ -96,7 +96,7 @@
 .Story__linkToProfile {
   color: black !important;
   transition: 0.2s;
-  font-weight: 600;
+  font-weight: 500;
   margin:0 4px;
   position: relative;
 }
