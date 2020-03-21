@@ -146,7 +146,6 @@ export const setItemThunkStart = (id: number|string) => async (dispatch: any): P
             item.type = 'user';
             item.errorCode = 0;
         } else {
-            debugger
             item = {};
             item.errorCode = 1;
             item.ErrorMessage = 'not search';

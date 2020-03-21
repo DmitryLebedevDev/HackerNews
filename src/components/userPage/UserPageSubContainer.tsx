@@ -16,7 +16,6 @@ interface Iprops extends RouteComponentProps<any> {
 
 const UserPageSubContainer:React.FC<Iprops> = (props: Iprops) => {
   useEffect(() => {
-    debugger
     props.addUserThunk(props.match.params.userId).then(res => {
       props.addUserStoryThunk(props.match.params.userId);
     })
